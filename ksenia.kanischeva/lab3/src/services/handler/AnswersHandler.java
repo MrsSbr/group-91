@@ -13,7 +13,7 @@ public class AnswersHandler {
     }
 
     private void initialPredicateForPopularPlayers() {
-        int maxCountVoices = answers.stream().max(Integer::compare).get();
+        int maxCountVoices = answers.stream().max(Integer::compare).orElseThrow();
         predicate = x -> x == maxCountVoices;
     }
 
@@ -51,7 +51,7 @@ public class AnswersHandler {
         return getPlayers();
     }
 
-    private void lifeCircle(){
+    private void lifeCircle() {
         initialPredicateForPopularPlayers();
         getPopularPlayers();
         initialPredicateForLoserPlayers();
@@ -67,7 +67,7 @@ public class AnswersHandler {
             lifeCircle();
         }
 
-        return  System.currentTimeMillis() - start;
+        return System.currentTimeMillis() - start;
     }
 
 }
