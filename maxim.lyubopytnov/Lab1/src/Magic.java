@@ -1,19 +1,19 @@
 import java.util.Scanner;
 
 public class Magic {
-    private static int rowSetGet(){
+    public static int[][] grid = new int[rowSetGet()][colSetGet()];
+
+    private static int rowSetGet() {
         System.out.println("Enter size row: ");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
 
-    private static int colSetGet(){
+    private static int colSetGet() {
         System.out.println("Enter size col: ");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
-
-    public static int[][] grid = new int[rowSetGet()][colSetGet()];
 
     public static int[][] fillArrayRandomAndPrint(int[][] grid) {
         int row = grid.length;
