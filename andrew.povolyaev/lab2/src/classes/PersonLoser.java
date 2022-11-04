@@ -1,6 +1,4 @@
-package Classes;
-
-import Interfaces.Person;
+package classes;
 
 import java.util.Objects;
 
@@ -41,7 +39,8 @@ public class PersonLoser extends PersonCreature {
 
         PersonLoser person = (PersonLoser) obj;
 
-        return person.placeInRating == this.placeInRating && Objects.equals(person.name, this.name) && person.amountOfTearsDropped == this.amountOfTearsDropped;
+        return person.placeInRating == this.placeInRating && Objects.equals(person.name, this.name)
+                && person.amountOfTearsDropped == this.amountOfTearsDropped;
     }
 
     @Override

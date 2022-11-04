@@ -1,9 +1,5 @@
-import Classes.PersonChampion;
-import Classes.PersonLoser;
-import Classes.PersonCreature;
-import Classes.PokemonWithoutOwner;
-import Classes.PokemonWithOwner;
-import Classes.PokemonCreature;
+
+import classes.*;
 
 import java.util.ArrayList;
 import java.util.List;

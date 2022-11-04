@@ -22,7 +22,6 @@ public class PersonChampion extends PersonCreature {
     }
 
 
-
     @Override
     public void inviteForABattle() {
         System.out.println("Я - великий " + name + ", который выиграл уже " + prizeMoney + "$, вызываю на поединок первое место рейтинга.");
@@ -45,7 +44,9 @@ public class PersonChampion extends PersonCreature {
 
         PersonChampion person = (PersonChampion) obj;
 
-        return person.placeInRating == this.placeInRating && Objects.equals(person.name, this.name) && person.prizeMoney == this.prizeMoney;
+        return person.placeInRating == this.placeInRating
+                && Objects.equals(person.name, this.name)
+                && person.prizeMoney == this.prizeMoney;
     }
 
     @Override
