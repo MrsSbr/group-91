@@ -1,18 +1,19 @@
 import java.util.Objects;
 
-public class ArtisticLiterature extends Book {
+public final class ArtisticLiterature extends Book {
 
     private final String genre;
     private final String content;
+
     ArtisticLiterature(String titleOfTheBook, String author, int availability, int price, String genre, String content) {
         super(titleOfTheBook, author, availability, price);
         this.genre = genre;
         this.content = content;
+        type = TypeOfBook.ARTISTIC;
     }
 
     @Override
     public String getType() {
-        type = TypeOfBook.ARTISTIC;
         return "Тип книги: Художественная литература\n";
     }
 

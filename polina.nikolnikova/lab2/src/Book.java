@@ -13,10 +13,10 @@ public abstract class Book {
         this.author = author;
         this.availability = availability;
         this.price = price;
+        type = TypeOfBook.TYPE;
     }
 
     protected String getType() {
-        type = TypeOfBook.TYPE;
         return "";
     }
 

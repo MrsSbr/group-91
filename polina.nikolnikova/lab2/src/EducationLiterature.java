@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class EducationLiterature extends Book implements AdditionalInformationable {
+public final class EducationLiterature extends Book implements AdditionalInformationable {
 
     private final String objectOfStudy;
     private final int studyClass;
@@ -12,11 +12,31 @@ public class EducationLiterature extends Book implements AdditionalInformationab
         this.objectOfStudy = objectOfStudy;
         this.studyClass = studyClass;
         this.availabilityDisk = (int)(Math.random() * 1) + 1;
+        type = TypeOfBook.EDUCATION;
+    }
+
+    @Override
+    public void hasDisk() {
+        if (availabilityDisk == 1) {
+            System.out.println("Продается без диска");
+        } else {
+            System.out.println("Продается с диском");
+        }
+    }
+
+    @Override
+    public String flightMaterial(int n) {
+        if (n == 1) {
+            return "Переплет кожаный";
+        } else if (n == 2) {
+            return "Переплет твердый";
+        } else {
+            return"Переплет мягкий";
+        }
     }
 
     @Override
     public String getType() {
-        type = TypeOfBook.EDUCATION;
         return "Тип книги: Учебная литература\n";
     }
 
@@ -41,25 +61,5 @@ public class EducationLiterature extends Book implements AdditionalInformationab
     @Override
     public int hashCode() {
         return Objects.hash(titleOfTheBook, author, price, availability, objectOfStudy, studyClass);
-    }
-
-    @Override
-    public void hasDisk() {
-        if (availabilityDisk == 1) {
-            System.out.println("Продается без диска");
-        } else {
-            System.out.println("Продается с диском");
-        }
-    }
-
-    @Override
-    public String flightMaterial(int n) {
-        if (n == 1) {
-            return "Переплет кожаный";
-        } else if (n == 2) {
-            return "Переплет твердый";
-        } else {
-            return"Переплет мягкий";
-        }
     }
 }

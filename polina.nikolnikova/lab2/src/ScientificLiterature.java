@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public class ScientificLiterature extends Book {
+public final class ScientificLiterature extends Book {
 
     private final String scopeOfStudy;
     private final String difficultyLevel;
@@ -10,11 +10,11 @@ public class ScientificLiterature extends Book {
         super(titleOfTheBook, author, availability, price);
         this.scopeOfStudy = scopeOfStudy;
         this.difficultyLevel = difficultyLevel;
+        type = TypeOfBook.SCIENTIFIC;
     }
 
     @Override
     public String getType() {
-        type = TypeOfBook.SCIENTIFIC;
         return "Тип книги: Научная литература\n";
     }
 
