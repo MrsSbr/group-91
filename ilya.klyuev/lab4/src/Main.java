@@ -15,9 +15,9 @@ public class Main {
         DealsStorage dealsStorage = new DealsStorage();
         dealsStorage.addFromFile(dataPath);
 
-        int selectedMenuItem = 1;
+        int selectedMenuItem;
 
-        while (selectedMenuItem != END_MENU_ITEM) {
+        do {
             printMenu();
             selectedMenuItem = ConsoleInput.inputIntInRange("Выберите пункт", 1, END_MENU_ITEM);
             switch (selectedMenuItem) {
@@ -27,9 +27,7 @@ public class Main {
                 case 4 -> System.out.println(dealsStorage.getMostProfitableMonthsStringForLastYear());
             }
             waitUser();
-        }
-
-        printMenu();
+        } while (selectedMenuItem != END_MENU_ITEM);
 
         logger.log(Level.OFF, "End program");
     }

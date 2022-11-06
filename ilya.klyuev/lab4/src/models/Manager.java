@@ -36,7 +36,7 @@ public class Manager implements Comparable<Manager> {
             return 0;
         }
         if (o == null) {
-            return -1;
+            return 1;
         }
         return name.compareToIgnoreCase(o.name);
     }

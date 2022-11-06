@@ -36,7 +36,7 @@ public class Customer implements Comparable<Customer> {
             return 0;
         }
         if (o == null) {
-            return -1;
+            return 1;
         }
         return name.compareToIgnoreCase(o.name);
     }
