@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import java.time.Month;
 
 public class DealsStorage {
+
     private static final Logger logger = Logger.getLogger(DealsStorage.class.getName());
     // будем хранить в отсортированном виде, чтобы быстрее получать статистику за последний год/месяц
     private final SortedSet<Deal> deals = new TreeSet<>();

@@ -1,6 +1,7 @@
 package models;
 
 public class Customer implements Comparable<Customer> {
+
     private final String name;
 
     public Customer(String name) {
