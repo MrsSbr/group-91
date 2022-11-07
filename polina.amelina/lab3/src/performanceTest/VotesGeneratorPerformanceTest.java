@@ -12,16 +12,16 @@ public final class VotesGeneratorPerformanceTest extends AbstractPerformanceTest
 
         System.out.printf("--------%n%s: тестируем каждую коллекцию %s раз%n", VotesGenerator.class, BENCHMARK_SIZE);
 
-        long arrayListPerformance = testArrayList(votesGenerator);
+        long arrayListPerformance = test(() -> votesGenerator.generateToCollection(new ArrayList<>()));
         System.out.printf("%s: %s ms%n", ArrayList.class, arrayListPerformance);
 
-        long linkedListPerformance = testLinkedList(votesGenerator);
+        long linkedListPerformance = test(() -> votesGenerator.generateToCollection(new LinkedList<>()));
         System.out.printf("%s: %s ms%n", LinkedList.class, linkedListPerformance);
 
-        long priorityQueuePerformance = testPriorityQueue(votesGenerator);
+        long priorityQueuePerformance = test(() -> votesGenerator.generateToCollection(new PriorityQueue<>()));
         System.out.printf("%s: %s ms%n", PriorityQueue.class, priorityQueuePerformance);
 
-        long arrayDequePerformance = testArrayDeque(votesGenerator);
+        long arrayDequePerformance = test(() -> votesGenerator.generateToCollection(new ArrayDeque<>()));
         System.out.printf("%s: %s ms%n", ArrayDeque.class, arrayDequePerformance);
 
         Collection<Integer> collection = arrayListPerformance < linkedListPerformance ?
@@ -39,55 +39,8 @@ public final class VotesGeneratorPerformanceTest extends AbstractPerformanceTest
                         priorityQueuePerformance < arrayDequePerformance ?
                                 new PriorityQueue<>() :
                                 new ArrayDeque<>();
+
         System.out.printf("Выбираем %s%n", collection.getClass());
         return collection;
-    }
-
-    private static long testArrayList(VotesGenerator votesGenerator) {
-
-        long startTime = System.currentTimeMillis();
-
-        for (int i = 0; i < BENCHMARK_SIZE; i++) {
-            votesGenerator.generateToCollection(new ArrayList<>());
-        }
-
-        long endTime = System.currentTimeMillis();
-        return endTime - startTime;
-    }
-
-    private static long testLinkedList(VotesGenerator votesGenerator) {
-
-        long startTime = System.currentTimeMillis();
-
-        for (int i = 0; i < BENCHMARK_SIZE; i++) {
-            votesGenerator.generateToCollection(new LinkedList<>());
-        }
-
-        long endTime = System.currentTimeMillis();
-        return endTime - startTime;
-    }
-
-    private static long testPriorityQueue(VotesGenerator votesGenerator) {
-
-        long startTime = System.currentTimeMillis();
-
-        for (int i = 0; i < BENCHMARK_SIZE; i++) {
-            votesGenerator.generateToCollection(new PriorityQueue<>());
-        }
-
-        long endTime = System.currentTimeMillis();
-        return endTime - startTime;
-    }
-
-    private static long testArrayDeque(VotesGenerator votesGenerator) {
-
-        long startTime = System.currentTimeMillis();
-
-        for (int i = 0; i < BENCHMARK_SIZE; i++) {
-            votesGenerator.generateToCollection(new ArrayDeque<>());
-        }
-
-        long endTime = System.currentTimeMillis();
-        return endTime - startTime;
     }
 }
