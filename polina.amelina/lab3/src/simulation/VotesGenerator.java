@@ -4,12 +4,11 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
-import java.util.Random;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public final class VotesGenerator {
+public final class VotesGenerator extends Testable {
 
     private final int voterCount;
     private final int candidateCount;
@@ -17,10 +16,12 @@ public final class VotesGenerator {
     public VotesGenerator(int voterCount, int candidateCount) {
         this.voterCount = voterCount;
         this.candidateCount = candidateCount;
+        allowedCollections = new CollectionSupplier[] {ArrayList::new, LinkedList::new, PriorityQueue::new, ArrayDeque::new};
     }
 
-    public void generateToCollection(Collection<Integer> rawVotes) {
+    public void generateToCollection(CollectionSupplier collectionSupplier) {
 
+        Collection<Integer> rawVotes = collectionSupplier.get();
         Random random = new Random();
 
         for (int i = 0; i < voterCount; i++) {
@@ -43,5 +44,10 @@ public final class VotesGenerator {
             Logger.getGlobal().log(Level.SEVERE, "ошибка при записи случайных чисел в поток ввода", e);
             throw e;
         }
+    }
+
+    @Override
+    public void test(CollectionSupplier collectionSupplier) {
+        generateToCollection(collectionSupplier);
     }
 }

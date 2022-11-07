@@ -1,9 +1,11 @@
 package simulation;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
-public final class Election {
+public final class Election extends Testable {
 
     private final Collection<Integer> rawVotes;
     private final int candidateCount;
@@ -13,9 +15,12 @@ public final class Election {
         this.rawVotes = rawVotes;
         this.candidateCount = candidateCount;
         this.minVoterPercent = minVoterPercent;
+        allowedCollections = new CollectionSupplier[] {ArrayList::new, LinkedList::new};
     }
 
-    public int countVotes(List<Integer> countedVotes) {
+    public int countVotes(CollectionSupplier collectionSupplier) {
+
+        List<Integer> countedVotes = (List<Integer>) collectionSupplier.get();
 
         for (int i = 0; i < candidateCount; i++) {
             countedVotes.add(0);
@@ -46,5 +51,10 @@ public final class Election {
 
         boolean doesCandidateQualify = !isTie && countedVotes.get(candidateWithMaxVotes) >= rawVotes.size() / 100.0 * minVoterPercent;
         return doesCandidateQualify ? candidateWithMaxVotes + 1 : 0;
+    }
+
+    @Override
+    public void test(CollectionSupplier collectionSupplier) {
+        countVotes(collectionSupplier);
     }
 }

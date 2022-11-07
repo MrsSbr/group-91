@@ -1,5 +1,4 @@
-import performanceTest.ElectionPerformanceTest;
-import performanceTest.VotesGeneratorPerformanceTest;
+import performanceTest.PerformanceTest;
 import simulation.Election;
 import simulation.VotesGenerator;
 
@@ -22,7 +21,7 @@ public final class Main {
             return;
         }
 
-        Collection<Integer> rawVotes = VotesGeneratorPerformanceTest.chooseCollection(votesGenerator);
+        Collection<Integer> rawVotes = PerformanceTest.chooseCollection(votesGenerator).get();
 
         try (Scanner scanner = new Scanner(System.in)) {
             while (scanner.hasNextInt()) {
@@ -33,10 +32,10 @@ public final class Main {
         System.out.printf("--------%nГолоса:%n%s%n", rawVotes);
 
         Election election = new Election(rawVotes, CANDIDATE_COUNT, MIN_VOTER_PERCENT);
-        int candidate = election.countVotes(ElectionPerformanceTest.chooseCollection(election));
+        int candidate = election.countVotes(PerformanceTest.chooseCollection(election));
 
         System.out.printf(candidate == 0 ?
-                "--------%nНе удалось выбрать представителя%n" :
-                "--------%nВыбрали представителя %s%n", candidate);
+                          "--------%nНе удалось выбрать представителя%n--------%n" :
+                          "--------%nВыбрали представителя %s%n--------%n", candidate);
     }
 }
