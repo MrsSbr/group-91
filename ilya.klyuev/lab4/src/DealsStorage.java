@@ -1,30 +1,14 @@
-import models.Customer;
-import models.Deal;
-import models.Manager;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.time.Month;
 
 public class DealsStorage {
 
     private static final Logger logger = Logger.getLogger(DealsStorage.class.getName());
-    // будем хранить в отсортированном виде, чтобы быстрее получать статистику за последний год/месяц
-    private final SortedSet<Deal> deals = new TreeSet<>();
-
-    public boolean add(Deal deal) {
-        if (deals.contains(deal)) {
-            logger.log(Level.SEVERE, "Add repeating deal");
-            return false;
-        } else {
-            deals.add(deal);
-            return true;
-        }
-    }
+    private final List<Deal> deals = new ArrayList<>();
 
     public void addFromFile(String filePath) {
         logger.log(Level.INFO, "Start read file");
@@ -33,11 +17,11 @@ public class DealsStorage {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 Deal deal = Deal.parse(line);
-                // deal not parsed or not added => stop read
-                if (deal == null || !add(deal)) {
-                    logger.log(Level.SEVERE, "Add deal error. Stop read");
+                if (deal == null) {
+                    logger.log(Level.SEVERE, "Parse deal error. Stop read");
                     break;
                 }
+                deals.add(deal);
             }
         } catch (FileNotFoundException e) {
             logger.log(Level.SEVERE, "File not found", e);
@@ -48,21 +32,28 @@ public class DealsStorage {
         logger.log(Level.INFO, "End read file");
     }
 
-    private Set<Deal> getDealsAfterDate(LocalDate date) {
-        Set<Deal> dealsAfterDate = new HashSet<>();
+    private Collection<Deal> getDealsAfterDate(LocalDate date) {
+        Collection<Deal> dealsAfterDate = new ArrayList<>();
         for (var deal : deals) {
-            if (deal.getDate().compareTo(date) < 0) {
-                break;
+            if (deal.getDate().compareTo(date) >= 0) {
+                dealsAfterDate.add(deal);
             }
-            dealsAfterDate.add(deal);
         }
         return dealsAfterDate;
     }
 
-    private <KeyType> String getMaxIncomeString(Set<Map.Entry<KeyType, Integer>> entrySet) {
+    private void putMapEntryOnStringBuilder(StringBuilder stringBuilder, Map.Entry<String, Integer> entry) {
+        stringBuilder
+                .append(entry.getKey())
+                .append(" : ")
+                .append(entry.getValue())
+                .append("\n");
+    }
+
+    private String getMaxIncomeValueString(Map<String, Integer> incomesStatistic) {
         int maxIncome = -1;
 
-        for (var incomeEntry : entrySet) {
+        for (var incomeEntry : incomesStatistic.entrySet()) {
             if (incomeEntry.getValue() > maxIncome) {
                 maxIncome = incomeEntry.getValue();
             }
@@ -70,27 +61,13 @@ public class DealsStorage {
 
         StringBuilder maxIncomesEntriesStringBuilder = new StringBuilder();
 
-        for (var incomeEntry : entrySet) {
+        for (var incomeEntry : incomesStatistic.entrySet()) {
             if (incomeEntry.getValue() == maxIncome) {
-                maxIncomesEntriesStringBuilder
-                        .append(incomeEntry.getKey())
-                        .append(" : ")
-                        .append(maxIncome)
-                        .append("\n");
+                putMapEntryOnStringBuilder(maxIncomesEntriesStringBuilder, incomeEntry);
             }
         }
 
         return maxIncomesEntriesStringBuilder.toString();
-    }
-
-    public String getAllDealsString() {
-        StringBuilder dealsStringBuilder = new StringBuilder();
-        for (var deal : deals) {
-            dealsStringBuilder
-                    .append(deal)
-                    .append("\n");
-        }
-        return dealsStringBuilder.toString();
     }
 
     public String getCustomersIncomeStatisticString() {
@@ -98,28 +75,24 @@ public class DealsStorage {
             return "Пока ещё не было совершено ни одной сделки";
         }
 
-        Map<Customer, Integer> customersIncomeStatistic = new HashMap<>();
+        Map<String, Integer> customersIncomeStatistic = new HashMap<>();
 
         for (var deal : deals) {
-            Integer customerIncome = customersIncomeStatistic.get(deal.getCustomer());
-            customersIncomeStatistic.put(deal.getCustomer(), deal.getAmount() + (customerIncome != null ? customerIncome : 0));
+            Integer customerIncome = customersIncomeStatistic.get(deal.getCustomerName());
+            customersIncomeStatistic.put(deal.getCustomerName(), deal.getAmount() + (customerIncome != null ? customerIncome : 0));
         }
 
         StringBuilder customersIncomeStatisticsStringBuilder = new StringBuilder();
 
         for (var customerIncome : customersIncomeStatistic.entrySet()) {
-            customersIncomeStatisticsStringBuilder
-                    .append(customerIncome.getKey())
-                    .append(" : ")
-                    .append(customerIncome.getValue())
-                    .append("\n");
+            putMapEntryOnStringBuilder(customersIncomeStatisticsStringBuilder, customerIncome);
         }
         return customersIncomeStatisticsStringBuilder.toString();
     }
 
 
     public String getMostProfitableMonthsStringForLastYear() {
-        Map<Month, Integer> monthsIncomes = new HashMap<>();
+        Map<String, Integer> monthsIncomes = new HashMap<>();
         var lastYearDeals = getDealsAfterDate(LocalDate.now().minusYears(1));
 
         if (lastYearDeals.isEmpty()) {
@@ -127,15 +100,16 @@ public class DealsStorage {
         }
 
         for (var deal : lastYearDeals) {
-            Integer monthIncome = monthsIncomes.get(deal.getDate().getMonth());
-            monthsIncomes.put(deal.getDate().getMonth(), deal.getAmount() + (monthIncome != null ? monthIncome : 0));
+            String month = deal.getDate().getMonth().toString();
+            Integer monthIncome = monthsIncomes.get(month);
+            monthsIncomes.put(month, deal.getAmount() + (monthIncome != null ? monthIncome : 0));
         }
 
-        return getMaxIncomeString(monthsIncomes.entrySet());
+        return getMaxIncomeValueString(monthsIncomes);
     }
 
     public String getMostEffectiveManagersStringForLastMonth() {
-        HashMap<Manager, Integer> managersIncomes = new HashMap<>();
+        HashMap<String, Integer> managersIncomes = new HashMap<>();
         var lastMonthDeals = getDealsAfterDate(LocalDate.now().minusMonths(1));
 
         if (lastMonthDeals.isEmpty()) {
@@ -143,10 +117,10 @@ public class DealsStorage {
         }
 
         for (var deal : lastMonthDeals) {
-            Integer managerIncome = managersIncomes.get(deal.getManager());
-            managersIncomes.put(deal.getManager(), deal.getAmount() + (managerIncome != null ? managerIncome : 0));
+            Integer managerIncome = managersIncomes.get(deal.getManagerName());
+            managersIncomes.put(deal.getManagerName(), deal.getAmount() + (managerIncome != null ? managerIncome : 0));
         }
 
-        return getMaxIncomeString(managersIncomes.entrySet());
+        return getMaxIncomeValueString(managersIncomes);
     }
 }
