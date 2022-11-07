@@ -57,7 +57,7 @@ public class Deal {
 
     @Override
     public int hashCode() {
-        return Objects.hash(managerName, customerName, amount, date);
+        return Objects.hash(managerName.toLowerCase(), customerName.toLowerCase(), amount, date);
     }
 
     // parse from string Manager;Customer;Amount;Date
