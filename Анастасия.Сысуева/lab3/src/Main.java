@@ -1,8 +1,8 @@
-import classes.TransportModelArrayList;
-import classes.TransportModelLinkedList;
+import classes.TransportModelList;
 import classes.TransportStatistic;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import java.util.Scanner;
@@ -11,9 +11,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        TransportModelLinkedList linkedList = new TransportModelLinkedList();
-        TransportModelArrayList arrayList = new TransportModelArrayList();
+        TransportModelList list = new TransportModelList();
         List<Integer> inputList = new ArrayList<>();
+        List<TransportStatistic> transportStatisticsArray = new ArrayList<>();
+        List<TransportStatistic> transportStatisticsLinked = new LinkedList<>();
 
         long startTime;
         long timeSpeedLinkedList;
@@ -46,17 +47,21 @@ public class Main {
                     break;
             }
             if (!exit) {
+                System.out.println("Array list:");
                 startTime = System.currentTimeMillis();
-                linkedList.createBus();
-                linkedList.busWorksInput(inputList);
-                linkedList.outWeekReport();
+                list.createBus(transportStatisticsArray);
+                list.busWorksInput(inputList, transportStatisticsArray);
+                list.outWeekReport(transportStatisticsArray);
                 timeSpeedLinkedList = System.currentTimeMillis() - startTime;
+                transportStatisticsArray.clear();
 
+                System.out.println("Linked list:");
                 startTime = System.currentTimeMillis();
-                arrayList.createBus();
-                arrayList.busWorksInput(inputList);
-                arrayList.outWeekReport();
+                list.createBus(transportStatisticsLinked);
+                list.busWorksInput(inputList, transportStatisticsLinked);
+                list.outWeekReport(transportStatisticsLinked);
                 timeSpeedArrayList = System.currentTimeMillis() - startTime;
+                transportStatisticsLinked.clear();
 
                 System.out.println("Скорость для LinkedList: " + timeSpeedLinkedList);
                 System.out.println("Скорость для ArrayList: " + timeSpeedArrayList);

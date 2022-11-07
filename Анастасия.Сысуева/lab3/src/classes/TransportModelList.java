@@ -1,14 +1,13 @@
 package classes;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class TransportModelArrayList {
+public class TransportModelList {
     public static final int ROUTE_MIN_NUMBER_CONST = 1;
     public static final int ROUTE_MAX_NUMBER_CONST = 200;
-    final List<TransportStatistic> transportStatistics = new ArrayList<>();
 
-    public void createBus() {
+
+    public void createBus(List<TransportStatistic> transportStatistics) {
         int numberBus;
         for (int i = 0; i < TransportStatistic.ROUTE_CONST; i++) {
             numberBus = (int) ((Math.random() * (ROUTE_MAX_NUMBER_CONST - ROUTE_MIN_NUMBER_CONST)) + ROUTE_MIN_NUMBER_CONST);
@@ -16,7 +15,7 @@ public class TransportModelArrayList {
         }
     }
 
-    public void busWorksInput(List<Integer> inputConsole) {
+    public void busWorksInput(List<Integer> inputConsole, List<TransportStatistic> transportStatistics) {
         for (int i = 0, j = 0, listCount = 0;
              listCount < TransportStatistic.ROUTE_CONST * TransportStatistic.DAYS_CONST; j++, listCount++) {
             if (j == 7) {
@@ -28,7 +27,7 @@ public class TransportModelArrayList {
         }
     }
 
-    public void outWeekReport() {
+    public void outWeekReport(List<TransportStatistic> transportStatistics) {
         int weekCash = 0;
         for (TransportStatistic transport : transportStatistics) {
             for (int i = 1; i < TransportStatistic.DAYS_CONST + 1; i++) {
