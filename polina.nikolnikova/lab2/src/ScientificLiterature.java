@@ -5,7 +5,7 @@ public final class ScientificLiterature extends Book {
     private final String scopeOfStudy;
     private final String difficultyLevel;
 
-    ScientificLiterature(String titleOfTheBook, String author, int availability, int price, String scopeOfStudy,
+    public ScientificLiterature(String titleOfTheBook, String author, int availability, int price, String scopeOfStudy,
                          String difficultyLevel) {
         super(titleOfTheBook, author, availability, price);
         this.scopeOfStudy = scopeOfStudy;

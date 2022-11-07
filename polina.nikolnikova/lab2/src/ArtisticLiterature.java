@@ -5,7 +5,8 @@ public final class ArtisticLiterature extends Book {
     private final String genre;
     private final String content;
 
-    ArtisticLiterature(String titleOfTheBook, String author, int availability, int price, String genre, String content) {
+    public ArtisticLiterature(String titleOfTheBook, String author, int availability, int price, String genre,
+                              String content) {
         super(titleOfTheBook, author, availability, price);
         this.genre = genre;
         this.content = content;

@@ -6,12 +6,12 @@ public final class EducationLiterature extends Book implements AdditionalInforma
     private final int studyClass;
     private final int availabilityDisk;
 
-    EducationLiterature(String titleOfTheBook, String author, int availability, int price, String objectOfStudy,
-                        int studyClass) {
+    public EducationLiterature(String titleOfTheBook, String author, int availability, int price, String objectOfStudy,
+                               int studyClass) {
         super(titleOfTheBook, author, availability, price);
         this.objectOfStudy = objectOfStudy;
         this.studyClass = studyClass;
-        this.availabilityDisk = (int)(Math.random() * 1) + 1;
+        this.availabilityDisk = (int) (Math.random() * 1) + 1;
         type = TypeOfBook.EDUCATION;
     }
 
@@ -31,7 +31,7 @@ public final class EducationLiterature extends Book implements AdditionalInforma
         } else if (n == 2) {
             return "Переплет твердый";
         } else {
-            return"Переплет мягкий";
+            return "Переплет мягкий";
         }
     }
 
@@ -43,8 +43,8 @@ public final class EducationLiterature extends Book implements AdditionalInforma
     @Override
     public String toString() {
         return getType() + "Название книги: " + titleOfTheBook + "\nАвтор: " + author + "\nПредмет: " + objectOfStudy +
-                "\nКласс изучения: " + studyClass + "\nЦена: " + price + " руб"+ "\nВ наличии " + availability + " шт\n" +
-                flightMaterial((int)(Math.random() * 3) + 1);
+                "\nКласс изучения: " + studyClass + "\nЦена: " + price + " руб" + "\nВ наличии " + availability +
+                " шт\n" + flightMaterial((int) (Math.random() * 3) + 1);
     }
 
     @Override

@@ -8,7 +8,7 @@ public abstract class Book {
     protected int price;
     protected TypeOfBook type;
 
-    Book(String titleOfTheBook, String author, int availability, int price) {
+    protected Book(String titleOfTheBook, String author, int availability, int price) {
         this.titleOfTheBook = titleOfTheBook;
         this.author = author;
         this.availability = availability;
