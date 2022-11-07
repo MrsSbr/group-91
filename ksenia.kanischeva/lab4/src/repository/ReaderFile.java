@@ -33,10 +33,9 @@ public class ReaderFile {
                 int numberDep = Integer.parseInt(lineParts[0]);
 
                 Employee e = new Employee(lineParts[1], Integer.parseInt(lineParts[2]));
-                if  (departments.containsKey(numberDep)){
+                if (departments.containsKey(numberDep)) {
                     departments.get(numberDep).addEmployee(e);
-                }
-                else{
+                } else {
                     DepartmentEmployees depEmp = new DepartmentEmployees();
                     depEmp.addEmployee(e);
                     departments.put(numberDep, depEmp);

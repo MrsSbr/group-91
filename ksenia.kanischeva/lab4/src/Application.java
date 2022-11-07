@@ -13,8 +13,8 @@ public class Application {
         try {
             FileHandler fh = new FileHandler("ksenia.kanischeva/lab4/logs/logs.txt");
             logger.addHandler(fh);
-
             logger.log(Level.INFO, "Начало работы");
+
             Menu.mainMenu();
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Ошибка работы с файлом");

@@ -25,11 +25,11 @@ public class Menu {
                 0. Выход""");
     }
 
-    private static void printStatement(String statement){
+    private static void printStatement(String statement) {
         System.out.println(statement);
     }
 
-    private static void printDeps(Set<Integer> deps){
+    private static void printDeps(Set<Integer> deps) {
         System.out.println(deps);
     }
 
@@ -37,7 +37,7 @@ public class Menu {
         FileHandler fh = new FileHandler("ksenia.kanischeva/lab4/logs/logs.txt");
         logger.addHandler(fh);
 
-        Map<Integer, DepartmentEmployees>  departments = ReaderFile.readFile();
+        Map<Integer, DepartmentEmployees> departments = ReaderFile.readFile();
         printMenu();
         int item = ReaderInteger.nextInt();
 
@@ -58,7 +58,6 @@ public class Menu {
         }
         mainMenu();
     }
-
 
 
 }
