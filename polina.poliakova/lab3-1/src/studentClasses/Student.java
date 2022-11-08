@@ -37,7 +37,7 @@ public class Student {
         final int NUM_OF_POSSIBLE_GRADES = 5;
         boolean[] possibleGrades = new boolean[NUM_OF_POSSIBLE_GRADES];
         for (int i = 0; i < GRADES_NUMBER; i++) {
-            possibleGrades[grades[i]] = true;
+            possibleGrades[grades[i]-1] = true;
             if (checkBoolArray(possibleGrades))
                 return true;
         }
@@ -65,7 +65,8 @@ public class Student {
         student.patronymic = InputValidations.checkName();
 
         for (int i = 0; i < Student.GRADES_NUMBER; i++) {
-            Student.grades[i] = rand.nextInt(5) + 1;
+            //Student.grades[i] = rand.nextInt(5) + 1;
+            Student.grades[i] = 1 + (int)(Math.random() * 5);
         }
         return student;
     }
@@ -89,7 +90,7 @@ public class Student {
         student.lastName = generateName();
         student.patronymic = generateName();
         for (int i = 0; i < Student.GRADES_NUMBER; i++) {
-            grades[i] = rand.nextInt(5) + 1;
+            grades[i] = 1 + (int)(Math.random() * 5);
         }
         return student;
     }

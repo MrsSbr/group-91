@@ -5,11 +5,7 @@ import studentClasses.StudentArrayList;
 import studentClasses.StudentLinkedList;
 
 public class Menu {
-
     public static void mainMenu() {
-
-        System.out.println("Students quiz\n");
-
         int choice = -1;
         while (choice != 0) {
 
