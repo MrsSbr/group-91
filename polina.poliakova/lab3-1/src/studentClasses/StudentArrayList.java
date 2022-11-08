@@ -5,7 +5,6 @@ import java.util.*;
 public class StudentArrayList {
 
     private static final int SIZE = 1000;
-
     private final List<Student> students;
 
     public StudentArrayList() {
@@ -19,36 +18,25 @@ public class StudentArrayList {
         long start = System.nanoTime();
         Student st = new Student();
         for (int i = 0; i < SIZE; i++) {
-
             students.add(st.createRandomStudent());
-
         }
 
         long finish = System.nanoTime();
         long elapsed = finish - start;
-
         System.out.println("Time ms: " + elapsed);
-
     }
 
     public void fillFromConsole() {
         Student st = new Student();
         for (int i = 0; i < SIZE; i++) {
-
             students.add(st.readStudentFromConsole());
-
         }
-
     }
 
     public void Clear() {
-
         this.students.clear();
-
     }
-/*• среднюю оценку для каждого студента
-• список круглых отличников
-• список студентов, которые получали все возможные оценки*/
+
     public void findAverageGrades() {
 
         long start = System.nanoTime();
@@ -58,16 +46,12 @@ public class StudentArrayList {
 
         long finish = System.nanoTime();
         long elapsed = finish - start;
-
         System.out.println("Time ms: " + elapsed);
-
     }
 
     public void findAStudents() {
 
         long start = System.nanoTime();
-
-
         for (Student student : students) {
             if (student.isAStudent())
                 System.out.println(student.nameToString());
@@ -75,9 +59,7 @@ public class StudentArrayList {
 
         long finish = System.nanoTime();
         long elapsed = finish - start;
-
         System.out.println("Time ms: " + elapsed);
-
     }
 
     public void findStudentGotAllGrades() {
@@ -90,11 +72,8 @@ public class StudentArrayList {
 
         long finish = System.nanoTime();
         long elapsed = finish - start;
-
         System.out.println("Time ms: " + elapsed);
-
     }
-
 }
 
 
