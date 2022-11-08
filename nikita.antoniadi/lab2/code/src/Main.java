@@ -19,6 +19,7 @@ public class Main {
         birds.add(hummingBird);
 
         for (Bird bird : birds) {
+            System.out.println(bird.toString());
             bird.walk();
             if (bird instanceof FlyingBird) {
                 ((FlyingBird) bird).fly();
