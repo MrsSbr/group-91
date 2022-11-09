@@ -1,4 +1,6 @@
 import deals.DealsStorage;
+import input.ConsoleInput;
+import input.InvalidBoundsException;
 
 import java.io.IOException;
 import java.util.logging.Level;
