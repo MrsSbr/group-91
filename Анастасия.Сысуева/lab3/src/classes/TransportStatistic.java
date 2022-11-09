@@ -3,9 +3,9 @@ package classes;
 public class TransportStatistic {
     public static final int DAYS_CONST = 7;
     public static final int ROUTE_CONST = 10;
-
     public static final int MIN_CONST = 0;
     public static final int MAX_CONST = 15000;
+
     public Bus bus;
     private int mondayCash;
     private int tuesdayCash;

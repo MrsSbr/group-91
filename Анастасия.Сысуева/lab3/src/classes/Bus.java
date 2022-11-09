@@ -31,8 +31,7 @@ public class Bus {
 
         Bus bus = (Bus) ob;
 
-        return this.dayCash == bus.dayCash &&
-                Objects.equals(this.busName, bus.busName);
+        return this.dayCash == bus.dayCash && Objects.equals(this.busName, bus.busName);
     }
 
     @Override
