@@ -51,7 +51,6 @@ public class StudentLinkedList {
     public void findAStudents() {
 
         long start = System.nanoTime();
-        System.out.println("Months where female students bigger then male students: ");
 
         for (Student student : students) {
             if (student.isAStudent())
@@ -65,8 +64,6 @@ public class StudentLinkedList {
 
     public void findStudentGotAllGrades() {
         long start = System.nanoTime();
-
-        System.out.println("Months where female students bigger then male students: ");
 
         for (Student student : students) {
             if (student.isGotAllGrades())
