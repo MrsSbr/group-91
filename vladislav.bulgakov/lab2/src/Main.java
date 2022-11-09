@@ -1,7 +1,7 @@
-import Classes.Humanoid;
-import Classes.Human;
-import Classes.Elf;
-import Classes.Dwarf;
+import classes.Humanoid;
+import classes.Human;
+import classes.Elf;
+import classes.Dwarf;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,8 @@ public class Main {
         }
 
         System.out.println("\nБоромир это Арагорн? " + Boromir.equals(Aragorn));
-
+        System.out.println(Boromir instanceof Human);
+        System.out.println(Boromir instanceof Elf);
+        System.out.println(Boromir instanceof Humanoid);
     }
 }

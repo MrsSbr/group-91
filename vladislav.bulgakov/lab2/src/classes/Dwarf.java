@@ -1,10 +1,10 @@
-package Classes;
+package classes;
 
 import java.util.Objects;
 
 public class Dwarf extends Humanoid {
 
-    public double beardLength;
+    private double beardLength;
 
     public Dwarf(String name, int height, double beardLength) {
         super(name, height);

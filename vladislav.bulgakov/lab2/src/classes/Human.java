@@ -1,10 +1,10 @@
-package Classes;
+package classes;
 
 import java.util.Objects;
 
 public class Human extends Humanoid {
 
-    public String skinColor;
+    private String skinColor;
 
     public Human(String name, int height, String skinColor) {
         super(name, height);

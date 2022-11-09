@@ -1,10 +1,10 @@
-package Classes;
+package classes;
 
 import java.util.Objects;
 
 public class Elf extends Humanoid {
 
-    public boolean commonLanguageProficiency;
+    private boolean commonLanguageProficiency;
 
     public Elf(String name, int height, boolean commonLanguageProficiency) {
         super(name, height);

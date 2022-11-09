@@ -1,6 +1,6 @@
-package Classes;
+package classes;
 
-import Interfaces.Race;
+import interfaces.Race;
 
 import java.util.Objects;
 
