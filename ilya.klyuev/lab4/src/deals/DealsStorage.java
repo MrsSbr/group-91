@@ -34,8 +34,8 @@ public class DealsStorage {
         logger.log(Level.INFO, "End read file");
     }
 
-    private Collection<Deal> getDealsAfterDate(LocalDate date) {
-        Collection<Deal> dealsAfterDate = new ArrayList<>();
+    private List<Deal> getDealsAfterDate(LocalDate date) {
+        List<Deal> dealsAfterDate = new ArrayList<>();
         for (var deal : deals) {
             if (deal.getDate().compareTo(date) >= 0) {
                 dealsAfterDate.add(deal);

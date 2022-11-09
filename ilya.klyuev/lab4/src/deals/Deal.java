@@ -1,6 +1,7 @@
 package deals;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,10 +11,10 @@ public class Deal {
     private static final Logger logger = Logger.getLogger(Deal.class.getName());
     private final String managerName;
     private final String customerName;
-    private final Integer amount;
+    private final int amount;
     private final LocalDate date;
 
-    public Deal(String managerName, String customerName, Integer amount, LocalDate date) {
+    public Deal(String managerName, String customerName, int amount, LocalDate date) {
         this.managerName = managerName;
         this.customerName = customerName;
         this.amount = amount;
@@ -32,7 +33,7 @@ public class Deal {
         return date;
     }
 
-    public Integer getAmount() {
+    public int getAmount() {
         return amount;
     }
 
@@ -53,7 +54,7 @@ public class Deal {
         Deal deal = (Deal) obj;
         return managerName.equalsIgnoreCase(deal.managerName) &&
                 customerName.equalsIgnoreCase(deal.customerName) &&
-                amount.equals(deal.amount) &&
+                amount == deal.amount &&
                 date.equals(deal.date);
     }
 
@@ -67,9 +68,11 @@ public class Deal {
         try {
             String[] parts = text.split(";");
             return new Deal(parts[0], parts[1], Integer.parseInt(parts[2]), LocalDate.parse(parts[3]));
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "deals.Deal parse exception", e);
-            return null;
+        } catch (NumberFormatException e) {
+            logger.log(Level.SEVERE, "Amount parse exception", e);
+        } catch (DateTimeParseException e) {
+            logger.log(Level.SEVERE, "Date parse exception", e);
         }
+        return null;
     }
 }

@@ -10,10 +10,9 @@ public class ConsoleInput {
 
     }
 
-    public static int inputIntInRange(String message, int leftBound, int rightBound) {
+    public static int inputIntInRange(String message, int leftBound, int rightBound) throws InvalidBoundsException {
         if (leftBound > rightBound) {
-            logger.log(Level.SEVERE, "Left bound greater right bound");
-            return leftBound - 1;
+            throw new InvalidBoundsException("Left bound greater right bound");
         }
 
         System.out.println(message);
@@ -31,7 +30,6 @@ public class ConsoleInput {
                 } else {
                     logger.log(Level.WARNING, String.format("Number not in [%d; %d]", leftBound, rightBound));
                 }
-
             } catch (Exception e) {
                 scanner.nextLine();
                 logger.log(Level.SEVERE, "Input exception", e);

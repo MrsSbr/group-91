@@ -20,16 +20,20 @@ public class Main {
 
         int selectedMenuItem;
 
-        do {
-            printMenu();
-            selectedMenuItem = ConsoleInput.inputIntInRange("Выберите пункт", 1, END_MENU_ITEM);
-            switch (selectedMenuItem) {
-                case 1 -> System.out.println(dealsStorage.getMostEffectiveManagersStringForLastMonth());
-                case 2 -> System.out.println(dealsStorage.getCustomersIncomeStatisticString());
-                case 3 -> System.out.println(dealsStorage.getMostProfitableMonthsStringForLastYear());
-            }
-            waitUser();
-        } while (selectedMenuItem != END_MENU_ITEM);
+        try {
+            do {
+                printMenu();
+                selectedMenuItem = ConsoleInput.inputIntInRange("Выберите пункт", 1, END_MENU_ITEM);
+                switch (selectedMenuItem) {
+                    case 1 -> System.out.println(dealsStorage.getMostEffectiveManagersStringForLastMonth());
+                    case 2 -> System.out.println(dealsStorage.getCustomersIncomeStatisticString());
+                    case 3 -> System.out.println(dealsStorage.getMostProfitableMonthsStringForLastYear());
+                }
+                waitUser();
+            } while (selectedMenuItem != END_MENU_ITEM);
+        } catch (InvalidBoundsException e) {
+            logger.log(Level.SEVERE, "Input menu item exception", e);
+        }
 
         logger.log(Level.OFF, "End program");
     }
