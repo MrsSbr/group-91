@@ -25,7 +25,7 @@ public class ReaderFile {
         Map<Integer, DepartmentEmployees> departments = new HashMap<>();
         File file = new File(path);
 
-        try (FileReader fr = new FileReader(file); BufferedReader reader = new BufferedReader(fr)) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
             String line = reader.readLine();
             while (line != null) {
