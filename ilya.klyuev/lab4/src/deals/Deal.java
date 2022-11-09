@@ -1,3 +1,5 @@
+package deals;
+
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -66,7 +68,7 @@ public class Deal {
             String[] parts = text.split(";");
             return new Deal(parts[0], parts[1], Integer.parseInt(parts[2]), LocalDate.parse(parts[3]));
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Deal parse exception", e);
+            logger.log(Level.SEVERE, "deals.Deal parse exception", e);
             return null;
         }
     }
