@@ -18,9 +18,8 @@ public class Main {
         DealsStorage dealsStorage = new DealsStorage();
         dealsStorage.addFromFile(DATA_PATH);
 
-        int selectedMenuItem;
-
         try {
+            int selectedMenuItem;
             do {
                 printMenu();
                 selectedMenuItem = ConsoleInput.inputIntInRange("Выберите пункт", 1, END_MENU_ITEM);
