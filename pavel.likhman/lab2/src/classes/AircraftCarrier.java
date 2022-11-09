@@ -3,7 +3,7 @@ package classes;
 import java.util.Objects;
 
 public class AircraftCarrier extends MilitaryShip {
-    protected int aircraftCount;
+    private int aircraftCount;
 
     public AircraftCarrier(int length, int width, int draft, int displacement, String model, int aircraftCount) {
         super(length, width, draft, displacement, model);

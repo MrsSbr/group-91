@@ -3,7 +3,7 @@ package classes;
 import java.util.Objects;
 
 public class Battleship extends MilitaryShip {
-    protected int gunsCount;
+    private int gunsCount;
 
     public Battleship(int length, int width, int draft, int displacement, String model, int gunsCount) {
         super(length, width, draft, displacement, model);
