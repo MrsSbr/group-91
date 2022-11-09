@@ -38,21 +38,21 @@ public class Menu {
         logger.addHandler(fh);
 
         Map<Integer, DepartmentEmployees> departments = ReaderFile.readFile();
+        DepartmentHandler handler = new DepartmentHandler(departments);
         printMenu();
         int item = ReaderInteger.nextInt();
 
         switch (item) {
 
-            case 1 -> printStatement(DepartmentHandler.getStatement(departments));
-            case 2 -> printDeps(DepartmentHandler.getDepartmentsWithHighAvg(departments));
-            case 3 -> printDeps(DepartmentHandler.getDepartmentsWithHighSum(departments));
+            case 1 -> printStatement(handler.getStatement());
+            case 2 -> printDeps(handler.getDepartmentsWithHighAvg());
+            case 3 -> printDeps(handler.getDepartmentsWithHighSum());
             case 0 -> {
                 System.out.println("Завершение...");
                 return;
             }
             default -> {
                 logger.log(Level.SEVERE, "Ошибка ввода");
-                System.out.println("Ошибка ввода");
                 mainMenu();
             }
         }

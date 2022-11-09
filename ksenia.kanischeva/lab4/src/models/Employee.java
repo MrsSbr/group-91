@@ -32,8 +32,4 @@ public class Employee {
     public int getSalary() {
         return salary;
     }
-//
-//    public String getFio() {
-//        return fio;
-//    }
 }
