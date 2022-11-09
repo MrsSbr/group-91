@@ -1,4 +1,7 @@
+package classes;
+
 import java.util.Objects;
+import enums.TypeOfBook;
 
 public abstract class Book {
 

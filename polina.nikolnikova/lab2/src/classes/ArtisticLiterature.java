@@ -1,4 +1,8 @@
+package classes;
+
+import enums.TypeOfBook;
 import java.util.Objects;
+
 
 public final class ArtisticLiterature extends Book {
 

@@ -11,6 +11,11 @@
 В коде программы продемонстрировать использование принципов ООП на основе созданной иерархии классов.
 */
 
+import classes.Book;
+import classes.ArtisticLiterature;
+import classes.EducationLiterature;
+import classes.ScientificLiterature;
+
 import java.util.ArrayList;
 import java.util.List;
 

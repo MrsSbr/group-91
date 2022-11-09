@@ -1,3 +1,5 @@
+package enums;
+
 public enum TypeOfBook {
     TYPE,
     EDUCATION,
