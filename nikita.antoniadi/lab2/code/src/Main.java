@@ -1,7 +1,7 @@
-import Classes.Bird;
-import Classes.FlyingBird;
-import Classes.HummingBird;
-import Classes.NotFlyingBird;
+import classes.Bird;
+import classes.FlyingBird;
+import classes.HummingBird;
+import classes.NotFlyingBird;
 
 import java.util.ArrayList;
 import java.util.List;

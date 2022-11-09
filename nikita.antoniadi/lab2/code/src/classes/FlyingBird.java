@@ -1,6 +1,6 @@
-package Classes;
+package classes;
 
-import Interfaces.Flying;
+import interfaces.Flying;
 
 public class FlyingBird extends NotFlyingBird implements Flying {
 
