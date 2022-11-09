@@ -1,5 +1,6 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 public class CorrectInput {
     private static int getInt() {
         boolean isCorrect = false;
