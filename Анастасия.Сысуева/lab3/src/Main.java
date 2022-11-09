@@ -11,10 +11,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        TransportModelList list = new TransportModelList();
-        List<Integer> inputList = new ArrayList<>();
         List<TransportStatistic> transportStatisticsArray = new ArrayList<>();
+        TransportModelList listArray = new TransportModelList(transportStatisticsArray);
         List<TransportStatistic> transportStatisticsLinked = new LinkedList<>();
+        TransportModelList listLinked = new TransportModelList(transportStatisticsLinked);
+        List<Integer> inputList = new ArrayList<>();
 
         long startTime;
         long timeSpeedLinkedList;
@@ -49,17 +50,17 @@ public class Main {
             if (!exit) {
                 System.out.println("Array list:");
                 startTime = System.currentTimeMillis();
-                list.createBus(transportStatisticsArray);
-                list.busWorksInput(inputList, transportStatisticsArray);
-                list.outWeekReport(transportStatisticsArray);
+                listArray.createBus();
+                listArray.busWorksInput(inputList);
+                listArray.outWeekReport();
                 timeSpeedLinkedList = System.currentTimeMillis() - startTime;
                 transportStatisticsArray.clear();
 
                 System.out.println("Linked list:");
                 startTime = System.currentTimeMillis();
-                list.createBus(transportStatisticsLinked);
-                list.busWorksInput(inputList, transportStatisticsLinked);
-                list.outWeekReport(transportStatisticsLinked);
+                listLinked.createBus();
+                listLinked.busWorksInput(inputList);
+                listLinked.outWeekReport();
                 timeSpeedArrayList = System.currentTimeMillis() - startTime;
                 transportStatisticsLinked.clear();
 

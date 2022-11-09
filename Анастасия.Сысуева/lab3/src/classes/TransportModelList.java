@@ -6,8 +6,14 @@ public class TransportModelList {
     public static final int ROUTE_MIN_NUMBER_CONST = 1;
     public static final int ROUTE_MAX_NUMBER_CONST = 200;
 
+    private final List<TransportStatistic> transportStatistics;
 
-    public void createBus(List<TransportStatistic> transportStatistics) {
+    public TransportModelList(List<TransportStatistic> transportStatistics) {
+        this.transportStatistics = transportStatistics;
+    }
+
+
+    public void createBus() {
         int numberBus;
         for (int i = 0; i < TransportStatistic.ROUTE_CONST; i++) {
             numberBus = (int) ((Math.random() * (ROUTE_MAX_NUMBER_CONST - ROUTE_MIN_NUMBER_CONST)) + ROUTE_MIN_NUMBER_CONST);
@@ -15,7 +21,7 @@ public class TransportModelList {
         }
     }
 
-    public void busWorksInput(List<Integer> inputConsole, List<TransportStatistic> transportStatistics) {
+    public void busWorksInput(List<Integer> inputConsole) {
         for (int i = 0, j = 0, listCount = 0;
              listCount < TransportStatistic.ROUTE_CONST * TransportStatistic.DAYS_CONST; j++, listCount++) {
             if (j == 7) {
@@ -27,7 +33,7 @@ public class TransportModelList {
         }
     }
 
-    public void outWeekReport(List<TransportStatistic> transportStatistics) {
+    public void outWeekReport() {
         int weekCash = 0;
         for (TransportStatistic transport : transportStatistics) {
             for (int i = 1; i < TransportStatistic.DAYS_CONST + 1; i++) {
