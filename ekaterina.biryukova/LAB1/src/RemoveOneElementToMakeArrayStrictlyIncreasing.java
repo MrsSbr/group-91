@@ -22,7 +22,8 @@ public class RemoveOneElementToMakeArrayStrictlyIncreasing {
                 boolean isIncr = IsIncreasing(array, index + 1, size);
                 if (!isIncr) return false;
                 else {
-                    if (array[i - 1] >= array[i + 1]) {
+                    if (i == 0) return true;
+                    else if (array[i - 1] >= array[i + 1]) {
                         if (array[i] < array[i + 2]) return true;
                         else return false;
                     } else if (array[i - 1] < array[i + 1])
