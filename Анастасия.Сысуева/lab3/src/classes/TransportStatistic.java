@@ -7,13 +7,13 @@ public class TransportStatistic {
     public static final int MIN_CONST = 0;
     public static final int MAX_CONST = 15000;
     public Bus bus;
-    public int mondayCash;
-    public int tuesdayCash;
-    public int wednesdayCash;
-    public int thursdayCash;
-    public int fridayCash;
-    public int saturdayCash;
-    public int sundayCash;
+    private int mondayCash;
+    private int tuesdayCash;
+    private int wednesdayCash;
+    private int thursdayCash;
+    private int fridayCash;
+    private int saturdayCash;
+    private int sundayCash;
 
     public TransportStatistic(Bus bus) {
         this.bus = bus;
