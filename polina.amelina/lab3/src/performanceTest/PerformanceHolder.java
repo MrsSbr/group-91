@@ -1,5 +1,5 @@
 package performanceTest;
 
-import simulation.CollectionSupplier;
+import simulation.IntegerCollectionSupplier;
 
-public record PerformanceHolder(long performance, CollectionSupplier collectionSupplier) {}
+public record PerformanceHolder(long performance, IntegerCollectionSupplier collectionSupplier) {}

@@ -15,10 +15,10 @@ public final class Election extends Testable {
         this.rawVotes = rawVotes;
         this.candidateCount = candidateCount;
         this.minVoterPercent = minVoterPercent;
-        allowedCollections = new CollectionSupplier[] {ArrayList::new, LinkedList::new};
+        allowedCollections = new IntegerCollectionSupplier[]{ArrayList::new, LinkedList::new};
     }
 
-    public int countVotes(CollectionSupplier collectionSupplier) {
+    public int countVotes(IntegerCollectionSupplier collectionSupplier) {
 
         List<Integer> countedVotes = (List<Integer>) collectionSupplier.get();
 
@@ -40,10 +40,7 @@ public final class Election extends Testable {
 
             if (maxVotes == currentVotes) {
                 isTie = true;
-                continue;
-            }
-
-            if (maxVotes < currentVotes) {
+            } else if (maxVotes < currentVotes) {
                 isTie = false;
                 candidateWithMaxVotes = i;
             }
@@ -54,7 +51,7 @@ public final class Election extends Testable {
     }
 
     @Override
-    public void test(CollectionSupplier collectionSupplier) {
+    public void test(IntegerCollectionSupplier collectionSupplier) {
         countVotes(collectionSupplier);
     }
 }

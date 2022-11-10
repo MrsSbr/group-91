@@ -16,10 +16,10 @@ public final class VotesGenerator extends Testable {
     public VotesGenerator(int voterCount, int candidateCount) {
         this.voterCount = voterCount;
         this.candidateCount = candidateCount;
-        allowedCollections = new CollectionSupplier[] {ArrayList::new, LinkedList::new, PriorityQueue::new, ArrayDeque::new};
+        allowedCollections = new IntegerCollectionSupplier[] {ArrayList::new, LinkedList::new, PriorityQueue::new, ArrayDeque::new};
     }
 
-    public void generateToCollection(CollectionSupplier collectionSupplier) {
+    public void generateToCollection(IntegerCollectionSupplier collectionSupplier) {
 
         Collection<Integer> rawVotes = collectionSupplier.get();
         Random random = new Random();
@@ -47,7 +47,7 @@ public final class VotesGenerator extends Testable {
     }
 
     @Override
-    public void test(CollectionSupplier collectionSupplier) {
+    public void test(IntegerCollectionSupplier collectionSupplier) {
         generateToCollection(collectionSupplier);
     }
 }

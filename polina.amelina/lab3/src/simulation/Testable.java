@@ -2,11 +2,11 @@ package simulation;
 
 public abstract class Testable {
 
-    protected CollectionSupplier[] allowedCollections;
+    protected IntegerCollectionSupplier[] allowedCollections;
 
-    public CollectionSupplier[] getAllowedCollections() {
+    public IntegerCollectionSupplier[] getAllowedCollections() {
         return allowedCollections;
     }
 
-    public abstract void test(CollectionSupplier collectionSupplier);
+    public abstract void test(IntegerCollectionSupplier collectionSupplier);
 }

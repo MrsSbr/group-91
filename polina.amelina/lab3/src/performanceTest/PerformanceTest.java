@@ -1,6 +1,6 @@
 package performanceTest;
 
-import simulation.CollectionSupplier;
+import simulation.IntegerCollectionSupplier;
 import simulation.Testable;
 
 public final class PerformanceTest {
@@ -18,15 +18,15 @@ public final class PerformanceTest {
         return endTime - startTime;
     }
 
-    public static CollectionSupplier chooseCollection(Testable testable) {
+    public static IntegerCollectionSupplier chooseCollection(Testable testable) {
 
         System.out.printf("--------%n%s: тестируем каждую коллекцию %s раз%n", testable.getClass(), BENCHMARK_SIZE);
-        CollectionSupplier[] collectionSuppliers = testable.getAllowedCollections();
+        IntegerCollectionSupplier[] collectionSuppliers = testable.getAllowedCollections();
         PerformanceHolder[] performanceHolders = new PerformanceHolder[collectionSuppliers.length];
 
         for (int i = 0; i < collectionSuppliers.length; i++) {
 
-            CollectionSupplier collectionSupplier = collectionSuppliers[i];
+            IntegerCollectionSupplier collectionSupplier = collectionSuppliers[i];
             long performance = benchmark(() -> testable.test(collectionSupplier));
             System.out.printf("%s: %s ms%n", collectionSupplier.get().getClass(), performance);
             performanceHolders[i] = new PerformanceHolder(performance, collectionSupplier);
