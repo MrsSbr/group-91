@@ -5,7 +5,7 @@ import enums.TypeOfBook;
 import interfaces.AdditionalInformationable;
 
 
-public final class EducationLiterature extends Book implements AdditionalInformationable {
+public class EducationLiterature extends Book implements AdditionalInformationable {
 
     private final String objectOfStudy;
     private final int studyClass;

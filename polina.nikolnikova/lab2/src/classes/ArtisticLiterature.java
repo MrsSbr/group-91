@@ -4,7 +4,7 @@ import enums.TypeOfBook;
 import java.util.Objects;
 
 
-public final class ArtisticLiterature extends Book {
+public class ArtisticLiterature extends Book {
 
     private final String genre;
     private final String content;

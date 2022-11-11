@@ -3,7 +3,7 @@ package classes;
 import java.util.Objects;
 import enums.TypeOfBook;
 
-public final class ScientificLiterature extends Book {
+public class ScientificLiterature extends Book {
 
     private final String scopeOfStudy;
     private final String difficultyLevel;
