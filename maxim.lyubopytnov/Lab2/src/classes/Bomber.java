@@ -14,8 +14,8 @@ public class Bomber extends Plane{
     public String toString() {
         return String.format(
                 "Бомбардировщик %s\n" +
-                "Процент скрытности %f %\n" +
-                "Грузоподъемность бомб %f\n" +
+                "Процент скрытности %d %\n" +
+                "Грузоподъемность бомб %d\n" +
                 isTakeOffToString(),
                 name,
                 obscurity,
