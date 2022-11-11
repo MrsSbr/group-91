@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         Bird flyingBird = new FlyingBird(4.5, 205, "Bald eagle", 120);
         Bird notFlyingBird = new NotFlyingBird(5.5, 100, "Magellanic penguin");
-        Bird hummingBird = new HummingBird(3, "hehe");
+        Bird hummingBird = new HummingBird(3, "nothehe");
 
         List<Bird> birds = new ArrayList<>(3);
 
