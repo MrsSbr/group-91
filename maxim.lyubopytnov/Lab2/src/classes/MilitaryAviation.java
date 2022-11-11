@@ -18,7 +18,9 @@ public abstract class MilitaryAviation implements Aviation {
     }
 
     protected String isTakeOffToString() {
-        return isTakeOff ? "Был вылет\n" : "Не было вылета\n";
+        return isTakeOff ?
+                "Был вылет\n" :
+                "Не было вылета\n";
     }
 
     @Override
@@ -49,6 +51,6 @@ public abstract class MilitaryAviation implements Aviation {
     public boolean equals(Object obj) {
         if (!obj.getClass().equals(this.getClass()))
             return false;
-        return ((Plane) obj).name.equalsIgnoreCase(name);
+        return ((Plane)obj).name.equalsIgnoreCase(name);
     }
 }
