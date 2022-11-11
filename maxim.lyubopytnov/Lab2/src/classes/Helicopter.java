@@ -19,7 +19,7 @@ public class Helicopter extends MilitaryAviation {
     public String toString() {
         return String.format(
                 "Вертолет %s\n" +
-                "Время полета %d\n",
+                "Время полета %f\n",
                 name,
                 flightTime
         );
