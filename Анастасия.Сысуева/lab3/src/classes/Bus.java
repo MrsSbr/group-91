@@ -3,12 +3,16 @@ package classes;
 import java.util.Objects;
 
 public class Bus {
-    public String busName;
+    private final String busName;
     private int dayCash;
 
     public Bus(String busName) {
         this.busName = busName;
         this.setCash(0);
+    }
+
+    public String getBusName() {
+        return busName;
     }
 
     public void setCash(int cash) {

@@ -12,24 +12,24 @@ public class TransportModelList {
         this.transportStatistics = transportStatistics;
     }
 
+    public int numberBus() {
+        return (int) ((Math.random() * (ROUTE_MAX_NUMBER_CONST - ROUTE_MIN_NUMBER_CONST)) + ROUTE_MIN_NUMBER_CONST);
+    }
 
     public void createBus() {
-        int numberBus;
         for (int i = 0; i < TransportStatistic.ROUTE_CONST; i++) {
-            numberBus = (int) ((Math.random() * (ROUTE_MAX_NUMBER_CONST - ROUTE_MIN_NUMBER_CONST)) + ROUTE_MIN_NUMBER_CONST);
-            transportStatistics.add(new TransportStatistic(new Bus("№" + numberBus)));
+            transportStatistics.add(new TransportStatistic(new Bus("№" + numberBus())));
         }
     }
 
-    public void busWorksInput(List<Integer> inputConsole) {
-        for (int i = 0, j = 0, listCount = 0;
-             listCount < TransportStatistic.ROUTE_CONST * TransportStatistic.DAYS_CONST; j++, listCount++) {
-            if (j == 7) {
-                j = 0;
-                i++;
+    public void busWorksInput(List<Integer> inputList) {
+        int listCount = 0;
+        for (TransportStatistic transport : transportStatistics) {
+            for (int day = 0; day < TransportStatistic.DAYS_CONST; day++) {
+                transport.getBus().setCash(inputList.get(listCount));
+                transport.pushCash(day);
+                listCount++;
             }
-            transportStatistics.get(i).bus.setCash(inputConsole.get(listCount));
-            transportStatistics.get(i).pushCash(j);
         }
     }
 
@@ -40,7 +40,7 @@ public class TransportModelList {
                 weekCash += transport.takeCash(i);
             }
             System.out.println("Недельная выручка " + "маршрута "
-                    + transport.bus.busName + " составляет: " + weekCash);
+                    + transport.getBus().getBusName() + " составляет: " + weekCash);
             weekCash = 0;
         }
     }

@@ -6,7 +6,7 @@ public class TransportStatistic {
     public static final int MIN_CONST = 0;
     public static final int MAX_CONST = 15000;
 
-    public Bus bus;
+    private final Bus bus;
     private int mondayCash;
     private int tuesdayCash;
     private int wednesdayCash;
@@ -24,6 +24,10 @@ public class TransportStatistic {
         fridayCash = 0;
         saturdayCash = 0;
         sundayCash = 0;
+    }
+
+    public Bus getBus() {
+        return bus;
     }
 
     public void pushCash(int day) {

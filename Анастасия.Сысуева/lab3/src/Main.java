@@ -11,12 +11,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        List<TransportStatistic> transportStatisticsArray = new ArrayList<>();
-        TransportModelList listArray = new TransportModelList(transportStatisticsArray);
-        List<TransportStatistic> transportStatisticsLinked = new LinkedList<>();
-        TransportModelList listLinked = new TransportModelList(transportStatisticsLinked);
-        List<Integer> inputList = new ArrayList<>();
-
         long startTime;
         long timeSpeedLinkedList;
         long timeSpeedArrayList;
@@ -35,6 +29,7 @@ public class Main {
                 System.out.println("Введено не int значение");
                 input.next();
             }
+            List<Integer> inputList = new ArrayList<>();
             answer = input.nextInt();
             switch (answer) {
                 case 1:
@@ -50,19 +45,19 @@ public class Main {
             if (!exit) {
                 System.out.println("Array list:");
                 startTime = System.currentTimeMillis();
+                TransportModelList listArray = new TransportModelList(new ArrayList<>());
                 listArray.createBus();
                 listArray.busWorksInput(inputList);
                 listArray.outWeekReport();
                 timeSpeedLinkedList = System.currentTimeMillis() - startTime;
-                transportStatisticsArray.clear();
 
                 System.out.println("Linked list:");
                 startTime = System.currentTimeMillis();
+                TransportModelList listLinked = new TransportModelList(new LinkedList<>());
                 listLinked.createBus();
                 listLinked.busWorksInput(inputList);
                 listLinked.outWeekReport();
                 timeSpeedArrayList = System.currentTimeMillis() - startTime;
-                transportStatisticsLinked.clear();
 
                 System.out.println("Скорость для LinkedList: " + timeSpeedLinkedList);
                 System.out.println("Скорость для ArrayList: " + timeSpeedArrayList);
