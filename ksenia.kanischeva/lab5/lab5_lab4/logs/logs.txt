@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-11-14T07:11:07.128215600Z</date>
+  <millis>1668409867128</millis>
+  <nanos>215600</nanos>
+  <sequence>0</sequence>
+  <logger>UI.Menu</logger>
+  <level>INFO</level>
+  <class>Application</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Начало работы</message>
+</record>
