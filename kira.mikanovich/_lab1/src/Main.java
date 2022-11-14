@@ -39,7 +39,7 @@ public class Main {
         for (int i = 0; i < size; ) {
             int current = getIntInRange(0, 106);
             if (i > 0 && current == arr[i - 1]) {
-                System.out.println("Число равны");
+                System.out.println("Значения рядом равны, повторите ввод");
             } else {
                 arr[i] = current;
                 i++;
@@ -55,7 +55,7 @@ public class Main {
         System.out.println();
     }
 
-    public static int isPossible(int[] arr, int size) {
+    public static int getMountain(int[] arr, int size) {
         int i = 0;
         for (; i < size - 1 && arr[i + 1] > arr[i]; i++) {
 
@@ -69,7 +69,7 @@ public class Main {
         int[] arr = getIntArr(size);
 
         printArr(arr);
-        int isPossible = isPossible(arr, size);
-        System.out.println(isPossible);
+        int posMountain = getMountain(arr, size);
+        System.out.println(posMountain);
     }
 }
