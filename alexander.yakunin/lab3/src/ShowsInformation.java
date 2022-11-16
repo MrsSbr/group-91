@@ -6,24 +6,27 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class ShowsInformation {
+    public ShowsInformation(List<Integer> tickets) {
+        countOfShows = Collections.max(tickets) + 1;
+        this.tickets = tickets;
+        ticketsCount = new ArrayList<>(Collections.nCopies(countOfShows, 0));
+        purchasedTickets = new HashSet<>();
+        popularShows = new HashSet<>();
+    }
     private int countOfShows;
     private List<Integer> tickets;
     private List<Integer> ticketsCount;
-    private List<Integer> popularShows;
-    private List<Integer> purchasedTickets;
+    private HashSet<Integer> popularShows;
+    private HashSet<Integer> purchasedTickets;
 
 
     private boolean isCachedTicketsCount = false;
     private boolean isCachedPopular = false;
     private boolean isCachePurchased = false;
-
-    public ShowsInformation(List<Integer> tickets) {
-        countOfShows = Collections.max(tickets) + 1;
-        this.tickets = tickets;
-    }
 
     public void setTickets(List<Integer> tickets) {
         this.tickets = tickets;
@@ -31,27 +34,24 @@ public class ShowsInformation {
         this.isCachedPopular = this.isCachedTicketsCount = this.isCachePurchased = false;
     }
 
-    private void calculateTicketsCount() {
-        ticketsCount = new ArrayList<Integer>(Collections.nCopies(countOfShows, 0));
-
-        for (int i = 0; i < tickets.size(); ++i) {
-            int index = tickets.get(i);
-            ticketsCount.set(index, ticketsCount.get(index) + 1);
-        }
-    }
     public List<Integer> getAllTicketsCount() {
-        if(isCachedTicketsCount) {
-            return  ticketsCount;
+        if (isCachedTicketsCount) {
+            return ticketsCount;
         }
 
-        ticketsCount = new ArrayList<>(10);
-        calculateTicketsCount();
+        Collections.fill(ticketsCount, 0);// заполняем нулями
+
+        for (int i : tickets) {
+            ticketsCount.set(i, ticketsCount.get(i) + 1);
+        }
+
         isCachedTicketsCount = true;
         return ticketsCount;
     }
+
     private void calculatePopularShows() {
         int max = Collections.max(ticketsCount);
-        popularShows = new ArrayList<>(countOfShows);
+        popularShows.clear();
 
         for(int i = 0; i < ticketsCount.size(); ++i) {
             if(ticketsCount.get(i) == max) {
@@ -59,53 +59,56 @@ public class ShowsInformation {
             }
         }
     }
-    public List<Integer> getPopularShows() {
-        if(isCachedPopular) {
+
+    public HashSet<Integer> getPopularShows() {
+        if (isCachedPopular) {
             return popularShows;
         }
 
-        popularShows = new ArrayList<>();
-        isCachedPopular = true;
-
-        if(isCachedTicketsCount) {
+        if (isCachedTicketsCount) {
             calculatePopularShows();
+            isCachedPopular = true;
             return popularShows;
         }
 
         getAllTicketsCount();
         calculatePopularShows();
+        isCachedPopular = true;
         return popularShows;
     }
-    private void calculatePurchasedTickets() {
-        purchasedTickets = new ArrayList<>(countOfShows);
 
-        for(int i = 0; i < ticketsCount.size(); ++i) {
-            if(ticketsCount.get(i) != 0) {
+    private void calculatePurchasedTickets() {
+        purchasedTickets.clear();  // сет - множество
+
+        for (int i = 0; i < ticketsCount.size(); ++i) {
+            if (ticketsCount.get(i) != 0) {
                 purchasedTickets.add(i);
             }
         }
     }
-    public List<Integer> getPurchasedTickets() {
-        if(isCachePurchased) {
+
+    public HashSet<Integer> getPurchasedTickets() {
+        if (isCachePurchased) {
             return purchasedTickets;
         }
-        if(isCachedTicketsCount) {
+        if (isCachedTicketsCount) {
             calculatePurchasedTickets();
+            isCachePurchased = true;
             return purchasedTickets;
         }
 
         getAllTicketsCount();
         calculatePurchasedTickets();
+        isCachePurchased = true;
         return purchasedTickets;
     }
 
     public void testMethod() {
-        isCachedTicketsCount=false;
+        isCachedTicketsCount = false;
         getAllTicketsCount();
-        isCachedTicketsCount = isCachePurchased =false;
+        isCachedTicketsCount = isCachePurchased = false;
         getPurchasedTickets();
         isCachedTicketsCount = isCachedPopular = false;
         getPopularShows();
     }
-
 }

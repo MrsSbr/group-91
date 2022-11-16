@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Program {
-    public static  void main(String[] args) {
+    public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Какой контейнер хотите использовать?");
@@ -17,7 +17,7 @@ public class Program {
             ans = in.nextInt();
         }
 
-        if(ans == 0) {
+        if (ans == 0) {
             return;
         }
         InputData.isArrayList = ans == 1;
@@ -39,30 +39,36 @@ public class Program {
                 ans = in.nextInt();
             }
 
-            if (ans == 0) {
-                return;
-            } else if (ans == 1) {
-                System.out.println(infos.getAllTicketsCount());
-            } else if (ans == 2) {
-                System.out.println(infos.getPopularShows());
-            } else if (ans == 3){
-                System.out.println(infos.getPurchasedTickets());
-            } else {
-                int countOfTest = 5;
-//                for(int i = 0; i < 20; ++i) {
-//                    infos.testMethod(); //прогрев
-//                }
 
-                long startTime = System.currentTimeMillis();
-                for(int i = 0; i < countOfTest; ++i) {
-                    infos.testMethod();
-                }
-                long time = System.currentTimeMillis() - startTime;
+            switch (ans) {
+                case 0:
+                    return;
+                case 1:
+                    System.out.println(infos.getAllTicketsCount());
+                    break;
+                case 2:
+                    System.out.println(infos.getPopularShows());
+                    break;
+                case 3:
+                    System.out.println(infos.getPurchasedTickets());
+                    break;
+                default:
+                    int countOfTest = 5;
 
-                System.out.println("Время выполнения " + countOfTest + " тестов: " + time + " мс");
-                System.out.println("Среднее время выполнения: " +  ((double)(time) / countOfTest) + " мс");
+//                  for(int i = 0; i < 20; ++i) {
+//                      infos.testMethod(); //прогрев
+//                  }
+
+                    long startTime = System.currentTimeMillis();
+                    for (int i = 0; i < countOfTest; ++i) {
+                        infos.testMethod();
+                    }
+                    long time = System.currentTimeMillis() - startTime;
+
+                    System.out.println("Время выполнения " + countOfTest + " тестов: " + time + " мс");
+                    System.out.println("Среднее время выполнения: " + ((double) (time) / countOfTest) + " мс");
+                    break;
             }
-
             System.out.println("Вы хотите вывести еще информацию?");
             System.out.println("1. Да");
             System.out.println("2. Нет");
