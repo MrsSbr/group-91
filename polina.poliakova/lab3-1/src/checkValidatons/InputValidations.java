@@ -1,6 +1,6 @@
 package checkValidatons;
 
-import java.util.*;
+import java.util.Scanner;
 
 
 public class InputValidations {
@@ -8,9 +8,9 @@ public class InputValidations {
     private static boolean verifyName(String name) {
         name = name.trim();
 
-        if (name.equals(""))
+        if (name.equals("")) {
             return false;
-
+        }
         return name.matches("[a-zA-Z]*");
     }
 
@@ -18,22 +18,10 @@ public class InputValidations {
 
         Scanner in = new Scanner(System.in);
         String name = "";
-        boolean flag = false;
         do {
-
             System.out.print("Enter name: ");
-            try {
-                name = in.nextLine();
-                flag = verifyName(name);
-
-            } catch (Exception e) {
-
-                e.printStackTrace();
-                System.out.println("Incorrect input!");
-
-            }
-
-        } while (!flag);
+            name = in.nextLine();
+        } while (!verifyName(name));
 
         return name;
 

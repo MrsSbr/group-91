@@ -2,7 +2,10 @@ package studentClasses;
 
 import checkValidatons.InputValidations;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
 /*Вводится информация о студенте (ФИО) и список его оценок (400 шт)*/
 public class Student {
@@ -25,8 +28,8 @@ public class Student {
 
     public double getAverageGrade() {
         int sum = 0;
-        for (int i = 0; i < GRADES_NUMBER; i++) {
-            sum += grades.get(i);
+        for (Integer i : grades) {
+            sum += i;
         }
         return sum / (double) GRADES_NUMBER;
     }
@@ -34,10 +37,10 @@ public class Student {
     public boolean isGotAllGrades() {
         final int NUM_OF_POSSIBLE_GRADES = 5;
         List<Boolean> possibleGrades = new ArrayList<>(NUM_OF_POSSIBLE_GRADES);
-        for (int i = 0; i<NUM_OF_POSSIBLE_GRADES;i++)
+        for (int i = 0; i < NUM_OF_POSSIBLE_GRADES; i++)
             possibleGrades.add(false);
         for (int i = 0; i < GRADES_NUMBER; i++) {
-            possibleGrades.set(grades.get(i)-1, true);
+            possibleGrades.set(grades.get(i) - 1, true);
             if (checkBoolArray(possibleGrades))
                 return true;
         }
@@ -46,15 +49,19 @@ public class Student {
 
     private boolean checkBoolArray(List<Boolean> possibleGrades) {
         boolean res = true;
-        for (boolean b : possibleGrades) res &= b;
+        for (boolean b : possibleGrades) {
+            res &= b;
+        }
 
         return res;
     }
 
     public boolean isAStudent() {
-        for (int i = 0; i < GRADES_NUMBER; i++)
-            if (grades.get(i) != 5)
+        for (int i = 0; i < GRADES_NUMBER; i++) {
+            if (grades.get(i) != 5) {
                 return false;
+            }
+        }
 
         return true;
     }
@@ -65,7 +72,7 @@ public class Student {
         student.lastName = InputValidations.checkName();
         student.patronymic = InputValidations.checkName();
         for (int i = 0; i < Student.GRADES_NUMBER; i++) {
-            student.grades.add( 1 + (int)(Math.random() * 5));
+            student.grades.add(1 + (int) (Math.random() * 5));
         }
 
         return student;
@@ -90,7 +97,7 @@ public class Student {
         student.lastName = generateName();
         student.patronymic = generateName();
         for (int i = 0; i < Student.GRADES_NUMBER; i++) {
-            student.grades.add(1 + (int)(Math.random() * 5));
+            student.grades.add(1 + (int) (Math.random() * 5));
         }
 
         return student;
