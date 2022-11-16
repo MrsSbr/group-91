@@ -3,11 +3,11 @@ package models;
 import java.util.*;
 
 public class Processing {
-    private static int PACKAGE_NUM = 10000;
-    private static int MIN_YEAR = 2010;
-    private static int MAX_YEAR = 2023;
-    private static double MIN_WEIGHT = 10;
-    private static double MAX_WEIGHT = 20;
+    private static final int PACKAGE_NUM = 10000;
+    private static final int MIN_YEAR = 2010;
+    private static final int MAX_YEAR = 2023;
+    private static final double MIN_WEIGHT = 10;
+    private static final double MAX_WEIGHT = 20;
     private static final String teaSorts[] = new String[]{"Keemun", "Huangshan Maofeng", "Lu'an Quapian", "Tai Ping Hou Kui"};
 
     private String getRandomSort() {
@@ -28,7 +28,7 @@ public class Processing {
     private double getMasOfCurrentSortByYear(List<TeaPackage> packages, String sortName, int year) {
         double sum = 0;
         for (TeaPackage tp : packages) {
-            if (sortName == tp.getSort() && year == tp.getHarvestYear()) {
+            if (sortName.equals(tp.getSort()) && year == tp.getHarvestYear()) {
                 sum += tp.getMas();
             }
         }
@@ -48,8 +48,8 @@ public class Processing {
         return mostProductiveYear;
     }
 
-    private HashSet<String> getSortsFrom2018Year(List<TeaPackage> packages) {
-        HashSet<String> sorts = new HashSet<>();
+    private Set<String> getSortsFrom2018Year(List<TeaPackage> packages) {
+        Set<String> sorts = new HashSet<>();
         for (TeaPackage tp : packages) {
             if (tp.getHarvestYear() == 2018) {
                 sorts.add(tp.getSort());
@@ -61,7 +61,7 @@ public class Processing {
     private double getHeaviestPackageOfCurrentSort(List<TeaPackage> packages, String sortName) {
         double maxMas = 0;
         for (TeaPackage tp : packages) {
-            if (tp.getSort() == sortName && tp.getMas() > maxMas) {
+            if (sortName.equals(tp.getSort()) && tp.getMas() > maxMas) {
                 maxMas = tp.getMas();
             }
         }
@@ -83,7 +83,7 @@ public class Processing {
                 System.out.println("---");
             }
         }
-        HashSet<String> sortsSet = getSortsFrom2018Year(packages);
+        Set<String> sortsSet = getSortsFrom2018Year(packages);
         if (!timeCheckState) {
             System.out.println("Сорты чая, собранные в 2018г: ");
             for (String sort : sortsSet) {
