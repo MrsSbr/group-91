@@ -82,7 +82,7 @@ public class Student {
 
     public boolean isAStudent() {
         for (int i = 0; i < GRADES_NUMBER; i++)
-            if (grades.get(i) != 5)
+            if (grades.get(i) != 5 )
                 return false;
 
         return true;
