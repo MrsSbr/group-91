@@ -1,8 +1,12 @@
 package studentClasses;
 
 import checkValidatons.InputValidations;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+import java.util.HashSet;
+import java.util.Set;
 
 /*Вводится информация о студенте (ФИО) и список его оценок (400 шт)*/
 public class Student {
@@ -25,36 +29,32 @@ public class Student {
 
     public double getAverageGrade() {
         int sum = 0;
-        for (int i = 0; i < GRADES_NUMBER; i++) {
-            sum += grades.get(i);
+        for (Integer i : grades) {
+            sum += i;
         }
+
         return sum / (double) GRADES_NUMBER;
     }
 
     public boolean isGotAllGrades() {
         final int NUM_OF_POSSIBLE_GRADES = 5;
-        List<Boolean> possibleGrades = new ArrayList<>(NUM_OF_POSSIBLE_GRADES);
-        for (int i = 0; i<NUM_OF_POSSIBLE_GRADES;i++)
-            possibleGrades.add(false);
-        for (int i = 0; i < GRADES_NUMBER; i++) {
-            possibleGrades.set(grades.get(i)-1, true);
-            if (checkBoolArray(possibleGrades))
+        Set<Integer> possibleGrades = new HashSet<>();
+        for (Integer i : grades) {
+            possibleGrades.add(i);
+            if (possibleGrades.size() == NUM_OF_POSSIBLE_GRADES) {
                 return true;
+            }
         }
+
         return false;
     }
 
-    private boolean checkBoolArray(List<Boolean> possibleGrades) {
-        boolean res = true;
-        for (boolean b : possibleGrades) res &= b;
-
-        return res;
-    }
-
     public boolean isAStudent() {
-        for (int i = 0; i < GRADES_NUMBER; i++)
-            if (grades.get(i) != 5)
+        for (Integer i : grades) {
+            if (i != 5) {
                 return false;
+            }
+        }
 
         return true;
     }
@@ -65,7 +65,7 @@ public class Student {
         student.lastName = InputValidations.checkName();
         student.patronymic = InputValidations.checkName();
         for (int i = 0; i < Student.GRADES_NUMBER; i++) {
-            student.grades.add( 1 + (int)(Math.random() * 5));
+            student.grades.add(1 + (int) (Math.random() * 5));
         }
 
         return student;
@@ -73,12 +73,12 @@ public class Student {
 
     public String generateName() {
         final int NAME_LENGTH = 8;
-        String charsCaps = "abcdefghijklmnopqrstwvuxyz";
+        String chars = "abcdefghijklmnopqrstwvuxyz";
         Random rnd = new Random();
         StringBuilder name = new StringBuilder();
 
         for (int i = 0; i < NAME_LENGTH; i++) {
-            name.append(charsCaps.charAt(rnd.nextInt(charsCaps.length())));
+            name.append(chars.charAt(rnd.nextInt(chars.length())));
         }
 
         return name.toString();
@@ -90,7 +90,7 @@ public class Student {
         student.lastName = generateName();
         student.patronymic = generateName();
         for (int i = 0; i < Student.GRADES_NUMBER; i++) {
-            student.grades.add(1 + (int)(Math.random() * 5));
+            student.grades.add(1 + (int) (Math.random() * 5));
         }
 
         return student;
