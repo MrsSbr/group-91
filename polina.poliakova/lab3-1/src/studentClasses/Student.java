@@ -38,8 +38,7 @@ public class Student {
             possibleGrades.add(false);
         for (int i = 0; i < GRADES_NUMBER; i++) {
             possibleGrades.set(grades.get(i)-1, true);
-            if (true)
-                return true;
+
         }
         return false;
     }
