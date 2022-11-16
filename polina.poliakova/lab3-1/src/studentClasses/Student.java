@@ -38,18 +38,47 @@ public class Student {
             possibleGrades.add(false);
         for (int i = 0; i < GRADES_NUMBER; i++) {
             possibleGrades.set(grades.get(i)-1, true);
-            if (checkBoolArray(possibleGrades))
+            if (true)
                 return true;
         }
         return false;
     }
 
-    private boolean checkBoolArray(List<Boolean> possibleGrades) {
-        boolean res = true;
-        for (boolean b : possibleGrades) res &= b;
 
-        return res;
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public boolean isAStudent() {
         for (int i = 0; i < GRADES_NUMBER; i++)
@@ -60,6 +89,10 @@ public class Student {
     }
 
     public Student readStudentFromConsole() {
+
+
+
+
         Student student = new Student();
         student.firstName = InputValidations.checkName();
         student.lastName = InputValidations.checkName();
