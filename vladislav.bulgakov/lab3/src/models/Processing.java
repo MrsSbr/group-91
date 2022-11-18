@@ -8,7 +8,8 @@ public class Processing {
     private static final int MAX_YEAR = 2023;
     private static final double MIN_WEIGHT = 10;
     private static final double MAX_WEIGHT = 20;
-    private static final String teaSorts[] = new String[]{"Keemun", "Huangshan Maofeng", "Lu'an Quapian", "Tai Ping Hou Kui"};
+    private static final String[] teaSorts = new String[]{"Keemun", "Huangshan Maofeng", "Lu'an Quapian", "Tai Ping Hou Kui"};
+    private List<TeaPackage> teaPackages;
 
     private String getRandomSort() {
         Random rnd = new Random();
@@ -25,9 +26,9 @@ public class Processing {
         return rnd.nextDouble(MIN_WEIGHT, MAX_WEIGHT);
     }
 
-    private double getMasOfCurrentSortByYear(List<TeaPackage> packages, String sortName, int year) {
+    private double getMasOfCurrentSortByYear(String sortName, int year) {
         double sum = 0;
-        for (TeaPackage tp : packages) {
+        for (TeaPackage tp : teaPackages) {
             if (sortName.equals(tp.getSort()) && year == tp.getHarvestYear()) {
                 sum += tp.getMas();
             }
@@ -35,11 +36,11 @@ public class Processing {
         return sum;
     }
 
-    private int getMostProductiveYearByCurrentSort(List<TeaPackage> packages, String sortName) {
+    private int getMostProductiveYearByCurrentSort(String sortName) {
         int mostProductiveYear = MIN_YEAR;
         double maxProduction = 0;
         for (int i = MIN_YEAR; i < MAX_YEAR; i++) {
-            double currentYearProduction = getMasOfCurrentSortByYear(packages, sortName, i);
+            double currentYearProduction = getMasOfCurrentSortByYear(sortName, i);
             if (maxProduction < currentYearProduction) {
                 maxProduction = currentYearProduction;
                 mostProductiveYear = i;
@@ -48,9 +49,9 @@ public class Processing {
         return mostProductiveYear;
     }
 
-    private Set<String> getSortsFrom2018Year(List<TeaPackage> packages) {
+    private Set<String> getSortsFrom2018Year() {
         Set<String> sorts = new HashSet<>();
-        for (TeaPackage tp : packages) {
+        for (TeaPackage tp : teaPackages) {
             if (tp.getHarvestYear() == 2018) {
                 sorts.add(tp.getSort());
             }
@@ -58,9 +59,9 @@ public class Processing {
         return sorts;
     }
 
-    private double getHeaviestPackageOfCurrentSort(List<TeaPackage> packages, String sortName) {
+    private double getHeaviestPackageOfCurrentSort(String sortName) {
         double maxMas = 0;
-        for (TeaPackage tp : packages) {
+        for (TeaPackage tp : teaPackages) {
             if (sortName.equals(tp.getSort()) && tp.getMas() > maxMas) {
                 maxMas = tp.getMas();
             }
@@ -68,14 +69,15 @@ public class Processing {
         return maxMas;
     }
 
-    public void mainProcessing(List<TeaPackage> packages, boolean timeCheckState) {
+    public void mainProcessing(List<TeaPackage> teaPackagesList, boolean timeCheckState) {
+        teaPackages = teaPackagesList;
         for (int i = 0; i < PACKAGE_NUM; i++) {
-            packages.add(new TeaPackage(getRandomSort(), getRandomYear(), getRandomMas()));
+            teaPackages.add(new TeaPackage(getRandomSort(), getRandomYear(), getRandomMas()));
         }
         long startTime = System.nanoTime();
         for (String name : teaSorts) {
-            int mostProductiveYear = getMostProductiveYearByCurrentSort(packages, name);
-            double maxWeight = getHeaviestPackageOfCurrentSort(packages, name);
+            int mostProductiveYear = getMostProductiveYearByCurrentSort(name);
+            double maxWeight = getHeaviestPackageOfCurrentSort(name);
             if (!timeCheckState) {
                 System.out.println("Сорт: " + name);
                 System.out.println("Самый урожайный год: " + mostProductiveYear);
@@ -83,7 +85,7 @@ public class Processing {
                 System.out.println("---");
             }
         }
-        Set<String> sortsSet = getSortsFrom2018Year(packages);
+        Set<String> sortsSet = getSortsFrom2018Year();
         if (!timeCheckState) {
             System.out.println("Сорты чая, собранные в 2018г: ");
             for (String sort : sortsSet) {
