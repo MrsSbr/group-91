@@ -2,8 +2,6 @@ package classes;
 
 import interfaces.Flying;
 
-import java.util.Objects;
-
 public class FlyingBird extends NotFlyingBird implements Flying {
 
     protected final int flightSpeed;
@@ -37,6 +35,6 @@ public class FlyingBird extends NotFlyingBird implements Flying {
             return false;
         }
 
-        return Objects.equals(this.speciesName, ((FlyingBird) obj).speciesName);
+        return super.equals(obj) && flightSpeed == ((FlyingBird) obj).flightSpeed;
     }
 }

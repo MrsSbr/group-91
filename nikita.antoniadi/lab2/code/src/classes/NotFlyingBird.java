@@ -36,6 +36,9 @@ public class NotFlyingBird extends Bird {
             return false;
         }
 
-        return Objects.equals(this.speciesName, ((NotFlyingBird) obj).speciesName);
+        NotFlyingBird notFlyingBird = (NotFlyingBird) obj;
+        return Objects.equals(this.speciesName, notFlyingBird.speciesName) && averageWeight == notFlyingBird.averageWeight
+                && averageWingspan == notFlyingBird.averageWingspan;
+
     }
 }

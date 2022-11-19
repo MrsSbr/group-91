@@ -1,7 +1,5 @@
 package classes;
 
-import java.util.Objects;
-
 public class HummingBird extends FlyingBird {
 
     private final String name;
@@ -37,6 +35,7 @@ public class HummingBird extends FlyingBird {
             return false;
         }
 
-        return Objects.equals(this.name, ((HummingBird) obj).name);
+        HummingBird hummingBird = (HummingBird) obj;
+        return super.equals(obj) && name.equals(hummingBird.name) && age == hummingBird.age;
     }
 }
