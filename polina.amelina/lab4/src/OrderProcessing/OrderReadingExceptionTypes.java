@@ -2,7 +2,7 @@ package OrderProcessing;
 
 public enum OrderReadingExceptionTypes {
     NO_DATE("No date"),
-    NO_PREPARATION_TIME("No preparation time"),
+    NO_PREP_TIME("No prep time"),
     NO_COST("No cost");
 
     private final String description;

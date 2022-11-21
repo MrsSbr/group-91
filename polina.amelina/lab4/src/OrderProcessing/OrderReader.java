@@ -1,20 +1,22 @@
 package OrderProcessing;
 
+import MethodNameGetter.MethodNameGetter;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class OrderReader {
     private static final Logger logger = Logger.getGlobal();
     private String dateTimeFormat = "dd.MM.yyyy HH:mm";
-    private String durationFormat = "mm:ss";
+    private String durationFormat = "HH:mm:ss";
 
     public OrderReader withDateTimeFormat(String dateTimeFormat) {
         this.dateTimeFormat = dateTimeFormat;
@@ -30,11 +32,10 @@ public class OrderReader {
 
     public List<Order> readOrders(String filename) throws OrderReadingException, FileNotFoundException {
 
-        logger.entering(this.getClass().getName(), "readOrders", new Object[] {filename, dateTimeFormat, durationFormat});
+        logger.entering(this.getClass().getName(), MethodNameGetter.getMethodName(), new Object[] {filename, dateTimeFormat, durationFormat});
         List<Order> listOfOrders = new LinkedList<>();
 
-        try (Scanner scanner = new Scanner(new File(filename))) {
-            scanner.useDelimiter("; ");
+        try (Scanner scanner = new Scanner(new File(filename)).useDelimiter(";").useLocale(Locale.ENGLISH)) {
 
             while (scanner.hasNext()) {
                 String name = scanner.next();
@@ -45,16 +46,18 @@ public class OrderReader {
                 }
 
                 String dateString = scanner.next();
+                logger.info("Got unprocessed order date: " + dateString);
                 LocalDateTime date = LocalDateTime.parse(dateString, DateTimeFormatter.ofPattern(dateTimeFormat));
                 logger.info("Got order date: " + date);
 
                 if (!scanner.hasNext()) {
-                    throw new OrderReadingException(OrderReadingExceptionTypes.NO_PREPARATION_TIME, name);
+                    throw new OrderReadingException(OrderReadingExceptionTypes.NO_PREP_TIME, name);
                 }
 
-                String preparationTimeString = scanner.next();
-                Duration preparationTime = Duration.between(LocalTime.MIN, LocalTime.parse(preparationTimeString, DateTimeFormatter.ofPattern(durationFormat)));
-                logger.info("Got preparation time: " + preparationTime);
+                String prepTimeString = scanner.next();
+                logger.info("Got unprocessed prep time: " + prepTimeString);
+                LocalTime prepTime = LocalTime.parse(prepTimeString, DateTimeFormatter.ofPattern(durationFormat));
+                logger.info("Got prep time: " + prepTime);
 
                 if (!scanner.hasNextDouble()) {
                     throw new OrderReadingException(OrderReadingExceptionTypes.NO_COST, name);
@@ -63,17 +66,20 @@ public class OrderReader {
                 double cost = scanner.nextDouble();
                 logger.info("Got order cost: " + cost);
 
-                Order order = new Order(name, date, preparationTime, cost);
+                Order order = new Order(name, date, prepTime, cost);
                 listOfOrders.add(order);
                 logger.info("Got order: " + order);
+
+                if (scanner.hasNextLine()) {
+                    scanner.nextLine();
+                }
             }
         } catch (Exception e) {
-
-            logger.throwing(this.getClass().getName(), "readOrders", e);
+            logger.throwing(this.getClass().getName(), MethodNameGetter.getMethodName(), e);
             throw e;
         }
 
-        logger.exiting(this.getClass().getName(), "readOrders");
+        logger.exiting(this.getClass().getName(), MethodNameGetter.getMethodName());
         return listOfOrders;
     }
 }

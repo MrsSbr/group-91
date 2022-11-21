@@ -1,9 +1,9 @@
 package OrderProcessing;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public record Order(String name,
                     LocalDateTime date,
-                    Duration preparationTime,
+                    LocalTime prepTime,
                     double cost) {}
