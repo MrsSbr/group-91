@@ -8,8 +8,9 @@ public class InputValidations {
     private static boolean verifyName(String name) {
         name = name.trim();
 
-        if (name.equals(""))
+        if (name.equals("")) {
             return false;
+        }
 
         return name.matches("[a-zA-Z-']*");
     }

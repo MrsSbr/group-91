@@ -50,8 +50,9 @@ public class Student {
 
     public boolean isAStudent() {
         for (Integer i : grades) {
-            if (i != 5)
+            if (i != 5) {
                 return false;
+            }
         }
         return true;
     }
