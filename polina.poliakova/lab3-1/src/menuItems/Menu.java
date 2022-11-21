@@ -14,7 +14,7 @@ public class Menu {
                     1. Use ArrayList
                     2. Use LinkedList
                     0. Exit""");
-            choice = InputValidations.checkMenuItem();
+            choice = InputValidations.getNumberInRange(0, 2);
 
             choice = switch (choice) {
                 case 1 -> {

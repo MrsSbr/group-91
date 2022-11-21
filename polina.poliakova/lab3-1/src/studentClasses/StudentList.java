@@ -7,7 +7,6 @@ public class StudentList {
     private static final int SIZE = 1000;
     private final List<Student> students;
     public StudentList(List<Student> students) {
-
         this.students = students;
     }
 
@@ -28,8 +27,7 @@ public class StudentList {
         }
 
         long finish = System.nanoTime();
-        long elapsed = finish - start;
-        System.out.println("Time ms: " + elapsed);
+        System.out.println("Time ms: " + (finish - start));
     }
 
     public void fillFromConsole() {

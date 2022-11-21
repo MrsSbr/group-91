@@ -1,10 +1,13 @@
 package studentClasses;
 
 import checkValidatons.InputValidations;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+import java.util.Set;
+import java.util.HashSet;
 
-import java.util.*;
-
-/*Вводится информация о студенте (ФИО) и список его оценок (400 шт)*/
 public class Student {
     private final static int GRADES_NUMBER = 400;
     private String firstName;
@@ -25,73 +28,35 @@ public class Student {
 
     public double getAverageGrade() {
         int sum = 0;
-        for (int i = 0; i < GRADES_NUMBER; i++) {
-            sum += grades.get(i);
+        for (Integer i : grades) {
+            sum += i;
         }
+
         return sum / (double) GRADES_NUMBER;
     }
 
     public boolean isGotAllGrades() {
         final int NUM_OF_POSSIBLE_GRADES = 5;
-        List<Boolean> possibleGrades = new ArrayList<>(NUM_OF_POSSIBLE_GRADES);
-        for (int i = 0; i<NUM_OF_POSSIBLE_GRADES;i++)
-            possibleGrades.add(false);
-        for (int i = 0; i < GRADES_NUMBER; i++) {
-            possibleGrades.set(grades.get(i)-1, true);
-
+        Set<Integer> allTypeOfGrades = new HashSet<>();
+        for (Integer i : grades) {
+            allTypeOfGrades.add(i);
+            if (allTypeOfGrades.size() == NUM_OF_POSSIBLE_GRADES) {
+                return true;
+            }
         }
+
         return false;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public boolean isAStudent() {
-        for (int i = 0; i < GRADES_NUMBER; i++)
-            if (grades.get(i) != 5 )
+        for (Integer i : grades) {
+            if (i != 5)
                 return false;
-
+        }
         return true;
     }
 
     public Student readStudentFromConsole() {
-
-
-
-
         Student student = new Student();
         student.firstName = InputValidations.checkName();
         student.lastName = InputValidations.checkName();
@@ -105,7 +70,7 @@ public class Student {
 
     public String generateName() {
         final int NAME_LENGTH = 8;
-        String charsCaps = "abcdefghijklmnopqrstwvuxyz";
+        String charsCaps = "abcdefghijklmnopqrstwvuxyz-'";
         Random rnd = new Random();
         StringBuilder name = new StringBuilder();
 
@@ -134,7 +99,6 @@ public class Student {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) {
             return true;
         }
