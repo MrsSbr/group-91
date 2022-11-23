@@ -30,7 +30,7 @@ public class Task {
     }
 
     public List<String> getHunterNames(List<MammothPrey> list) {
-        List<String> names = new ArrayList<>();
+        List<String> names = new ArrayList<>();// TODO: 23.11.2022 использовать hashset
         for (int i = 0; i < NUMBER_OF_RECORDS; i++) {
             if (!names.contains(list.get(i).getNickname())) {
                 names.add(list.get(i).getNickname());
