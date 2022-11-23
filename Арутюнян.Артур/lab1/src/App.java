@@ -7,8 +7,9 @@ public class App {
         try {
             int result = in.nextInt();
             System.out.println(Palindrom.checkPalindrom(result));
-        } catch (Exception ex) {
-            System.out.println("Is not number");
+        }
+        catch (NumberFormatException ex){
+            ex.printStackTrace();
         }
         in.close();
     }
