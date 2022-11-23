@@ -23,10 +23,14 @@ public class DepartmentHandler {
 
     private static Set<Integer> getDepartmentsWithHighSth(Map<Integer, Double> departmentsInfo) {
 
-        double maxSum = departmentsInfo.values().stream().max(Double::compareTo).orElse(0.0);
+        double max = departmentsInfo.values().stream()
+                .max(Double::compareTo)
+                .orElse(0.0);
 
         return departmentsInfo.entrySet().stream()
-                .filter(pair -> pair.getValue() == maxSum).map(Map.Entry::getKey).collect(Collectors.toSet());
+                .filter(pair -> pair.getValue() == max)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
     }
 
     public  Set<Integer> getDepartmentsWithHighSum() {
