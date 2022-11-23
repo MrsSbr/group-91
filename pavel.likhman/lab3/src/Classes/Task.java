@@ -1,9 +1,6 @@
 package Classes;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Task {
     private static final int NUMBER_OF_RECORDS = 8573;
@@ -29,12 +26,11 @@ public class Task {
         return rnd.nextInt(10000, 15000);
     }
 
-    public List<String> getHunterNames(List<MammothPrey> list) {
-        List<String> names = new ArrayList<>();// TODO: 23.11.2022 использовать hashset
+    public HashSet<String> getHunterNames(List<MammothPrey> list) {
+        // TODO: 23.11.2022 использовать hashset
+        HashSet<String> names = new HashSet<>();
         for (int i = 0; i < NUMBER_OF_RECORDS; i++) {
-            if (!names.contains(list.get(i).getNickname())) {
-                names.add(list.get(i).getNickname());
-            }
+            names.add(list.get(i).getNickname());
         }
         return names;
     }
@@ -64,7 +60,7 @@ public class Task {
             list.add(new MammothPrey(randomizeFullNickname(), randomizeWeight(), randomizeYear()));
         }
         long time = System.nanoTime();
-        List<String> names = getHunterNames(list);
+        HashSet<String> names = getHunterNames(list);
         int sumMeat = getSumMeat(list, date);
         if (isNeedCheckTime) {
             for (String name : names) {
