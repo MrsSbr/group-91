@@ -60,7 +60,7 @@ public class Task {
             list.add(new MammothPrey(randomizeFullNickname(), randomizeWeight(), randomizeYear()));
         }
         long time = System.nanoTime();
-        HashSet<String> names = getHunterNames(list);
+        Set<String> names = getHunterNames(list);
         int sumMeat = getSumMeat(list, date);
         if (isNeedCheckTime) {
             for (String name : names) {
