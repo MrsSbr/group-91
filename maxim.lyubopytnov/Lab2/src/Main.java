@@ -1,3 +1,5 @@
+// бла бла бла
+
 import classes.Bomber;
 import classes.FighterJet;
 import classes.Helicopter;
