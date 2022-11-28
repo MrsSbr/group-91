@@ -28,8 +28,8 @@ public class FighterJet extends Plane implements AttackCity {
     public String toString() {
         return String.format(
                 "Истребитель %s\n" +
-                "Процент скрытности %d %\n" +
-                "Скорость %d\n" +
+                "Процент скрытности %f\n" +
+                "Скорость %f\n" +
                 isTakeOffToString(),
                 name,
                 obscurity,
