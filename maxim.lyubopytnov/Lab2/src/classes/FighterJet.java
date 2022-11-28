@@ -2,6 +2,8 @@ package classes;
 
 import interfaces.AttackCity;
 
+import java.util.Objects;
+
 // Истребитель
 public class FighterJet extends Plane implements AttackCity {
     // Скорость полета
@@ -35,5 +37,22 @@ public class FighterJet extends Plane implements AttackCity {
                 obscurity,
                 movementSpeed
         );
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (!(obj instanceof FighterJet)) {
+            return false;
+        } else {
+
+            return this.name.equalsIgnoreCase(((FighterJet) obj).name)
+                    && this.obscurity == ((FighterJet) obj).obscurity
+                    && this.movementSpeed == ((FighterJet) obj).movementSpeed;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(movementSpeed);
     }
 }

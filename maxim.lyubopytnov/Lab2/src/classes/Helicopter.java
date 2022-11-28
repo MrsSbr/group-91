@@ -1,5 +1,7 @@
 package classes;
 
+import java.util.Objects;
+
 public class Helicopter extends MilitaryAviation {
     // Время задержки в воздухе
     private final float flightTime;
@@ -23,5 +25,21 @@ public class Helicopter extends MilitaryAviation {
                 name,
                 flightTime
         );
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (!(obj instanceof Helicopter)) {
+            return false;
+        } else {
+            Helicopter objHelicopter = (Helicopter) obj;
+            return this.name.equalsIgnoreCase(objHelicopter.name)
+                    && this.flightTime == objHelicopter.flightTime;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(flightTime);
     }
 }

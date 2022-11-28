@@ -1,5 +1,7 @@
 package classes;
 
+import java.util.Objects;
+
 // Бомбардировщик
 public class Bomber extends Plane{
     // Грузоподъемность
@@ -21,5 +23,22 @@ public class Bomber extends Plane{
                 obscurity,
                 bombCapacity
         );
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (!(obj instanceof Bomber)) {
+            return false;
+        } else {
+            Bomber objBomber = (Bomber) obj;
+            return this.name.equalsIgnoreCase(objBomber.name)
+                    && this.obscurity == objBomber.obscurity
+                    && this.bombCapacity == objBomber.bombCapacity;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(bombCapacity);
     }
 }
