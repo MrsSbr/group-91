@@ -32,7 +32,7 @@ public class OrderReader {
 
     public List<Order> readOrders(String filename) throws OrderReadingException, FileNotFoundException {
 
-        logger.entering(this.getClass().getName(), MethodNameGetter.getMethodName(), new Object[] {filename, dateTimeFormat, durationFormat});
+        logger.entering(getClass().getName(), MethodNameGetter.getMethodName(), new Object[] {filename, dateTimeFormat, durationFormat});
         List<Order> listOfOrders = new LinkedList<>();
 
         try (Scanner scanner = new Scanner(new File(filename)).useDelimiter(";").useLocale(Locale.ENGLISH)) {
@@ -75,11 +75,11 @@ public class OrderReader {
                 }
             }
         } catch (Exception e) {
-            logger.throwing(this.getClass().getName(), MethodNameGetter.getMethodName(), e);
+            logger.throwing(getClass().getName(), MethodNameGetter.getMethodName(), e);
             throw e;
         }
 
-        logger.exiting(this.getClass().getName(), MethodNameGetter.getMethodName());
+        logger.exiting(getClass().getName(), MethodNameGetter.getMethodName());
         return listOfOrders;
     }
 }

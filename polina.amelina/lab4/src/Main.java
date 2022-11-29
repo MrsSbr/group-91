@@ -1,28 +1,38 @@
 import OrderProcessing.Order;
 import OrderProcessing.OrderReader;
-import Tasks.Tasks;
+import OrderProcessing.OrderReadingException;
+import Tasks.TasksFormatter;
+import Tasks.TasksService;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class Main {
     private static final Logger logger = Logger.getGlobal();
+    private static final String FILE_PATH = "polina.amelina/lab4/orders.txt";
 
     public static void main(String[] args) {
 
+        List<Order> orders;
+
         try {
-            List<Order> orders = new OrderReader().readOrders("polina.amelina/lab4/orders.txt");
-            Tasks tasks = new Tasks(orders);
-
-            String task1 = tasks.getAveragePrepTimeByDrink();
-            String task2 = tasks.getBusiestWeekdayHours();
-            String task3 = tasks.getMostPopularDrinks();
-            String task4 = tasks.getOptimalDrink();
-
-            System.out.println(task1 + task2 + task3 + task4);
-
-        } catch (Exception e) {
+            orders = new OrderReader().readOrders(FILE_PATH);
+        } catch (OrderReadingException | FileNotFoundException e) {
             logger.severe(e.toString());
+            return;
+        }
+
+        TasksService tasksService = new TasksService(orders);
+        TasksFormatter tasksFormatter = new TasksFormatter();
+
+        String task1 = tasksFormatter.getAvgPrepTimeByDrinkFormattedResult(tasksService.getAvgPrepTimeByDrink());
+        String task2 = tasksFormatter.getBusiestWeekdayHoursFormattedResult(tasksService.getBusiestWeekdayHours());
+        String task3 = tasksFormatter.getMostPopularDrinksFormattedResult(tasksService.getMostPopularDrinks());
+        String task4 = tasksFormatter.getOptimalDrinkFormattedResult(tasksService.getOptimalDrink());
+
+        for (String task : new String[] {task1, task2, task3, task4}) {
+            System.out.println(task);
         }
     }
 }
