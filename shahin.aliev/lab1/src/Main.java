@@ -7,7 +7,6 @@ public class Main {
         for (int i = 1; i <= n; i++) {
             arr.add(i);
         }
-
         while (arr.size() != 1) {
             int i = 0;
             arr.remove(i);
