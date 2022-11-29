@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -33,7 +33,7 @@ public class OrderReader {
     public List<Order> readOrders(String filename) throws OrderReadingException, FileNotFoundException {
 
         logger.entering(getClass().getName(), MethodNameGetter.getMethodName(), new Object[] {filename, dateTimeFormat, durationFormat});
-        List<Order> listOfOrders = new LinkedList<>();
+        List<Order> listOfOrders = new ArrayList<>();
 
         try (Scanner scanner = new Scanner(new File(filename)).useDelimiter(";").useLocale(Locale.ENGLISH)) {
 

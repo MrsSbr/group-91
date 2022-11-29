@@ -5,11 +5,11 @@ import OrderProcessing.Order;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 public class TasksService {
     private static final Logger logger = Logger.getGlobal();
@@ -23,26 +23,33 @@ public class TasksService {
 
         logger.entering(getClass().getName(), MethodNameGetter.getMethodName());
 
-        Map<String, Double> avgPrepTimeInSeconds = orders
-                .stream()
-                .collect(
-                        Collectors.groupingBy(
-                                Order::name,
-                                Collectors.averagingLong(x -> x.prepTime().toSecondOfDay())
-                        ));
+        if (orders.isEmpty()) {
+            logger.exiting(getClass().getName(), MethodNameGetter.getMethodName());
+            return null;
+        }
+
+        Map<String, Long> sumPrepTime = new HashMap<>();
+        Map<String, Long> countPrepTime = new HashMap<>();
+        for (Order order : orders) {
+            sumPrepTime.put(order.name(), sumPrepTime.getOrDefault(order.name(), (long) 0) + order.prepTime().toSecondOfDay());
+            countPrepTime.put(order.name(), countPrepTime.getOrDefault(order.name(), (long) 0) + 1);
+        }
+
+        logger.info("Got sum of prep time by drink: " + sumPrepTime);
+        logger.info("Got count of drinks: " + countPrepTime);
+
+        Map<String, Double> avgPrepTimeInSeconds = new HashMap<>();
+        for (String name : sumPrepTime.keySet()) {
+            avgPrepTimeInSeconds.put(name, sumPrepTime.get(name) / (double) countPrepTime.get(name));
+        }
+
         logger.info("Got avg prep time in seconds: " + avgPrepTimeInSeconds);
 
-        Map<String, LocalTime> avgPrepTime =
-                avgPrepTimeInSeconds.isEmpty()
-                ? null
-                : avgPrepTimeInSeconds
-                        .entrySet()
-                        .stream()
-                        .collect(
-                                Collectors.toMap(
-                                        Map.Entry::getKey,
-                                        x -> LocalTime.ofSecondOfDay(Math.round(x.getValue()))
-                                ));
+        Map<String, LocalTime> avgPrepTime = new HashMap<>();
+        for (String name : avgPrepTimeInSeconds.keySet()) {
+            avgPrepTime.put(name, LocalTime.ofSecondOfDay(Math.round(avgPrepTimeInSeconds.get(name))));
+        }
+
         logger.info("Got avg prep time in LocalTime: " + avgPrepTime);
 
         logger.exiting(getClass().getName(), MethodNameGetter.getMethodName(), avgPrepTime);
@@ -53,33 +60,48 @@ public class TasksService {
 
         logger.entering(getClass().getName(), MethodNameGetter.getMethodName());
 
-        Map<Integer, Long> customersByHours = orders
-                .stream()
-                .filter(x -> x.date().getDayOfWeek() != DayOfWeek.SATURDAY && x.date().getDayOfWeek() != DayOfWeek.SUNDAY)
-                .collect(
-                        Collectors.groupingBy(
-                                x -> x.date().getHour(),
-                                Collectors.counting()
-                        ));
+        if (orders.isEmpty()) {
+            logger.exiting(getClass().getName(), MethodNameGetter.getMethodName());
+            return null;
+        }
+
+        List<Order> ordersFiltered = new ArrayList<>();
+        for (Order order : orders) {
+            if (order.date().getDayOfWeek() != DayOfWeek.SATURDAY && order.date().getDayOfWeek() != DayOfWeek.SUNDAY) {
+                ordersFiltered.add(order);
+            }
+        }
+
+        logger.info("Got workday orders: " + ordersFiltered);
+
+        if (ordersFiltered.isEmpty()) {
+            logger.exiting(getClass().getName(), MethodNameGetter.getMethodName());
+            return null;
+        }
+
+        Map<Integer, Long> customersByHours = new HashMap<>();
+        for (Order order : ordersFiltered) {
+            customersByHours.put(order.date().getHour(), customersByHours.getOrDefault(order.date().getHour(), (long) 0) + 1);
+        }
+
         logger.info("Got customers by workday hours: " + customersByHours);
 
-        long maxCustomers = customersByHours
-                .entrySet()
-                .stream()
-                .max(Map.Entry.comparingByValue())
-                .orElse(Map.entry(-1, (long) -1))
-                .getValue();
+        long maxCustomers = 0;
+        for (long customers : customersByHours.values()) {
+            if (customers > maxCustomers) {
+                maxCustomers = customers;
+            }
+        }
+
         logger.info("Got max customers on workdays: " + maxCustomers);
 
-        List<Integer> busiestHours =
-                maxCustomers == -1
-                ? null
-                : customersByHours
-                        .entrySet()
-                        .stream()
-                        .filter(x -> x.getValue().equals(maxCustomers))
-                        .map(Map.Entry::getKey)
-                        .toList();
+        List<Integer> busiestHours = new ArrayList<>();
+        for (int hour : customersByHours.keySet()) {
+            if (maxCustomers == customersByHours.get(hour)) {
+                busiestHours.add(hour);
+            }
+        }
+
         logger.info("Got busiest hours on workdays: " + busiestHours);
 
         logger.exiting(getClass().getName(), MethodNameGetter.getMethodName(), busiestHours);
@@ -90,33 +112,46 @@ public class TasksService {
 
         logger.entering(getClass().getName(), MethodNameGetter.getMethodName());
 
-        Map<String, Long> drinksByPopularity = orders
-                .stream()
-                .filter(x -> x.date().getHour() >= 7 && x.date().getHour() < 12)
-                .collect(
-                        Collectors.groupingBy(
-                                Order::name,
-                                Collectors.counting()
-                        ));
+        if (orders.isEmpty()) {
+            logger.exiting(getClass().getName(), MethodNameGetter.getMethodName());
+            return null;
+        }
+
+        List<Order> ordersFiltered = new ArrayList<>();
+        for (Order order : orders) {
+            if (order.date().getHour() >= 7 && order.date().getHour() < 12) {
+                ordersFiltered.add(order);
+            }
+        }
+
+        logger.info("Got morning orders: " + ordersFiltered);
+
+        if (ordersFiltered.isEmpty()) {
+            logger.exiting(getClass().getName(), MethodNameGetter.getMethodName());
+            return null;
+        }
+
+        Map<String, Long> drinksByPopularity = new HashMap<>();
+        for (Order order : ordersFiltered) {
+            drinksByPopularity.put(order.name(), drinksByPopularity.getOrDefault(order.name(), (long) 0) + 1);
+        }
+
         logger.info("Got morning drinks by popularity: " + drinksByPopularity);
 
-        long maxPopularity = drinksByPopularity
-                .entrySet()
-                .stream()
-                .max(Map.Entry.comparingByValue())
-                .orElse(Map.entry("", (long) -1))
-                .getValue();
+        long maxPopularity = 0;
+        for (long popularity : drinksByPopularity.values()) {
+            if (popularity > maxPopularity) {
+                maxPopularity = popularity;
+            }
+        }
         logger.info("Got max morning popularity: " + maxPopularity);
 
-        List<String> mostPopularDrinks =
-                maxPopularity == -1
-                ? null
-                : drinksByPopularity
-                        .entrySet()
-                        .stream()
-                        .filter(x -> x.getValue().equals(maxPopularity))
-                        .map(Map.Entry::getKey)
-                        .toList();
+        List<String> mostPopularDrinks = new ArrayList<>();
+        for (String drink : drinksByPopularity.keySet()) {
+            if (maxPopularity == drinksByPopularity.get(drink)) {
+                mostPopularDrinks.add(drink);
+            }
+        }
         logger.info("Got most popular drinks in the morning: " + mostPopularDrinks);
 
         logger.exiting(getClass().getName(), MethodNameGetter.getMethodName(), mostPopularDrinks);
@@ -127,61 +162,52 @@ public class TasksService {
 
         logger.entering(getClass().getName(), MethodNameGetter.getMethodName());
 
-        Map<Order, Double> costTimeRatio = orders
-                .stream()
-                .collect(
-                        Collectors.toMap(
-                                x -> x,
-                                y -> y.cost() / y.prepTime().toSecondOfDay()
-                        )
-                );
+        if (orders.isEmpty()) {
+            logger.exiting(getClass().getName(), MethodNameGetter.getMethodName());
+            return null;
+        }
+
+        Map<Order, Double> costTimeRatio = new HashMap<>();
+        for (Order order : orders) {
+            costTimeRatio.put(order, order.cost() / order.prepTime().toSecondOfDay());
+        }
+
         logger.info("Got cost time ratio: " + costTimeRatio);
 
-        Map<String, Double> drinksByCost = orders
-                .stream()
-                .collect(
-                        Collectors.groupingBy(
-                                Order::name,
-                                Collectors.summingDouble(Order::cost)
-                        ));
-        logger.info("Got sums of cost by drink: " + drinksByCost);
+        double sum = 0;
+        for (double ratio : costTimeRatio.values()) {
+            sum += ratio;
+        }
+        double average = sum / costTimeRatio.size();
 
-        Map<String, Long> drinksByPrepTime = orders
-                .stream()
-                .collect(
-                        Collectors.groupingBy(
-                                Order::name,
-                                Collectors.summingLong(x -> x.prepTime().toSecondOfDay())
-                        ));
-        logger.info("Got sums of prep time by drink: " + drinksByPrepTime);
-
-        Map<String, Double> costTimeRatioOfSums = drinksByCost
-                .entrySet()
-                .stream()
-                .collect(
-                        Collectors.toMap(
-                                Map.Entry::getKey,
-                                x -> x.getValue() / drinksByPrepTime.get(x.getKey())
-                        ));
-        logger.info("Got cost time ratio of sums: " + costTimeRatioOfSums);
-
-        double average = costTimeRatio
-                .values()
-                .stream()
-                .mapToDouble(x -> x)
-                .average()
-                .orElse(-1);
         logger.info("Got average ratio: " + average);
 
-        String optimalDrink =
-                average == -1
-                ? null
-                : costTimeRatioOfSums
-                        .entrySet()
-                        .stream()
-                        .min(Comparator.comparingDouble(x -> Math.abs(x.getValue() - average)))
-                        .orElseThrow()
-                        .getKey();
+        Map<String, Double> drinksByCost = new HashMap<>();
+        Map<String, Long> drinksByPrepTime = new HashMap<>();
+        for (Order order : orders) {
+            drinksByCost.put(order.name(), drinksByCost.getOrDefault(order.name(), (double) 0) + order.cost());
+            drinksByPrepTime.put(order.name(), drinksByPrepTime.getOrDefault(order.name(), (long) 0) + order.prepTime().toSecondOfDay());
+        }
+
+        logger.info("Got sums of cost by drink: " + drinksByCost);
+        logger.info("Got sums of prep time by drink: " + drinksByPrepTime);
+
+        Map<String, Double> costTimeRatioOfSums = new HashMap<>();
+        for (String name : drinksByCost.keySet()) {
+            costTimeRatioOfSums.put(name, drinksByCost.get(name) / drinksByPrepTime.get(name));
+        }
+        logger.info("Got cost time ratio of sums: " + costTimeRatioOfSums);
+
+        String optimalDrink = orders.get(0).name();
+        double minDifference = Math.abs(costTimeRatioOfSums.get(optimalDrink) - average);
+        for (String name : costTimeRatioOfSums.keySet()) {
+            double difference = Math.abs(costTimeRatioOfSums.get(name) - average);
+            if (difference < minDifference) {
+                minDifference = difference;
+                optimalDrink = name;
+            }
+        }
+
         logger.info("Got drink with closest to average ratio: " + optimalDrink);
 
         logger.exiting(getClass().getName(), MethodNameGetter.getMethodName(), optimalDrink);
