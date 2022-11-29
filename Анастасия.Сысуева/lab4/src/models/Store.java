@@ -1,8 +1,7 @@
 package models;
 
+import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Store {
     private final Map<Integer, Box> beautyBoxes;
@@ -13,36 +12,42 @@ public class Store {
     }
 
     public Integer countProductInBoxes(String productName) {
-        AtomicReference<Integer> count = new AtomicReference<>(0);
-        beautyBoxes.forEach((key, value) -> value.getProductList().forEach(product -> {
-            if (product.equals(productName)) {
-                count.getAndSet(count.get() + 1);
+        Integer count = 0;
+        for (Box value : beautyBoxes.values()) {
+            for (String product : value.getProductList()) {
+                if (product.equals(productName)) {
+                    count++;
+                }
             }
-        }));
-        return count.get();
+        }
+        return count;
     }
 
     public Map<String, Integer> getCountProductInBoxes() {
         Map<String, Integer> productStatistic = new HashMap<>();
-        beautyBoxes.forEach((key, value) -> value.getProductList().forEach(product ->
-                productStatistic.put(product, countProductInBoxes(product))));
+        for (Box value : beautyBoxes.values()) {
+            for (String product : value.getProductList()) {
+                productStatistic.put(product, countProductInBoxes(product));
+            }
+        }
         return productStatistic;
     }
 
-    public Integer countSumForMonth(Calendar calendar) {
-        AtomicInteger sum = new AtomicInteger();
-        beautyBoxes.forEach((key, value) -> value.getDataCountStatistic().forEach((secondKey, secondValue) -> {
-                    if (secondKey.compareTo(calendar) == 0) {
-                        sum.addAndGet(secondValue);
-                    }
+    public Integer countSumForMonth(LocalDate date) {
+        Integer sum = 0;
+        for (Box value : beautyBoxes.values()) {
+            for (LocalDate key : value.getStock().getDataCountStatistic().keySet()) {
+                if (key.compareTo(date) == 0) {
+                    sum += value.getStock().getDataCountStatistic().get(key);
                 }
-        ));
-        return sum.get();
+            }
+        }
+        return sum;
     }
 
-    public Map.Entry<Calendar, Integer> findMonthWithMaxCount(Map<Calendar, Integer> monthStatistics) {
-        Map.Entry<Calendar, Integer> maxEntry = null;
-        for (Map.Entry<Calendar, Integer> entry : monthStatistics.entrySet()) {
+    public Map.Entry<LocalDate, Integer> findMonthWithMaxCount(Map<LocalDate, Integer> monthStatistics) {
+        Map.Entry<LocalDate, Integer> maxEntry = null;
+        for (Map.Entry<LocalDate, Integer> entry : monthStatistics.entrySet()) {
             if (maxEntry == null || entry.getValue() > maxEntry.getValue()) {
                 maxEntry = entry;
             }
@@ -52,27 +57,31 @@ public class Store {
     }
 
     public Integer getMonthWithBiggestSale() {
-        Map<Calendar, Integer> monthStatistics = new HashMap<>();
-        beautyBoxes.forEach((key, value) -> value.getDataCountStatistic().forEach((secondKey, secondValue) ->
-                monthStatistics.put(secondKey, countSumForMonth(secondKey))));
-        return findMonthWithMaxCount(monthStatistics).getKey().get(Calendar.MONTH) + 1;
+        Map<LocalDate, Integer> monthStatistics = new HashMap<>();
+        for (Box value : beautyBoxes.values()) {
+            for (LocalDate key : value.getStock().getDataCountStatistic().keySet()) {
+                monthStatistics.put(key, countSumForMonth(key));
+            }
+        }
+        return findMonthWithMaxCount(monthStatistics).getKey().getMonthValue();
     }
 
     public Map<String, Box> findFirstBox() {
         Map<String, Box> keyFirst = new HashMap<>();
-        beautyBoxes.forEach((key, value) -> value.getProductList().forEach(product -> {
-                    if (!keyFirst.containsKey((product))) {
-                        keyFirst.put(product, value);
-                    }
+        for (Box value : beautyBoxes.values()) {
+            for (String product : value.getProductList()) {
+                if (!keyFirst.containsKey((product))) {
+                    keyFirst.put(product, value);
                 }
-        ));
+            }
+        }
         return keyFirst;
     }
 
-    public Map.Entry<Calendar, Integer> findMinDate(Map<Calendar, Integer> monthStatistics) {
-        Map.Entry<Calendar, Integer> minEntry = null;
-        for (Map.Entry<Calendar, Integer> entry : monthStatistics.entrySet()) {
-            if (minEntry == null || entry.getKey().before(minEntry.getKey())) {
+    public Map.Entry<LocalDate, Integer> findMinDate(Map<LocalDate, Integer> monthStatistics) {
+        Map.Entry<LocalDate, Integer> minEntry = null;
+        for (Map.Entry<LocalDate, Integer> entry : monthStatistics.entrySet()) {
+            if (minEntry == null || entry.getKey().isBefore(minEntry.getKey())) {
                 minEntry = entry;
             }
         }
@@ -82,8 +91,10 @@ public class Store {
 
     public Map<String, Integer> getFirstMonthForProducts() {
         Map<String, Integer> productFirstMonth = new HashMap<>();
-        findFirstBox().forEach((key, value) -> productFirstMonth.put(key,
-                findMinDate(value.getDataCountStatistic()).getKey().get(Calendar.MONTH) + 1));
+        for (String key : findFirstBox().keySet()) {
+            Box box = findFirstBox().get(key);
+            productFirstMonth.put(key, findMinDate(box.getStock().getDataCountStatistic()).getKey().getMonthValue());
+        }
         return productFirstMonth;
     }
 

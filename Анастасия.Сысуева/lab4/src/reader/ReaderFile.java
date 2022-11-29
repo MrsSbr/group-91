@@ -3,12 +3,9 @@ package reader;
 import models.Box;
 
 import java.io.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -16,6 +13,7 @@ import java.util.logging.Level;
 
 public class ReaderFile {
     private static final String path = "Анастасия.Сысуева/lab4/src/Info/BeattyBox.txt";
+    private static final String loggerPath = "Анастасия.Сысуева/lab4/logs/logs.txt";
     private static final Logger logger = Logger.getLogger(ReaderFile.class.getName());
 
     private static String[] splitLine(String line) {
@@ -26,17 +24,15 @@ public class ReaderFile {
         return line.split(",");
     }
 
-    public static Map<Integer, Box> readFile() throws IOException {
-        FileHandler fh = new FileHandler("Анастасия.Сысуева/lab4/logs/logs.txt");
-        logger.addHandler(fh);
-
+    public static Map<Integer, Box> readFile() {
         Map<Integer, Box> beautyBoxes = new HashMap<>();
         File file = new File(path);
-        AtomicBoolean flag = new AtomicBoolean(false);
+        boolean flag;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-
-            AtomicReference<Box> boxNew = new AtomicReference<>(new Box());
+            FileHandler fh = new FileHandler(loggerPath);
+            logger.addHandler(fh);
+            Box boxNew;
             String line = reader.readLine();
             int count = 0;
 
@@ -51,63 +47,32 @@ public class ReaderFile {
                     for (String productLinePart : productLineParts) {
                         box.addProduct(productLinePart);
                     }
-                    DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-                    Date date = new Date();
-
-                    try {
-                        date = formatter.parse(lineParts[0]);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-                    Calendar c = Calendar.getInstance();
-                    c.setTime(date);
-
-                    box.addDataCountStatistics(c, Integer.parseInt(lineParts[1]));
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                    box.getStock().addDataCountStatistics(LocalDate.parse(lineParts[0], formatter), Integer.parseInt(lineParts[1]));
                     beautyBoxes.put(finalCount, box);
                     count++;
 
                 } else {
-                    flag.set(false);
-                    beautyBoxes.forEach((key, value) -> {
-                        if (Arrays.equals((value.getProductList().toArray(new String[0])), productLineParts) && !flag.get()) {
-                            DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-                            Date date = new Date();
-                            try {
-                                date = formatter.parse(lineParts[0]);
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-
-                            Calendar c = Calendar.getInstance();
-                            c.setTime(date);
-
-                            value.addDataCountStatistics(c, Integer.parseInt(lineParts[1]));
-                            flag.set(true);
+                    flag = false;
+                    for (Box value : beautyBoxes.values()) {
+                        if (value.compareProduct(productLineParts) && !flag) {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                            value.getStock().addDataCountStatistics(LocalDate.parse(lineParts[0], formatter), Integer.parseInt(lineParts[1]));
+                            flag = true;
                         }
-                    });
+                    }
 
 
-                    if (!flag.get()) {
+                    if (!flag) {
                         Box box = new Box();
                         for (String productLinePart : productLineParts) {
                             box.addProduct(productLinePart);
                         }
-                        DateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-                        Date date = new Date();
-                        try {
-                            date = formatter.parse(lineParts[0]);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        Calendar c = Calendar.getInstance();
-                        c.setTime(date);
-
-                        box.addDataCountStatistics(c, Integer.parseInt(lineParts[1]));
-                        boxNew.set(box);
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                        box.getStock().addDataCountStatistics(LocalDate.parse(lineParts[0], formatter), Integer.parseInt(lineParts[1]));
+                        boxNew = box;
                         count++;
-                        beautyBoxes.put(finalCount, boxNew.get());
+                        beautyBoxes.put(finalCount, boxNew);
                     }
 
                 }

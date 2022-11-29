@@ -4,22 +4,23 @@ import java.util.*;
 
 public class Box {
     private final List<String> productList = new ArrayList<>();
-    private final Map<Calendar, Integer> dataCountStatistic = new HashMap<>();
+
+    private final Stock stock = new Stock();
 
     public void addProduct(String product) {
         productList.add(product);
-    }
-
-    public void addDataCountStatistics(Calendar calendar, Integer count) {
-        dataCountStatistic.put(calendar, count);
     }
 
     public List<String> getProductList() {
         return productList;
     }
 
-    public Map<Calendar, Integer> getDataCountStatistic() {
-        return dataCountStatistic;
+    public Stock getStock() {
+        return stock;
+    }
+
+    public boolean compareProduct(String[] products) {
+        return Arrays.equals((getProductList().toArray(new String[0])), products);
     }
 
     @Override
