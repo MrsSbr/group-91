@@ -1,5 +1,7 @@
-import models.Store;
-import models.Box;
+package src;
+
+import src.models.Store;
+import src.models.Box;
 import reader.ReaderFile;
 
 import java.io.IOException;

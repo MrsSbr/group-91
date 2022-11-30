@@ -1,14 +1,18 @@
 package reader;
 
-import models.Box;
+import src.models.Box;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.logging.Logger;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class ReaderFile {
@@ -76,7 +80,7 @@ public class ReaderFile {
                 }
                 line = reader.readLine();
             }
-        } catch (IOException e) {
+        } catch (IOException | NumberFormatException e) {
             logger.log(Level.SEVERE, "Ошибка работы с файлом ", e);
         }
 

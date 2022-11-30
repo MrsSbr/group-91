@@ -1,4 +1,6 @@
-package models;
+package src.models;
+
+import models.Stock;
 
 import java.util.*;
 
