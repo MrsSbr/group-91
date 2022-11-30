@@ -59,7 +59,7 @@ public class Menu {
 
         Scanner sc = new Scanner(System.in);
         int choice = sc.nextInt();
-        int userNum;
+        int userNum = 0;
 
         switch (choice) {
             case 1:
@@ -69,21 +69,33 @@ public class Menu {
                 System.out.println("Количество прослушиваний выбранного трека: " + amount);
                 break;
             case 2:
-                System.out.println("Введите номер пользователя: ");
-                userNum = sc.nextInt(); //написать проверку
-                List<String> playlistAllSong = usersBase.getUser(userNum).getAllSongPlaylist();
+                System.out.println("Введите номер пользователя от 1 до " + UsersBase.NUM_OF_USERS + ": ");
+                userNum = sc.nextInt();
+                while (userNum < 1 || userNum > 500) {
+                    System.out.println("Ошибка ввода! Введите номер пользователя от 1 до " + UsersBase.NUM_OF_USERS + ": ");
+                    userNum = sc.nextInt();
+                }
+                List<String> playlistAllSong = usersBase.getUser(userNum - 1).getAllSongPlaylist();
                 Printer.printPlaylist(playlistAllSong);
                 break;
             case 3:
                 System.out.println("Введите номер пользователя: ");
-                userNum = sc.nextInt(); //написать проверку
-                List<String> playlistNotListening = usersBase.getUser(userNum).getSongPlaylistNotListeningInThreeMonths();
+                userNum = sc.nextInt();
+                while (userNum < 1 || userNum > 500) {
+                    System.out.println("Ошибка ввода! Введите номер пользователя от 1 до " + UsersBase.NUM_OF_USERS + ": ");
+                    userNum = sc.nextInt();
+                }
+                List<String> playlistNotListening = usersBase.getUser(userNum - 1).getSongPlaylistNotListeningInThreeMonths();
                 Printer.printPlaylist(playlistNotListening);
                 break;
             case 4:
                 System.out.println("Введите номер пользователя: ");
-                userNum = sc.nextInt(); //написать проверку
-                List<String> favoriteSongs = usersBase.getUser(userNum).getFavoriteSongs();
+                userNum = sc.nextInt();
+                while (userNum < 1 || userNum > 500) {
+                    System.out.println("Ошибка ввода! Введите номер пользователя от 1 до " + UsersBase.NUM_OF_USERS + ": ");
+                    userNum = sc.nextInt();
+                }
+                List<String> favoriteSongs = usersBase.getUser(userNum - 1).getFavoriteSongs();
                 Printer.printPlaylist(favoriteSongs);
                 break;
             case 5:
