@@ -17,10 +17,9 @@ public class FighterJet extends Plane implements AttackCity {
     @Override
     public void nameAttackCity(String cityName) {
         showInfo();
-        if (isTakeOff){
+        if (isTakeOff) {
             System.out.println("Вылета не было");
-        }
-        else {
+        } else {
             System.out.printf("Город %s был успешно атакован\n", cityName);
             isTakeOff = true;
         }
@@ -30,9 +29,9 @@ public class FighterJet extends Plane implements AttackCity {
     public String toString() {
         return String.format(
                 "Истребитель %s\n" +
-                "Процент скрытности %f\n" +
-                "Скорость %f\n" +
-                isTakeOffToString(),
+                        "Процент скрытности %f\n" +
+                        "Скорость %f\n" +
+                        isTakeOffToString(),
                 name,
                 obscurity,
                 movementSpeed
@@ -40,7 +39,7 @@ public class FighterJet extends Plane implements AttackCity {
     }
 
     @Override
-    public boolean equals(Object obj){
+    public boolean equals(Object obj) {
         if (!(obj instanceof FighterJet)) {
             return false;
         } else {

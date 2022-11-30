@@ -6,9 +6,9 @@ public class Helicopter extends MilitaryAviation {
     // Время задержки в воздухе
     private final float flightTime;
 
-    public Helicopter(String name, float flightTime){
+    public Helicopter(String name, float flightTime) {
         super(name);
-        this.flightTime=flightTime;
+        this.flightTime = flightTime;
     }
 
     @Override
@@ -28,11 +28,10 @@ public class Helicopter extends MilitaryAviation {
     }
 
     @Override
-    public boolean equals(Object obj){
-        if (!(obj instanceof Helicopter)) {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Helicopter objHelicopter)) {
             return false;
         } else {
-            Helicopter objHelicopter = (Helicopter) obj;
             return this.name.equalsIgnoreCase(objHelicopter.name)
                     && this.flightTime == objHelicopter.flightTime;
         }
