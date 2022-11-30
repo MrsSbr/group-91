@@ -45,7 +45,8 @@ public class TasksFormatter {
             result = "По будням нет посетителей";
 
         } else {
-            StringBuilder resultBuilder = new StringBuilder("Самые загруженные часы по будням: ").append(busiestHours.get(0).toString());
+            StringBuilder resultBuilder = new StringBuilder("Самые загруженные часы по будням: ")
+                    .append(busiestHours.get(0).toString());
 
             for (int i = 1; i < busiestHours.size(); i++) {
                 resultBuilder.append(", ").append(busiestHours.get(i).toString());
@@ -68,7 +69,8 @@ public class TasksFormatter {
             result = "С 7 до 12 утра нет заказов";
 
         } else {
-            StringBuilder resultBuilder = new StringBuilder("Напитки, которые чаще всего заказывают с 7 до 12 утра: ").append(mostPopularDrinks.get(0));
+            StringBuilder resultBuilder = new StringBuilder("Напитки, которые чаще всего заказывают с 7 до 12 утра: ")
+                    .append(mostPopularDrinks.get(0));
 
             for (int i = 1; i < mostPopularDrinks.size(); i++) {
                 resultBuilder.append(", ").append(mostPopularDrinks.get(i));

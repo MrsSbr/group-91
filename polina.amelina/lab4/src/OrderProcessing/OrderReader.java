@@ -74,7 +74,7 @@ public class OrderReader {
                     scanner.nextLine();
                 }
             }
-        } catch (Exception e) {
+        } catch (OrderReadingException|FileNotFoundException e) {
             logger.throwing(getClass().getName(), MethodNameGetter.getMethodName(), e);
             throw e;
         }
