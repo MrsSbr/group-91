@@ -26,9 +26,10 @@ public class Solute implements InterfaceMedicine {
 
     public boolean drink(float dv)
     {
-        if(dv>volume)
-            return false;
-        volume-=dv;
+    if(dv>volume) {
+        return false;
+    }
+        volume -= dv;
         return true;
     }
 
@@ -47,7 +48,7 @@ public class Solute implements InterfaceMedicine {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name)+((int)(volume+price));
     }
 
     @Override
@@ -55,9 +56,9 @@ public class Solute implements InterfaceMedicine {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Pilule pilule)) {
+        if (!(obj instanceof Solute pilule)) {
             return false;
         }
-        return name.equals(pilule.name);
+        return name.equals(pilule.name)&&pilule.getPrice()==price&& volume==pilule.getVolume();
     }
 }

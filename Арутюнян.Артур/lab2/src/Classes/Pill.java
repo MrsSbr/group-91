@@ -49,7 +49,7 @@ public abstract class Pill implements InterfaceMedicine{
         if (!(obj instanceof Pill pill)) {
             return false;
         }
-        return name.equals(pill.name);
+        return name.equals(pill.name)&&price == pill.price&&countPerKilo==pill.countPerKilo;
     }
 
     @Override

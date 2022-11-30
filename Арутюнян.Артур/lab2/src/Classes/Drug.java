@@ -25,6 +25,11 @@ public class Drug extends Pill {
     }
 
     @Override
+    public int hashCode() {
+        return super.hashCode()+ activeSubstance;
+    }
+
+    @Override
     public int getRecipe(float weight) {
         return (int)weight/activeSubstance;
     }

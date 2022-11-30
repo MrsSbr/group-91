@@ -32,6 +32,11 @@ public class Pilule extends Pill {
     }
 
     @Override
+    public int hashCode() {
+        return super.hashCode()+requiredFluid.hashCode();
+    }
+
+    @Override
     public String toString() {
         return super.toString() + "need: "+getRequiredFluid()+'\n';
     }
