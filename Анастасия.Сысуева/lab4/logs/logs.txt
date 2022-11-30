@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2022-11-29T20:11:26.665180500Z</date>
-  <millis>1669752686665</millis>
-  <nanos>180500</nanos>
+  <date>2022-11-30T05:36:56.513524700Z</date>
+  <millis>1669786616513</millis>
+  <nanos>524700</nanos>
   <sequence>0</sequence>
   <logger>Main</logger>
   <level>INFO</level>
@@ -12,5 +12,17 @@
   <method>main</method>
   <thread>1</thread>
   <message>Начало работы</message>
+</record>
+<record>
+  <date>2022-11-30T05:37:07.614597200Z</date>
+  <millis>1669786627614</millis>
+  <nanos>597200</nanos>
+  <sequence>1</sequence>
+  <logger>Main</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Завершение работы</message>
 </record>
 </log>

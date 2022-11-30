@@ -32,7 +32,6 @@ public class ReaderFile {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             FileHandler fh = new FileHandler(loggerPath);
             logger.addHandler(fh);
-            Box boxNew;
             String line = reader.readLine();
             int count = 0;
 
@@ -70,9 +69,8 @@ public class ReaderFile {
                         }
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
                         box.getStock().addDataCountStatistics(LocalDate.parse(lineParts[0], formatter), Integer.parseInt(lineParts[1]));
-                        boxNew = box;
                         count++;
-                        beautyBoxes.put(finalCount, boxNew);
+                        beautyBoxes.put(finalCount, box);
                     }
 
                 }
