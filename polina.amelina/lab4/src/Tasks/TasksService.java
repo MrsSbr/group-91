@@ -36,7 +36,7 @@ public class TasksService {
         }
 
         logger.info("Got sum of prep time by drink: " + sumPrepTime);
-        logger.info("Got count of drinks: " + countPrepTime);
+        logger.info("Got count of orders by drink: " + countPrepTime);
 
         Map<String, Double> avgPrepTimeInSeconds = new HashMap<>();
         for (String name : sumPrepTime.keySet()) {
@@ -84,7 +84,7 @@ public class TasksService {
             customersByHours.put(order.date().getHour(), customersByHours.getOrDefault(order.date().getHour(), (long) 0) + 1);
         }
 
-        logger.info("Got customers by workday hours: " + customersByHours);
+        logger.info("Got amount of customers by workday hours: " + customersByHours);
 
         long maxCustomers = 0;
         for (long customers : customersByHours.values()) {
@@ -144,6 +144,7 @@ public class TasksService {
                 maxPopularity = popularity;
             }
         }
+
         logger.info("Got max morning popularity: " + maxPopularity);
 
         List<String> mostPopularDrinks = new ArrayList<>();
@@ -152,6 +153,7 @@ public class TasksService {
                 mostPopularDrinks.add(drink);
             }
         }
+
         logger.info("Got most popular drinks in the morning: " + mostPopularDrinks);
 
         logger.exiting(getClass().getName(), MethodNameGetter.getMethodName(), mostPopularDrinks);
@@ -196,6 +198,7 @@ public class TasksService {
         for (String name : drinksByCost.keySet()) {
             costTimeRatioOfSums.put(name, drinksByCost.get(name) / drinksByPrepTime.get(name));
         }
+
         logger.info("Got cost time ratio of sums: " + costTimeRatioOfSums);
 
         String optimalDrink = orders.get(0).name();
