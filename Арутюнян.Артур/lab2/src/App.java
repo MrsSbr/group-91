@@ -13,6 +13,11 @@ public class App {
         for(var iMed: list)
         {
             System.out.println(iMed.toString());
+            if (iMed instanceof Solute) {
+                Solute solute = (Solute) iMed;
+                solute.drink(1);
+                System.out.println(solute.toString());
+            }
         }
 
         var pil1 = new Pilule("Pilule", 10, 1, FluidType.alcohol);
