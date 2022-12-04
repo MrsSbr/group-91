@@ -122,6 +122,7 @@ public class PlantStorage {
         if (plants.isEmpty()) {
             return "Нет растений :(";
         }
+
         Map<String, Double> eachPlantAllIncome = new HashMap<>();
         for (var plant : plants) {
             String name = plant.getPlantName();
