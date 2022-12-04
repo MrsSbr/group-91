@@ -83,7 +83,8 @@ public class PlantStorage {
         for (var plant : yearSoldPlants) {
             String month = plant.getDate().getMonth().toString();
             Integer floweringPlantAmount = monthsSoldFloweringPlants.get(month);
-            monthsSoldFloweringPlants.put(month, (plant.getTypeName() == PlantType.FLOWERING ? 1 : 0) + (floweringPlantAmount != null ? floweringPlantAmount : 0));
+            monthsSoldFloweringPlants.put(month,
+                    (plant.getTypeName() == PlantType.FLOWERING ? 1 : 0) + (floweringPlantAmount != null ? floweringPlantAmount : 0));
         }
 
         return getMaxValueString(monthsSoldFloweringPlants);
@@ -128,8 +129,8 @@ public class PlantStorage {
         }
 
         String plantWithMinIncome = "";
-        Double minIncome = eachPlantAllIncome.entrySet().iterator().next().getValue();
 
+        Double minIncome = eachPlantAllIncome.get(plants.get(0).getPlantName());
         for (var plant : eachPlantAllIncome.keySet()) {
             if (eachPlantAllIncome.get(plant) < minIncome) {
                 minIncome = eachPlantAllIncome.get(plant);
