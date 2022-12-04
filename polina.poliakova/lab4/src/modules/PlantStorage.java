@@ -110,6 +110,7 @@ public class PlantStorage {
 
     public String mapStringBuilder(Map<String, Set<Double>> map) {
         StringBuilder result = new StringBuilder();
+
         for (var i : map.keySet()) {
             result.append(i).append(" ").append(map.get(i).toString()).append("\n");
         }
