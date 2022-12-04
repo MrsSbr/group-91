@@ -51,11 +51,11 @@ public class PlantStorage {
                 .append("\n");
     }
 
-    // - месяц, в котором было продано больше всего цветущих растений
-    private String getMaxValueString(Map<String, Integer> statictics) {
+
+    private String getMaxValueString(Map<String, Integer> statistics) {
         Integer maxAmount = -1;
 
-        for (var entry : statictics.entrySet()) {
+        for (var entry : statistics.entrySet()) {
             if (entry.getValue() > maxAmount) {
                 maxAmount = entry.getValue();
             }
@@ -63,7 +63,7 @@ public class PlantStorage {
 
         StringBuilder maxAmountEntriesStringBuilder = new StringBuilder();
 
-        for (var entry : statictics.entrySet()) {
+        for (var entry : statistics.entrySet()) {
             if (entry.getValue().equals(maxAmount)) {
                 putMapEntryOnStringBuilder(maxAmountEntriesStringBuilder, entry);
             }
@@ -73,7 +73,7 @@ public class PlantStorage {
     }
 
     // - месяц, в котором было продано больше всего цветущих растений
-    public String getMonthsForYearWhenMostFloweringPlantsSold() {
+    public String getMonthsForCurrentYearWhenMostFloweringPlantsSold() {
         if (plants.isEmpty()) {
             return "Нет растений :(";
         }
@@ -107,10 +107,8 @@ public class PlantStorage {
         return mapStringBuilder(plantsWithSizePots);
     }
 
-    //заменить в append!!!
     public String mapStringBuilder(Map<String, Set<Double>> map) {
         StringBuilder result = new StringBuilder();
-        //так лучше, чем += ?
         for (var i : map.keySet()) {
             result.append(i).append(" ").append(map.get(i).toString()).append("\n");
         }
@@ -129,7 +127,6 @@ public class PlantStorage {
             eachPlantAllIncome.put(name, eachPlantAllIncome.get(name) == null ? 0 : eachPlantAllIncome.get(name) + plant.getPrice());
         }
 
-        //Map.Entry<String, Double> plantWithMinIncome = eachPlantAllIncome.entrySet().iterator().next();
         String plantWithMinIncome = "";
         Double minIncome = eachPlantAllIncome.entrySet().iterator().next().getValue();
 

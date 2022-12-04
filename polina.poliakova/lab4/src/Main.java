@@ -28,7 +28,7 @@ public class Main {
                 switch (selectedMenuItem) {
                     case 1 -> System.out.println(plantStorage.getLessProfitablePlant());
                     case 2 -> System.out.println(plantStorage.getAllSizesPotsForEveryPlant());
-                    case 3 -> System.out.println(plantStorage.getMonthsForYearWhenMostFloweringPlantsSold());
+                    case 3 -> System.out.println(plantStorage.getMonthsForCurrentYearWhenMostFloweringPlantsSold());
                 }
                 waitUser();
             } while (selectedMenuItem != END_MENU_ITEM);
