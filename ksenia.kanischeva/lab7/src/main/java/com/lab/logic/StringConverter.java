@@ -18,4 +18,9 @@ public class StringConverter {
     public static String convertToKebabCase(String str) {
         return "kebab-case";
     }
+
+    @StringCommand("")
+    public static String incorrectMethod(String str) {
+        return "";
+    }
 }

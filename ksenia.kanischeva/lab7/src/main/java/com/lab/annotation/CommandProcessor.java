@@ -20,16 +20,16 @@ public class CommandProcessor extends AbstractProcessor {
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         for (TypeElement annotation : annotations) {
             Set<? extends Element> annotatedElements = roundEnv.getElementsAnnotatedWith(annotation);
-            List<Element> otherMethods = annotatedElements.stream()
+            List<Element> incorrectMethods = annotatedElements.stream()
                     .filter(element ->
                             ((ExecutableType) element.asType()).getParameterTypes().size() != 1
-                            || !((ExecutableType) element.asType()).getReturnType().toString().equals("String")
-                            || !element.getSimpleName().toString().toLowerCase().contains("convert"))
+                                    || !((ExecutableType) element.asType()).getReturnType().toString().equals("String")
+                                    || !element.getSimpleName().toString().toLowerCase().contains("convert"))
                     .collect(Collectors.toList());
 
-            otherMethods.forEach(element ->
+            incorrectMethods.forEach(element ->
                     processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
-                            "Method" + element.getSimpleName().toString()+ "is annotated as @StringCommand, " +
+                            "Method" + element.getSimpleName().toString() + " is annotated as @StringCommand, " +
                                     "but declaration is incorrect"));
         }
 

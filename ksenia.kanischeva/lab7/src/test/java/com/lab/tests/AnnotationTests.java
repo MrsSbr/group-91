@@ -14,7 +14,7 @@ public class AnnotationTests {
     public static final Class<?> classType = StringConverter.class;
 
     @Test
-    public void getCamelCaseMethod(){
+    public void getCamelCaseMethod() {
         // given
         String expectedMethodName = CAMEL_METHOD_NAME;
 
@@ -53,7 +53,7 @@ public class AnnotationTests {
     }
 
     @Test
-    public void getSomethingCaseMethod(){
+    public void getSomethingCaseMethod() {
         // given
         String expectedMethodName = NOT_FOUND;
 
