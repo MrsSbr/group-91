@@ -34,11 +34,12 @@ public class Tribes {
     }
 
     public String getAverageHuntResultForHunters() {
-        HashMap<String, AllHuntResult> huntersResult = new HashMap<>();
-
         if (tribes.isEmpty()) {
+            logger.log(Level.INFO, "Tribes is Null");
             return null;
         }
+
+        HashMap<String, AllHuntResult> huntersResult = new HashMap<>();
 
         for (var tribe : tribes) {
             AllHuntResult huntResult = huntersResult.get(tribe.getHunterName());
@@ -60,11 +61,12 @@ public class Tribes {
     }
 
     public String getBestMammothKiller() {
-        HashMap<String, Integer> huntersResult = new HashMap<>();
-
         if (tribes.isEmpty()) {
+            logger.log(Level.INFO, "Tribes is Null");
             return null;
         }
+
+        HashMap<String, Integer> huntersResult = new HashMap<>();
 
         for (var tribe : tribes) {
             Integer mammoth = huntersResult.get(tribe.getHunterName());
@@ -85,6 +87,11 @@ public class Tribes {
     }
 
     public String getMostKillerMonth() {
+        if (tribes.isEmpty()) {
+            logger.log(Level.INFO, "Tribes is Null");
+            return null;
+        }
+
         HashMap<String, Integer> monthKillerStat = new HashMap<>();
 
         for (var tribe : tribes) {
