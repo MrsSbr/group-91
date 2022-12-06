@@ -1,57 +1,73 @@
 package simulation;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
+import methodNameGetter.MethodNameGetter;
+
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
-public final class Election extends Testable {
-
-    private final Collection<Integer> rawVotes;
-    private final int candidateCount;
+public final class Election {
+    private final static Logger logger = Logger.getGlobal();
+    private final List<Integer> rawVotes;
     private final int minVoterPercent;
 
-    public Election(Collection<Integer> rawVotes, int candidateCount, int minVoterPercent) {
+    public Election(List<Integer> rawVotes, int minVoterPercent) {
         this.rawVotes = rawVotes;
-        this.candidateCount = candidateCount;
         this.minVoterPercent = minVoterPercent;
-        allowedCollections = new IntegerCollectionSupplier[]{ArrayList::new, LinkedList::new};
     }
 
-    public int countVotes(IntegerCollectionSupplier collectionSupplier) {
+    public int elect() {
 
-        List<Integer> countedVotes = (List<Integer>) collectionSupplier.get();
+        logger.entering(getClass().getName(), MethodNameGetter.getMethodName());
 
-        for (int i = 0; i < candidateCount; i++) {
-            countedVotes.add(0);
+        if (rawVotes.isEmpty()) {
+            logger.exiting(getClass().getName(), MethodNameGetter.getMethodName(), 0);
+            return -1;
         }
 
-        for (int candidate : rawVotes) {
-            countedVotes.set(candidate - 1, countedVotes.get(candidate - 1) + 1);
+        Map<Integer, Long> countedVotes = rawVotes
+                .stream()
+                .collect(Collectors.groupingBy(
+                        x -> x,
+                        Collectors.counting()
+                ));
+        logger.info("Counted up votes: " + countedVotes);
+
+        long maxVotes = countedVotes
+                .values()
+                .stream()
+                .max(Long::compare)
+                .orElseThrow();
+        logger.info("Got max votes: " + maxVotes);
+
+        double threshold = rawVotes.size() / 100.0 * minVoterPercent;
+        logger.info("Threshold: " + threshold);
+
+        if (maxVotes < threshold) {
+            logger.exiting(getClass().getName(), MethodNameGetter.getMethodName(), 0);
+            return -2;
         }
 
-        boolean isTie = false;
-        int candidateWithMaxVotes = 0;
+        List<Integer> candidates = countedVotes
+                .entrySet()
+                .stream()
+                .filter(x -> x.getValue().equals(maxVotes))
+                .map(Map.Entry::getKey)
+                .toList();
+        logger.info("Got candidates with max votes: " + candidates);
 
-        for (int i = 1; i < candidateCount; i++) {
-
-            int maxVotes = countedVotes.get(candidateWithMaxVotes);
-            int currentVotes = countedVotes.get(i);
-
-            if (maxVotes == currentVotes) {
-                isTie = true;
-            } else if (maxVotes < currentVotes) {
-                isTie = false;
-                candidateWithMaxVotes = i;
-            }
+        if (candidates.size() > 1) {
+            logger.exiting(getClass().getName(), MethodNameGetter.getMethodName(), 0);
+            return -3;
         }
 
-        boolean doesCandidateQualify = !isTie && countedVotes.get(candidateWithMaxVotes) >= rawVotes.size() / 100.0 * minVoterPercent;
-        return doesCandidateQualify ? candidateWithMaxVotes + 1 : 0;
-    }
+        Integer candidate = candidates
+                .stream()
+                .findFirst()
+                .orElseThrow();
 
-    @Override
-    public void test(IntegerCollectionSupplier collectionSupplier) {
-        countVotes(collectionSupplier);
+        logger.exiting(getClass().getName(), MethodNameGetter.getMethodName(), candidate);
+        return candidate;
     }
 }

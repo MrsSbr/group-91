@@ -1,12 +1,14 @@
-import performanceTest.PerformanceTest;
 import simulation.Election;
 import simulation.VotesGenerator;
 
 import java.io.IOException;
-import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 public final class Main {
+    private final static Logger logger = Logger.getGlobal();
     private static final int CANDIDATE_COUNT = 12;
     private static final int MIN_VOTER_PERCENT = 10;
     private static final int VOTER_COUNT = 300;
@@ -17,11 +19,13 @@ public final class Main {
 
         try {
             votesGenerator.generateToInputStream();
+
         } catch (IOException e) {
+            logger.severe("ошибка при записи случайных чисел в поток ввода");
             return;
         }
 
-        Collection<Integer> rawVotes = PerformanceTest.chooseCollection(votesGenerator).get();
+        List<Integer> rawVotes = new LinkedList<>();
 
         try (Scanner scanner = new Scanner(System.in)) {
             while (scanner.hasNextInt()) {
@@ -29,13 +33,17 @@ public final class Main {
             }
         }
 
-        System.out.printf("--------%nГолоса:%n%s%n", rawVotes);
+        Election election = new Election(rawVotes, MIN_VOTER_PERCENT);
+        int candidate = election.elect();
 
-        Election election = new Election(rawVotes, CANDIDATE_COUNT, MIN_VOTER_PERCENT);
-        int candidate = election.countVotes(PerformanceTest.chooseCollection(election));
+        String result;
+        switch (candidate) {
+            case -1 -> result = "Представитель не выбран: нет ни одного голоса";
+            case -2 -> result = "Представитель не выбран: не был пройден порог по голосам";
+            case -3 -> result = "Представитель не выбран: больше одного кандидата набрали максимальное число голосов";
+            default -> result = "Выбрали представителя " + candidate;
+        }
 
-        System.out.printf(candidate == 0 ?
-                          "--------%nНе удалось выбрать представителя%n--------%n" :
-                          "--------%nВыбрали представителя %s%n--------%n", candidate);
+        System.out.printf(result);
     }
 }
