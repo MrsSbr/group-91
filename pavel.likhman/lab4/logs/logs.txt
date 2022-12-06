@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-12-06T05:16:23.967165700Z</date>
+  <millis>1670303783967</millis>
+  <nanos>165700</nanos>
+  <sequence>0</sequence>
+  <logger>reader.MyFileReader</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Начало работы</message>
+</record>
+<record>
+  <date>2022-12-06T05:16:24.024975200Z</date>
+  <millis>1670303784024</millis>
+  <nanos>975200</nanos>
+  <sequence>1</sequence>
+  <logger>reader.MyFileReader</logger>
+  <level>INFO</level>
+  <class>reader.MyFileReader</class>
+  <method>getSportsmanInfoListFromFile</method>
+  <thread>1</thread>
+  <message>Информация из файла успешно считана</message>
+</record>
+<record>
+  <date>2022-12-06T05:16:24.025475300Z</date>
+  <millis>1670303784025</millis>
+  <nanos>475300</nanos>
+  <sequence>2</sequence>
+  <logger>reader.MyFileReader</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Информация из файла успешно передана и конвертирована</message>
+</record>
+<record>
+  <date>2022-12-06T05:16:24.030231600Z</date>
+  <millis>1670303784030</millis>
+  <nanos>231600</nanos>
+  <sequence>3</sequence>
+  <logger>reader.MyFileReader</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Необходимая информация успешно выведена</message>
+</record>
+<record>
+  <date>2022-12-06T05:16:24.031492400Z</date>
+  <millis>1670303784031</millis>
+  <nanos>492400</nanos>
+  <sequence>4</sequence>
+  <logger>reader.MyFileReader</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Завершение работы</message>
+</record>
+</log>
