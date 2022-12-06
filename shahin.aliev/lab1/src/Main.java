@@ -1,9 +1,10 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static int lastRemaining(int n) {
-        ArrayList<Integer> arr = new ArrayList<>();
+        List<Integer> arr = new ArrayList<>();
         for (int i = 1; i <= n; i++) {
             arr.add(i);
         }
@@ -15,6 +16,7 @@ public class Main {
                 i++;
                 arr.remove(i);
             }
+
             if (arr.size() != 1) {
                 i = arr.size() - 1;
                 arr.remove(i);
@@ -31,7 +33,6 @@ public class Main {
         System.out.println("Введите целое число:");
         Scanner scanner = new Scanner(System.in);
         int num = Integer.parseInt(scanner.next());
-        System.out.println(lastRemaining(num));
+        System.out.println("Ответ: " + lastRemaining(num));
     }
-
 }
