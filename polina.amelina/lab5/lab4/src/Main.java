@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class Main {
     private static final Logger logger = Logger.getGlobal();
-    private static final String FILE_PATH = "polina.amelina/lab4/orders.txt";
+    private static final String FILE_PATH = "polina.amelina/lab5/lab4/orders.txt";
 
     public static void main(String[] args) {
 
