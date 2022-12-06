@@ -2,10 +2,10 @@ import simulation.Election;
 import simulation.VotesGenerator;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
+import java.util.stream.IntStream;
 
 public final class Main {
     private final static Logger logger = Logger.getGlobal();
@@ -19,31 +19,37 @@ public final class Main {
 
         try {
             votesGenerator.generateToInputStream();
-
         } catch (IOException e) {
-            logger.severe("ошибка при записи случайных чисел в поток ввода");
+            logger.severe(e.toString());
             return;
         }
 
-        List<Integer> rawVotes = new LinkedList<>();
+        List<Integer> rawVotes;
 
         try (Scanner scanner = new Scanner(System.in)) {
-            while (scanner.hasNextInt()) {
-                rawVotes.add(scanner.nextInt());
-            }
+            rawVotes = IntStream
+                    .generate(scanner::nextInt)
+                    .limit(VOTER_COUNT)
+                    .boxed()
+                    .toList();
         }
 
-        Election election = new Election(rawVotes, MIN_VOTER_PERCENT);
+        Election election = new Election(rawVotes, CANDIDATE_COUNT, MIN_VOTER_PERCENT);
+
+        if (election.checkVotes()) {
+            System.out.println("Представитель не выбран: найдены недопустимые голоса");
+            return;
+        }
+
         int candidate = election.elect();
 
         String result;
         switch (candidate) {
-            case -1 -> result = "Представитель не выбран: нет ни одного голоса";
-            case -2 -> result = "Представитель не выбран: не был пройден порог по голосам";
-            case -3 -> result = "Представитель не выбран: больше одного кандидата набрали максимальное число голосов";
+            case -1 -> result = "Представитель не выбран: не был пройден порог по голосам";
+            case -2 -> result = "Представитель не выбран: больше одного кандидата набрали максимальное число голосов";
             default -> result = "Выбрали представителя " + candidate;
         }
 
-        System.out.printf(result);
+        System.out.println(result);
     }
 }

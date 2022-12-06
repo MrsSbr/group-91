@@ -10,21 +10,31 @@ import java.util.stream.Collectors;
 public final class Election {
     private final static Logger logger = Logger.getGlobal();
     private final List<Integer> rawVotes;
+    private final int candidateCount;
     private final int minVoterPercent;
 
-    public Election(List<Integer> rawVotes, int minVoterPercent) {
+    public Election(List<Integer> rawVotes, int candidateCount, int minVoterPercent) {
         this.rawVotes = rawVotes;
+        this.candidateCount = candidateCount;
         this.minVoterPercent = minVoterPercent;
+    }
+
+    public boolean checkVotes() {
+
+        logger.entering(getClass().getName(), MethodNameGetter.getMethodName());
+
+        boolean badVotes = rawVotes
+                .stream()
+                .anyMatch(x -> x < 1 || x > candidateCount);
+        logger.info(badVotes ? "Bad votes found" : "No bad votes");
+
+        logger.exiting(getClass().getName(), MethodNameGetter.getMethodName(), badVotes);
+        return badVotes;
     }
 
     public int elect() {
 
         logger.entering(getClass().getName(), MethodNameGetter.getMethodName());
-
-        if (rawVotes.isEmpty()) {
-            logger.exiting(getClass().getName(), MethodNameGetter.getMethodName(), 0);
-            return -1;
-        }
 
         Map<Integer, Long> countedVotes = rawVotes
                 .stream()
@@ -46,7 +56,7 @@ public final class Election {
 
         if (maxVotes < threshold) {
             logger.exiting(getClass().getName(), MethodNameGetter.getMethodName(), 0);
-            return -2;
+            return -1;
         }
 
         List<Integer> candidates = countedVotes
@@ -59,7 +69,7 @@ public final class Election {
 
         if (candidates.size() > 1) {
             logger.exiting(getClass().getName(), MethodNameGetter.getMethodName(), 0);
-            return -3;
+            return -2;
         }
 
         Integer candidate = candidates
