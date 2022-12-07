@@ -12,9 +12,9 @@ public class Information {
             "GLACE", "ICE_COFFEE", "IRISH_COFFEE", "LATTE", "LONG_BLACK", "MACCHIATO", "MOCHA", "RAF", "VENICE_COFFEE"};
 
 
-    String nameOfTheDrink;
-    LocalDate dateOfPreparationOfTheDrink;
-    LocalTime timeOfPreparationOfTheDrink;
+    private String nameOfTheDrink;
+    private LocalDate dateOfPreparationOfTheDrink;
+    private LocalTime timeOfPreparationOfTheDrink;
 
     public Information() {
         nameOfTheDrink = "";
@@ -22,7 +22,19 @@ public class Information {
         timeOfPreparationOfTheDrink = LocalTime.of(0, 0);
     }
 
-    public int randBetween(int min, int max) {
+    public String getNameOfTheDrink() {
+        return nameOfTheDrink;
+    }
+
+    public LocalDate getDateOfPreparationOfTheDrink() {
+        return dateOfPreparationOfTheDrink;
+    }
+
+    public LocalTime getTimeOfPreparationOfTheDrink() {
+        return timeOfPreparationOfTheDrink;
+    }
+
+    private int randBetween(int min, int max) {
 
         return (int) (Math.random() * (max - min) + 1) + min;
     }

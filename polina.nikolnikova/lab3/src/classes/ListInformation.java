@@ -3,7 +3,6 @@ package classes;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,11 +34,11 @@ public class ListInformation {
 
         for (int i = 0; i < SIZE; i++) {
 
-            LocalTime time = informationLists.get(i).timeOfPreparationOfTheDrink;
+            LocalTime time = informationLists.get(i).getTimeOfPreparationOfTheDrink();
 
             if (time.isAfter(secondTime) && firstTime.isBefore(time) &&
-                    !answerList.contains(informationLists.get(i).nameOfTheDrink)) {
-                answerList.add(informationLists.get(i).nameOfTheDrink);
+                    !answerList.contains(informationLists.get(i).getNameOfTheDrink())) {
+                answerList.add(informationLists.get(i).getNameOfTheDrink());
             }
         }
 
@@ -49,17 +48,16 @@ public class ListInformation {
     public List<String> listOfDrinksThatHaveNotBeenOrderedFor3Months() {
 
         List<String> answerList = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
 
         LocalDate date = LocalDate.now().minusMonths(3);
 
         for (int i = 0; i < SIZE; i++) {
 
-            LocalDate date1 = informationLists.get(i).dateOfPreparationOfTheDrink;
+            LocalDate date1 = informationLists.get(i).getDateOfPreparationOfTheDrink();
 
-            if (!date1.isBefore(date) && !answerList.contains(informationLists.get(i).nameOfTheDrink)) {
+            if (!date1.isBefore(date) && !answerList.contains(informationLists.get(i).getNameOfTheDrink())) {
 
-                answerList.add(informationLists.get(i).nameOfTheDrink);
+                answerList.add(informationLists.get(i).getNameOfTheDrink());
             }
         }
 
@@ -72,7 +70,7 @@ public class ListInformation {
 
         for (int i = 0; i < SIZE; i++) {
 
-            if (Objects.equals(informationLists.get(i).nameOfTheDrink, "Капучино")) {
+            if (Objects.equals(informationLists.get(i).getNameOfTheDrink(), "Капучино")) {
                 countOfPreparedCappuccino++;
             }
         }
