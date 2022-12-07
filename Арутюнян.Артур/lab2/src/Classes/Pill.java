@@ -1,4 +1,5 @@
 package Classes;
+
 import Interfaces.InterfaceMedicine;
 
 import java.util.Objects;
@@ -6,7 +7,7 @@ import java.util.Objects;
 public abstract class Pill implements InterfaceMedicine {
 
     protected final int countPerKilo;
-    private float price;
+    protected float price;
     protected String name;
 
     public Pill(String name, int countPerKilo, float price) {
@@ -15,11 +16,8 @@ public abstract class Pill implements InterfaceMedicine {
         this.price = price;
     }
 
-    public void open() {
-    }
-
     public int getRecipe(float weight) {
-        return (int)weight/countPerKilo;
+        return (int) weight / countPerKilo;
     }
 
     public String getName() {
@@ -34,9 +32,13 @@ public abstract class Pill implements InterfaceMedicine {
         return price;
     }
 
-    public void setPrice(float price)
-    {
+    public void setPrice(float price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return name + "\nprice: " + price + '\n' + countPerKilo + "/kg\n";
     }
 
     @Override
@@ -47,16 +49,11 @@ public abstract class Pill implements InterfaceMedicine {
         if (!(obj instanceof Pill pill)) {
             return false;
         }
-        return name.equals(pill.name)&&price == pill.price&&countPerKilo==pill.countPerKilo;
-    }
-
-    @Override
-    public String toString() {
-        return name + "\nprice: "+ price+'\n' + countPerKilo + "/kg\n";
+        return name.equals(pill.name) && price == pill.price && countPerKilo == pill.countPerKilo;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, price, countPerKilo);
     }
 }

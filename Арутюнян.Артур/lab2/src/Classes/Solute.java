@@ -1,4 +1,5 @@
 package Classes;
+
 import java.util.Objects;
 
 import Interfaces.InterfaceMedicine;
@@ -19,11 +20,11 @@ public class Solute implements InterfaceMedicine {
     }
 
     public void open() {
-        
+
     }
 
     public boolean drink(float dv) {
-        if(dv>volume) {
+        if (dv > volume) {
             return false;
         }
         volume -= dv;
@@ -40,12 +41,7 @@ public class Solute implements InterfaceMedicine {
 
     @Override
     public String toString() {
-        return name + "\nprice: "+ price+'\n' + volume + "l\n";
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name)+((int)(volume+price));
+        return name + "\nprice: " + price + '\n' + volume + "l\n";
     }
 
     @Override
@@ -53,9 +49,14 @@ public class Solute implements InterfaceMedicine {
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof Solute pilule)) {
+        if (!(obj instanceof Solute solute)) {
             return false;
         }
-        return name.equals(pilule.name)&&pilule.getPrice()==price&& volume==pilule.getVolume();
+        return name.equals(solute.name) && solute.getPrice() == price && volume == solute.getVolume();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, volume, price);
     }
 }

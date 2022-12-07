@@ -1,5 +1,7 @@
 package Classes;
 
+import java.util.Objects;
+
 public class Drug extends Pill {
 
     private int activeSubstance;
@@ -10,13 +12,23 @@ public class Drug extends Pill {
     }
 
     @Override
+    public int getRecipe(float weight) {
+        return (int) weight / activeSubstance;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nActive substance: " + activeSubstance;
+    }
+
+    @Override
     public boolean equals(Object obj) {
-        if (obj == this) { 
-            return true; 
+        if (obj == this) {
+            return true;
         }
 
-        if (!(obj instanceof Drug)) { 
-            return false; 
+        if (!(obj instanceof Drug)) {
+            return false;
         }
         Drug drug = (Drug) obj;
 
@@ -25,11 +37,6 @@ public class Drug extends Pill {
 
     @Override
     public int hashCode() {
-        return super.hashCode()+ activeSubstance;
-    }
-
-    @Override
-    public int getRecipe(float weight) {
-        return (int)weight/activeSubstance;
+        return Objects.hashCode(super.hashCode() + activeSubstance);
     }
 }

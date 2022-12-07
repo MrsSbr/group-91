@@ -1,9 +1,12 @@
 package Classes;
+
 import Enums.FluidType;
+
+import java.util.Objects;
 
 public class Pilule extends Pill {
 
-    private FluidType requiredFluid;
+    private final FluidType requiredFluid;
 
     public Pilule(String name, int countPerKilo, float price, FluidType requiredFluid) {
         super(name, countPerKilo, price);
@@ -15,27 +18,26 @@ public class Pilule extends Pill {
     }
 
     @Override
+    public String toString() {
+        return super.toString() + "need: " + getRequiredFluid() + '\n';
+    }
+
+    @Override
     public boolean equals(Object obj) {
-        
-        if (obj == this) { 
-            return true; 
+
+        if (obj == this) {
+            return true;
         }
 
-        if (!(obj instanceof Pilule)) { 
-            return false; 
+        if (!(obj instanceof Pilule drug)) {
+            return false;
         }
-        Pilule drug = (Pilule) obj;
 
         return super.equals(drug) && requiredFluid == drug.requiredFluid;
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode()+requiredFluid.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + "need: "+getRequiredFluid()+'\n';
+        return Objects.hashCode(super.hashCode() + requiredFluid.hashCode());
     }
 }
