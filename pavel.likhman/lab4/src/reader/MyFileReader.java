@@ -13,8 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MyFileReader {
-    private static final String path = "pavel.likhman/lab4/src/resources/info.txt";
-    private static final Logger logger = Logger.getLogger(MyFileReader.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(MyFileReader.class.getName());
 
     private static String[] getSplitString(String line) {
         return line.split(";");
@@ -22,11 +21,11 @@ public class MyFileReader {
 
     public static List<SportsmenInfo> getSportsmanInfoListFromFile() {
         List<SportsmenInfo> info = new ArrayList<>();
-        File file = new File(path);
+        File file = new File("pavel.likhman/lab4/src/resources/info.txt");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             FileHandler fh = new FileHandler("pavel.likhman/lab4/logs/logs.txt");
-            logger.addHandler(fh);
+            LOGGER.addHandler(fh);
 
             String fileLine = reader.readLine();
             while (fileLine != null) {
@@ -36,9 +35,9 @@ public class MyFileReader {
                 fileLine = reader.readLine();
             }
 
-            logger.log(Level.INFO, "Информация из файла успешно считана");
+            LOGGER.log(Level.INFO, "Информация из файла успешно считана");
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Ошибка при чтении из файла: ", e);
+            LOGGER.log(Level.SEVERE, "Ошибка при чтении из файла: ", e);
         }
 
         return info;
