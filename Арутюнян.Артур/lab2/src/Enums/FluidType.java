@@ -1,6 +1,5 @@
 package Enums;
-public enum FluidType
-{
+public enum FluidType {
     water,
     alcohol
 }

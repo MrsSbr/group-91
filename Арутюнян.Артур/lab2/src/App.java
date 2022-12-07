@@ -10,8 +10,7 @@ public class App {
         list.add(new Drug("Met", 2, 100, 1));
         list.add(new Pilule("Pil", 10, 1, FluidType.alcohol));
         list.add(new Solute("sol", 5, 10));
-        for(var iMed: list)
-        {
+        for(var iMed: list) {
             System.out.println(iMed);
             if (iMed instanceof Solute solute) {
                 solute.drink(1);
@@ -22,10 +21,8 @@ public class App {
         var pil1 = new Pilule("Pil", 10, 1, FluidType.alcohol);
         var pil2 = new Pilule("Pil", 10, 1, FluidType.water);
 
-        for(var iMed: list)
-        {
-            if(iMed.equals(pil1))
-            {
+        for(var iMed: list) {
+            if(iMed.equals(pil1)) {
                 System.out.println(iMed);
                 System.out.println(iMed.equals(pil2));
             }

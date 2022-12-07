@@ -3,7 +3,7 @@ import Interfaces.InterfaceMedicine;
 
 import java.util.Objects;
 
-public abstract class Pill implements InterfaceMedicine{
+public abstract class Pill implements InterfaceMedicine {
 
     protected final int countPerKilo;
     private float price;
@@ -18,8 +18,7 @@ public abstract class Pill implements InterfaceMedicine{
     public void open() {
     }
 
-    public int getRecipe(float weight)
-    {
+    public int getRecipe(float weight) {
         return (int)weight/countPerKilo;
     }
 
@@ -31,8 +30,7 @@ public abstract class Pill implements InterfaceMedicine{
         this.name = name;
     }
 
-    public float getPrice()
-    {
+    public float getPrice() {
         return price;
     }
 

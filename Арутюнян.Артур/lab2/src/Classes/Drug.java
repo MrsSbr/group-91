@@ -4,8 +4,7 @@ public class Drug extends Pill {
 
     private int activeSubstance;
 
-    public Drug(String name, int countPerKilo, float price, int activeSubstance)
-    {
+    public Drug(String name, int countPerKilo, float price, int activeSubstance) {
         super(name, countPerKilo, price);
         this.activeSubstance = activeSubstance;
     }

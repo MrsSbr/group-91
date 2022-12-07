@@ -5,14 +5,12 @@ public class Pilule extends Pill {
 
     private FluidType requiredFluid;
 
-    public Pilule(String name, int countPerKilo, float price, FluidType requiredFluid)
-    {
+    public Pilule(String name, int countPerKilo, float price, FluidType requiredFluid) {
         super(name, countPerKilo, price);
         this.requiredFluid = requiredFluid;
     }
 
-    public String getRequiredFluid()
-    {
+    public String getRequiredFluid() {
         return requiredFluid.toString();
     }
 

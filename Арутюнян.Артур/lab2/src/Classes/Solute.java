@@ -8,15 +8,13 @@ public class Solute implements InterfaceMedicine {
     private float volume;
     private float price;
 
-    public Solute(String name, float volume, float price)
-    {
+    public Solute(String name, float volume, float price) {
         this.price = price;
         this.name = name;
         this.volume = volume;
     }
 
-    public float getVolume()
-    {
+    public float getVolume() {
         return volume;
     }
 
@@ -24,11 +22,10 @@ public class Solute implements InterfaceMedicine {
         
     }
 
-    public boolean drink(float dv)
-    {
-    if(dv>volume) {
-        return false;
-    }
+    public boolean drink(float dv) {
+        if(dv>volume) {
+            return false;
+        }
         volume -= dv;
         return true;
     }
