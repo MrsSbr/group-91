@@ -20,8 +20,7 @@ public class ListInformation {
 
     public void fillingInTheList() {
 
-        for (int i = 0; i < SIZE; i++)
-        {
+        for (int i = 0; i < SIZE; i++) {
             Information information = new Information();
             information.fillingInInformation();
             informationLists.add(information);
@@ -31,16 +30,15 @@ public class ListInformation {
     public List<String> listOfDrinksOrderedFrom7To9Morning() {
 
         List<String> answerList = new ArrayList<>();
-        LocalTime firstTime = LocalTime.of(7,0);
-        LocalTime secondTime = LocalTime.of(9,0);
+        LocalTime firstTime = LocalTime.of(7, 0);
+        LocalTime secondTime = LocalTime.of(9, 0);
 
         for (int i = 0; i < SIZE; i++) {
 
             LocalTime time = informationLists.get(i).timeOfPreparationOfTheDrink;
 
             if (time.isAfter(secondTime) && firstTime.isBefore(time) &&
-                    !answerList.contains(informationLists.get(i).nameOfTheDrink))
-            {
+                    !answerList.contains(informationLists.get(i).nameOfTheDrink)) {
                 answerList.add(informationLists.get(i).nameOfTheDrink);
             }
         }
@@ -74,8 +72,7 @@ public class ListInformation {
 
         for (int i = 0; i < SIZE; i++) {
 
-            if (Objects.equals(informationLists.get(i).nameOfTheDrink, "Капучино"))
-            {
+            if (Objects.equals(informationLists.get(i).nameOfTheDrink, "Капучино")) {
                 countOfPreparedCappuccino++;
             }
         }

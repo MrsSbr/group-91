@@ -49,5 +49,4 @@ public class CoffeeShop {
         System.out.println("Количество приготовленных капучино за все время");
         System.out.println(list.countOfPreparedCappuccinoForAllTime());
     }
-
 }
