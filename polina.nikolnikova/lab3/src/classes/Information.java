@@ -9,7 +9,7 @@ import java.util.Calendar;
 public class Information {
 
     public static final String[] coffee = {"AMERICANO", "CAPPUCCINO", "DOPPIO", "ESPRESSO", "FLAT_WHITE", "FRAPPE",
-            "GLACE", "ICE_COFFEE", "IRISH_COFFEE", "LATTE", "LONG_BLACK", "MACCHIATO", "MOCHA", "RAF","VENICE_COFFEE"};
+            "GLACE", "ICE_COFFEE", "IRISH_COFFEE", "LATTE", "LONG_BLACK", "MACCHIATO", "MOCHA", "RAF", "VENICE_COFFEE"};
 
 
     String nameOfTheDrink;
@@ -19,23 +19,15 @@ public class Information {
     public Information() {
         nameOfTheDrink = "";
         dateOfPreparationOfTheDrink = LocalDate.of(2000, 1, 1);
-        timeOfPreparationOfTheDrink = LocalTime.of(0, 0);
-    }
-
-    public Information(String nameOfTheDrink, LocalDate dateOfPreparationOfTheDrink,
-                       LocalTime timeOfPreparationOfTheDrink) {
-
-        this.nameOfTheDrink = nameOfTheDrink;
-        this.dateOfPreparationOfTheDrink = dateOfPreparationOfTheDrink;
-        this.timeOfPreparationOfTheDrink = timeOfPreparationOfTheDrink;
+        timeOfPreparationOfTheDrink = LocalTime.of(7, 0);
     }
 
     public int randBetween(int min, int max) {
 
-        return (int)(Math.random() * (max - min) + 1) + min;
+        return (int) (Math.random() * (max - min) + 1) + min;
     }
 
-    public void fillingInInformation(){
+    public void fillingInInformation() {
 
         nameOfTheDrink = VarietiesOfCoffee.valueOf(coffee[randBetween(0, 14)]).getName();
 
@@ -53,6 +45,6 @@ public class Information {
 
         int hour = randBetween(7, 22);
         int minute = randBetween(0, 59);
-        timeOfPreparationOfTheDrink = LocalTime. of(hour, minute);
+        timeOfPreparationOfTheDrink = LocalTime.of(hour, minute);
     }
 }
