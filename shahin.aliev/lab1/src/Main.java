@@ -1,10 +1,10 @@
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static int lastRemaining(int n) {
-        List<Integer> arr = new ArrayList<>();
+        List<Integer> arr = new LinkedList<>();
         for (int i = 1; i <= n; i++) {
             arr.add(i);
         }
