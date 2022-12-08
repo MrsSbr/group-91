@@ -10,12 +10,12 @@ import java.util.logging.Logger;
 import java.util.List;
 
 public class Main {
-    private static final String logPath = "vladislav.bulgakov/lab4/logs/logs.txt";
+    private static final String LOG_PATH = "vladislav.bulgakov/lab4/logs/logs.txt";
     private static final Logger logger = Logger.getLogger(ReaderFile.class.getName());
 
     public static void main(String[] args) {
         try {
-            FileHandler fh = new FileHandler(logPath);
+            FileHandler fh = new FileHandler(LOG_PATH);
             logger.addHandler(fh);
             logger.log(Level.INFO, "Начало работы");
 

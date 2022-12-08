@@ -13,8 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ReaderFile {
-    private static final String filePath = "vladislav.bulgakov/lab4/src/resources/fights.txt";
-    private static final String logPath = "vladislav.bulgakov/lab4/logs/logs.txt";
+    private static final String FILE_PATH = "vladislav.bulgakov/lab4/src/resources/fights.txt";
+    private static final String LOG_PATH = "vladislav.bulgakov/lab4/logs/logs.txt";
     private static final Logger logger = Logger.getLogger(ReaderFile.class.getName());
 
     private static String[] getSplittedString(String line) {
@@ -23,10 +23,10 @@ public class ReaderFile {
 
     public static List<Fight> getFightsListFromFile() {
         List<Fight> fights = new ArrayList<>();
-        File file = new File(filePath);
+        File file = new File(FILE_PATH);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            FileHandler fh = new FileHandler(logPath);
+            FileHandler fh = new FileHandler(LOG_PATH);
             logger.addHandler(fh);
 
             String fileLine = reader.readLine();

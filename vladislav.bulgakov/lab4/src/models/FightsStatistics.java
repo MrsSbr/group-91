@@ -51,8 +51,7 @@ public class FightsStatistics {
     private Map<String, Integer> getStringDateWithFatalities() {
         Map<String, Integer> dateWithFatalities = new HashMap<>();
         LocalDate startDate = LocalDate.now();
-        int mostFatalitiesNum = -1;
-        for (int i = 0; i < 36; i++) { //   37?
+        for (int i = 0; i < 36; i++) {
             dateWithFatalities.put(startDate.getYear() + "-" + startDate.getMonth(), 0);
             startDate = startDate.minusMonths(1);
         }
@@ -61,32 +60,39 @@ public class FightsStatistics {
                 String dateWithoutDay = f.getDate().getYear() + "-" + f.getDate().getMonth();
                 int fatalitiesNum = dateWithFatalities.getOrDefault(dateWithoutDay, 0);
                 dateWithFatalities.put(dateWithoutDay, ++fatalitiesNum);
-                if (fatalitiesNum > mostFatalitiesNum) {
-                    mostFatalitiesNum = fatalitiesNum;
-                }
             }
         }
-        dateWithFatalities.put("maximum", mostFatalitiesNum);
         return dateWithFatalities;
     }
 
-    private Set<String> getMonthWithMostFatalities(Map<String, Integer> datesWithFatalities) {
-        Set<String> mostFatalitiesMonths = new HashSet<>();
-        Integer mostFatalitiesNum = datesWithFatalities.get("maximum");
+    private Integer getMaxFatalityInMonth(Map<String, Integer> datesWithFatalities) {
+        Integer maxFatalitiesNum = -1;
         for (Map.Entry me : datesWithFatalities.entrySet()) {
-            if (!me.getKey().equals("maximum") && me.getValue() == mostFatalitiesNum) {
-                mostFatalitiesMonths.add(me.getKey().toString());
+            Integer value = (Integer) me.getValue();
+            if (maxFatalitiesNum.compareTo(value) < 0) {
+                maxFatalitiesNum = value;
             }
         }
-        return mostFatalitiesMonths;
+        return maxFatalitiesNum;
+    }
+
+    private Set<String> getMonthWithMaxFatalities(Map<String, Integer> datesWithFatalities) {
+        Set<String> maxFatalitiesMonths = new HashSet<>();
+        Integer maxFatalitiesNum = getMaxFatalityInMonth(datesWithFatalities);
+        for (Map.Entry me : datesWithFatalities.entrySet()) {
+            if (me.getValue() == maxFatalitiesNum) {
+                maxFatalitiesMonths.add(me.getKey().toString());
+            }
+        }
+        return maxFatalitiesMonths;
     }
 
     public void mainProcessing(List<Fight> fights) {
         this.fights = fights;
         Map<String, Integer> datesWithFatalities = getStringDateWithFatalities();
-        Set<String> mostFatalitiesMonths = getMonthWithMostFatalities(datesWithFatalities);
+        Set<String> maxFatalitiesMonths = getMonthWithMaxFatalities(datesWithFatalities);
         System.out.println("\nБольше всего фаталити было сделано в следующие месяцы: ");
-        for(String m : mostFatalitiesMonths) {
+        for (String m : maxFatalitiesMonths) {
             System.out.println("  " + m + " ");
         }
 
