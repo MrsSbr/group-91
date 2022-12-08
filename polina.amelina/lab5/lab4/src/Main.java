@@ -5,6 +5,7 @@ import tasks.TasksFormatter;
 import tasks.TasksService;
 
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -31,8 +32,7 @@ public class Main {
         String task3 = tasksFormatter.getMostPopularDrinksFormattedResult(tasksService.getMostPopularDrinks());
         String task4 = tasksFormatter.getOptimalDrinkFormattedResult(tasksService.getOptimalDrink());
 
-        for (String task : new String[] {task1, task2, task3, task4}) {
-            System.out.println(task);
-        }
+        Arrays.stream(new String[]{task1, task2, task3, task4})
+                .forEach(System.out::println);
     }
 }
