@@ -1,5 +1,6 @@
 package input;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +33,7 @@ public class ConsoleInput {
                 } else {
                     logger.log(Level.WARNING, String.format("Number not in [%d; %d]", leftBound, rightBound));
                 }
-            } catch (Exception e) {
+            } catch (InputMismatchException e) { //IllegalFormatException?
                 scanner.nextLine();
                 logger.log(Level.SEVERE, "Input exception", e);
             }

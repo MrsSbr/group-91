@@ -2,16 +2,10 @@ package modules;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.IllegalFormatException;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-enum PlantType {
-    SEEDS,
-    YOUNG,
-    ADULT,
-    FLOWERING
-}
 
 //название растения;тип;размер горшка;цена;дата продажи
 public class Plant {
@@ -50,6 +44,23 @@ public class Plant {
         return price;
     }
 
+
+    // parse from string Plant;Type;Size of Pot;Price;Date
+    public static Plant parse(String text) {
+        try {
+            String[] parts = text.split(";");
+            return new Plant(parts[0], PlantType.valueOf(parts[1]), Double.parseDouble(parts[2]), Double.parseDouble(parts[3]), LocalDate.parse(parts[4]));
+        } catch (IllegalFormatException e) {
+            logger.log(Level.SEVERE, "PlantType parse exception");
+        } catch (NumberFormatException e) {
+            logger.log(Level.SEVERE, "Size/Price parse exception", e);
+        } catch (DateTimeParseException e) {
+            logger.log(Level.SEVERE, "Date parse exception", e);
+        }
+
+        return null;
+    }
+
     @Override
     public String toString() {
         return String.format("Растение: %s. Тип: %s. Размер горшка: %.2f. Цена: %.2f. Дата: %s", plantName, typeName, sizePot, price, date);
@@ -75,23 +86,5 @@ public class Plant {
     @Override
     public int hashCode() {
         return Objects.hash(plantName.toLowerCase(), typeName, sizePot, price, date);
-    }
-
-    // parse from string Plant;Type;Size of Pot;Price;Date
-    public static Plant parse(String text) {
-        try {
-            String[] parts = text.split(";");
-            return new Plant(parts[0], PlantType.valueOf(parts[1]), Double.parseDouble(parts[2]), Double.parseDouble(parts[3]), LocalDate.parse(parts[4]));
-        }
-        //IllegalFormatException - which exception is for PlantType.valurOf(string s);
-        catch (IllegalArgumentException e) {
-            logger.log(Level.SEVERE, "PlantType parse exception");
-        }
-        /* catch (NumberFormatException e) {
-            logger.log(Level.SEVERE, "Size/Price parse exception", e);
-        }   */ catch (DateTimeParseException e) {
-            logger.log(Level.SEVERE, "Date parse exception", e);
-        }
-        return null;
     }
 }

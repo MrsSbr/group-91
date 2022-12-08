@@ -1,9 +1,14 @@
 package modules;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,16 +18,17 @@ public class PlantStorage {
 
     public void fillFromFile(String filePath) {
         logger.log(Level.INFO, "Start read file");
-
-        try (var bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8))) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
+        File file = new File(filePath);
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+            String line = bufferedReader.readLine();
+            while (line != null) {
                 Plant plant = Plant.parse(line);
                 if (plant == null) {
                     logger.log(Level.SEVERE, "Parse plant error. Stop read");
-                    break;
+                } else {
+                    plants.add(plant);
                 }
-                plants.add(plant);
+                line = bufferedReader.readLine();
             }
         } catch (FileNotFoundException e) {
             logger.log(Level.SEVERE, "File not found", e);

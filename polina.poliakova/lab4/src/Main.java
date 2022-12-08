@@ -12,7 +12,7 @@ public class Main {
 
     private static final int END_MENU_ITEM = 4;
 
-    private static final String DATA_PATH = "polina.poliakova/lab3/group-91/polina.poliakova/lab4/data.txt";
+    private static final String DATA_PATH = "D:\\!Polina\\ВГУ\\жаба\\polina.poliakova\\lab3\\group-91\\polina.poliakova\\lab4\\data.txt";
 
     public static void main(final String[] args) {
         logger.log(Level.INFO, "Start program");
