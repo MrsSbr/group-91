@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
-    private static final String loggerPath = "Анастасия.Сысуева/lab5/lab5_lab4/logs/logs.txt";
+    private static final String LOGGER_PATH_CONST = "Анастасия.Сысуева/lab5/lab5_lab4/logs/logs.txt";
 
     private static void printMenu() {
         System.out.println("Menu:");
@@ -31,7 +31,7 @@ public class Main {
 
 
     public static void mainMenu() throws IOException {
-        FileHandler fh = new FileHandler(loggerPath);
+        FileHandler fh = new FileHandler(LOGGER_PATH_CONST);
         logger.addHandler(fh);
 
         Map<Integer, Box> beautyBoxes = ReaderFile.readFile();
@@ -63,7 +63,7 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            FileHandler fh = new FileHandler(loggerPath);
+            FileHandler fh = new FileHandler(LOGGER_PATH_CONST);
             logger.addHandler(fh);
             logger.log(Level.INFO, "Начало работы");
 

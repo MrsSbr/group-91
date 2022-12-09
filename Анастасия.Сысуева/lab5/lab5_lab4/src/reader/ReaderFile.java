@@ -16,8 +16,8 @@ import java.util.logging.Logger;
 
 
 public class ReaderFile {
-    private static final String path = "Анастасия.Сысуева/lab5/lab5_lab4/src/Info/BeattyBox.txt";
-    private static final String loggerPath = "Анастасия.Сысуева/lab5/lab5_lab4/logs/logs.txt";
+    private static final String PATH_DATA_FILE_CONST = "Анастасия.Сысуева/lab5/lab5_lab4/src/Info/BeattyBox.txt";
+    private static final String LOGGER_PATH_CONST = "Анастасия.Сысуева/lab5/lab5_lab4/logs/logs.txt";
     private static final Logger logger = Logger.getLogger(ReaderFile.class.getName());
 
     private static String[] splitLine(String line) {
@@ -30,11 +30,11 @@ public class ReaderFile {
 
     public static Map<Integer, Box> readFile() {
         Map<Integer, Box> beautyBoxes = new HashMap<>();
-        File file = new File(path);
+        File file = new File(PATH_DATA_FILE_CONST);
         final boolean[] flag = new boolean[1];
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            FileHandler fh = new FileHandler(loggerPath);
+            FileHandler fh = new FileHandler(LOGGER_PATH_CONST);
             logger.addHandler(fh);
             String line = reader.readLine();
             int count = 0;
