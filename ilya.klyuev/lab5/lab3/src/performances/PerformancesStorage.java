@@ -43,16 +43,18 @@ public class PerformancesStorage {
                 .max(Integer::compare)
                 .orElse(0);
 
-        return getPerformancesTicketsString(
+        var maxPopularPerformances =
                 ticketsCountForPerformances.entrySet().stream()
-                        .filter(x -> x.getValue() == maxTickets)
-        );
+                .filter(x -> x.getValue() == maxTickets);
+
+        return getPerformancesTicketsString(maxPopularPerformances);
     }
 
     public String getPerformancesNotTicketsString() {
-        return getPerformancesTicketsString(
+        var performancesNotTickets =
                 ticketsCountForPerformances.entrySet().stream()
-                        .filter(x -> x.getValue() == 0)
-        );
+                .filter(x -> x.getValue() == 0);
+
+        return getPerformancesTicketsString(performancesNotTickets);
     }
 }

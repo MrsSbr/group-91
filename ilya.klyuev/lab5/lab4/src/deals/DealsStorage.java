@@ -64,18 +64,20 @@ public class DealsStorage {
 
 
     public String getMostProfitableMonthsStringForLastYear() {
-        return getMaxIncomeValueString(
+        var lastYearStatisticByMonths =
                 getDealsAfterDate(LocalDate.now().minusYears(1))
-                        .collect(Collectors.groupingBy(x -> x.getDate().getMonth().toString(),
-                                Collectors.summarizingInt(Deal::getAmount)))
-        );
+                .collect(Collectors.groupingBy(x -> x.getDate().getMonth().toString(),
+                        Collectors.summarizingInt(Deal::getAmount)));
+
+        return getMaxIncomeValueString(lastYearStatisticByMonths);
     }
 
     public String getMostEffectiveManagersStringForLastMonth() {
-        return getMaxIncomeValueString(
+        var lastMonthStatisticByManagers =
                 getDealsAfterDate(LocalDate.now().minusMonths(1))
-                        .collect(Collectors.groupingBy(Deal::getManagerName,
-                                Collectors.summarizingInt(Deal::getAmount)))
-        );
+                .collect(Collectors.groupingBy(Deal::getManagerName,
+                        Collectors.summarizingInt(Deal::getAmount)));
+
+        return getMaxIncomeValueString(lastMonthStatisticByManagers);
     }
 }
