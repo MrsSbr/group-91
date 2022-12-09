@@ -90,9 +90,9 @@ public class CommandProcessor extends AbstractProcessor {
             out.println();
 
             for (var method : methods) {
-                out.println("@Override");
+                out.println("    @Override");
                 out.print("    public String " + method.getSimpleName() + "(String str) {");
-                out.println("        return super." + method.getSimpleName() + "(str);");
+                out.println("\n        return super." + method.getSimpleName() + "(str);");
 //                switch (casesMap.get(method)){
 //                    case "camelCase"->
 //                    case "snake_case"-> out.println("        return str + 'S';");

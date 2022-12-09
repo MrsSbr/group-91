@@ -1,6 +1,5 @@
 package com.lab.tests;
 
-import com.lab.annotation.StringCommand;
 import com.lab.logic.StringConverter;
 import com.lab.reflection.TestReflection;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,9 @@ import static com.lab.data.TestData.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ConverterTests {
-    private final Set<Method> converterMethods = TestReflection.getAnnotatedMethodsFrom(StringConverter.class);
+    private final Class<?> classImpl = TestReflection.findImplementationOf(StringConverter.class);
+    private final Set<Method> converterMethods = TestReflection.getAnnotatedMethodsFrom(classImpl);
+    private final Object instanceCl = TestReflection.getInstanceOf(classImpl);
 
     @Test
     public void convertStringToCamelCase() throws InvocationTargetException, IllegalAccessException {
@@ -23,11 +24,11 @@ public class ConverterTests {
 
         // when
         Method camelMethod = converterMethods.stream()
-                .filter(method -> method.getAnnotation(StringCommand.class).value().equals(CAMEL_COMMAND_VALUE))
+                .filter(method -> method.getName().toLowerCase().contains(CAMEL_METHOD))
                 .findFirst()
                 .orElse(null);
         assert camelMethod != null;
-        String actualString = camelMethod.invoke(StringConverter.class, SOMETHING_STRING).toString();
+        String actualString = camelMethod.invoke(instanceCl, SOMETHING_STRING).toString();
 
         // then
         assertEquals(expectedString, actualString);
@@ -41,10 +42,11 @@ public class ConverterTests {
 
         // when
         Method snakeMethod = converterMethods.stream()
-                .filter(method -> method.getAnnotation(StringCommand.class).value().equals(SNAKE_COMMAND_VALUE))
+                .filter(method -> method.getName().toLowerCase().contains(SNAKE_METHOD))
                 .findFirst()
                 .orElse(null);
-        String actualString = snakeMethod.invoke(StringConverter.class, SOMETHING_STRING).toString();
+        assert snakeMethod != null;
+        String actualString = snakeMethod.invoke(instanceCl, SOMETHING_STRING).toString();
 
         // then
         assertEquals(expectedString, actualString);
@@ -57,10 +59,11 @@ public class ConverterTests {
 
         // when
         Method kebabMethod = converterMethods.stream()
-                .filter(method -> method.getAnnotation(StringCommand.class).value().equals(KEBAB_COMMAND_VALUE))
+                .filter(method -> method.getName().toLowerCase().contains(KEBAB_METHOD))
                 .findFirst()
                 .orElse(null);
-        String actualString = kebabMethod.invoke(StringConverter.class, SOMETHING_STRING).toString();
+        assert kebabMethod != null;
+        String actualString = kebabMethod.invoke(instanceCl, SOMETHING_STRING).toString();
 
         // then
         assertEquals(expectedString, actualString);
@@ -73,10 +76,10 @@ public class ConverterTests {
 
         // when
         Method someMethod = converterMethods.stream()
-                .filter(method -> method.getAnnotation(StringCommand.class).value().equals(SOMETHING_COMMAND_VALUE))
+                .filter(method -> method.getName().contains(SOMETHING_STRING))
                 .findFirst()
                 .orElse(null);
-        String actualString = someMethod != null ? someMethod.invoke(StringConverter.class, SOMETHING_STRING).toString() : NOT_FOUND;
+        String actualString = someMethod != null ? someMethod.invoke(instanceCl, SOMETHING_STRING).toString() : NOT_FOUND;
 
         // then
         assertEquals(expectedString, actualString);
