@@ -8,13 +8,24 @@ public class AlcoholNotes {
     private final String alcoholType;
     private final double numDrinkingAlcohol;
     private final boolean resultPeakBallmer;
-    private String[] alcoholTypeList = new String[]{"Водка", "Коньяк", "Виски", "Ром", "Пиво", "Вино"};
+    private final ArrayList<String> alcoholTypeList;
 
     public AlcoholNotes() {
         Random rnd = new Random();
-        this.alcoholType = alcoholTypeList[rnd.nextInt(0, alcoholTypeList.length)];
+        this.alcoholTypeList = new ArrayList<>();
+        PushAlcoholList();
+        this.alcoholType = alcoholTypeList.get(rnd.nextInt(0, alcoholTypeList.size()));
         this.numDrinkingAlcohol = rnd.nextDouble(MIN_QUANTITY, MAX_QUANTITY);
         this.resultPeakBallmer = rnd.nextBoolean();
+    }
+
+    public void PushAlcoholList() {
+        alcoholTypeList.add("Водка");
+        alcoholTypeList.add("Коньяк");
+        alcoholTypeList.add("Виски");
+        alcoholTypeList.add("Ром");
+        alcoholTypeList.add("Пиво");
+        alcoholTypeList.add("Вино");
     }
 
     public String getAlcoholType() {
