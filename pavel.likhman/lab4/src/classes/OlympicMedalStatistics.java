@@ -110,16 +110,4 @@ public class OlympicMedalStatistics {
         System.out.print("Task 3. Sportsmen with the most medals: " + getSportsmenWithMostMedals());
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof OlympicMedalStatistics) {
-            return sportsmenInfoList.equals(((OlympicMedalStatistics) obj).sportsmenInfoList);
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return sportsmenInfoList.hashCode();
-    }
 }
