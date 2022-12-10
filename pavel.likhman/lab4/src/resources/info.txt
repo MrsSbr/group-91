@@ -1,0 +1,21 @@
+Russia;Figure skating Ladies' singles;Alina Zagitova;1
+Russia;Figure skating Ladies' singles;Evgenia Medvedeva;2
+Canada;Figure skating Ladies' singles;Kaetlyn Osmond;3
+Japan;Figure skating Ladies' singles;Satoko Miyahara;4
+Japan;Figure skating Men's singles;Yuzuru Hanyu;1
+Japan;Figure skating Men's singles;Shoma Uno;2
+Spain;Figure skating Men's singles;Javier Fernandez;3
+China;Figure skating Men's singles;Boyang Jin;4
+Sweden;Cross-country skiing Women's skiathlon;Charlotte Kalla;1
+Norway;Cross-country skiing Women's skiathlon;Marit Bjorgen;2
+Finland;Cross-country skiing Women's skiathlon;Krista Parmakoski;3
+Sweden;Cross-country skiing Women's skiathlon;Ebba Andersson;4
+USA;Cross-country skiing Women's skiathlon;Jessica Diggins;5
+Norway;Cross-country skiing Women's 10 km freestyle;Ragnhild Haga;1
+Sweden;Cross-country skiing Women's 10 km freestyle;Charlotte Kalla;2
+Finland;Cross-country skiing Women's 10 km freestyle;Krista Parmakoski;3
+Norway;Cross-country skiing Women's 10 km freestyle;Marit Bjorgen;3
+Norway;Cross-country skiing Women's 30 km mass start classical;Marit Bjorgen;1
+Finland;Cross-country skiing Women's 30 km mass start classical;Krista Parmakoski;2
+Sweden;Cross-country skiing Women's 30 km mass start classical;Stina Nilsson;3
+Norway;Cross-country skiing Women's 30 km mass start classical;Ingvild Flugstad Oestberg;4
