@@ -22,7 +22,6 @@ public final class VotesGenerator {
     }
 
     public void generateToInputStream() throws IOException {
-
         logger.entering(getClass().getName(), MethodNameGetter.getMethodName());
 
         Random random = new Random();

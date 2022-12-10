@@ -34,14 +34,7 @@ public final class Main {
                     .toList();
         }
 
-        Election election = new Election(rawVotes, CANDIDATE_COUNT, MIN_VOTER_PERCENT);
-
-        if (election.checkVotes()) {
-            System.out.println("Представитель не выбран: найдены недопустимые голоса");
-            return;
-        }
-
-        int candidate = election.elect();
+        int candidate = new Election(rawVotes, CANDIDATE_COUNT, MIN_VOTER_PERCENT).elect();
 
         String result;
         switch (candidate) {

@@ -19,21 +19,7 @@ public final class Election {
         this.minVoterPercent = minVoterPercent;
     }
 
-    public boolean checkVotes() {
-
-        logger.entering(getClass().getName(), MethodNameGetter.getMethodName());
-
-        boolean badVotes = rawVotes
-                .stream()
-                .anyMatch(x -> x < 1 || x > candidateCount);
-        logger.info(badVotes ? "Bad votes found" : "No bad votes");
-
-        logger.exiting(getClass().getName(), MethodNameGetter.getMethodName(), badVotes);
-        return badVotes;
-    }
-
     public int elect() {
-
         logger.entering(getClass().getName(), MethodNameGetter.getMethodName());
 
         Map<Integer, Long> countedVotes = rawVotes
