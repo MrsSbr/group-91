@@ -1,0 +1,15 @@
+2022-11-21;11;Kung Lao;Scorpion;Kung Lao;0
+2022-11-17;11;Raiden;Scorpion;Scorpion;1
+2021-07-19;2;Shao Kahn;Raiden;Raiden;0
+2021-07-21;2;Sub-Zero;Raiden;Sub-Zero;1
+2021-09-03;2;Smoke;Shao Kahn;Shao Kahn;0
+2021-09-06;2;Shao Kahn;Jade;Shao Kahn;0
+2020-03-27;4;Jade;Smoke;Jade;0
+2020-03-27;4;Scorpion;Sub-Zero;Sub-Zero;1
+2020-04-23;4;Smoke;Fujin;Fujin;1
+2020-04-23;4;Smoke;Baraka;Baraka;0
+2020-05-05;4;Fujin;Jade;Fujin;0
+2022-06-15;3;Scorpion;Sub-Zero;Scorpion;1
+2022-06-16;3;Scorpion;Shao Kahn;Shao Kahn;1
+2022-06-17;3;Baraka;Scorpion;Scorpion;1
+2011-11-11;1;Fujin;Jade;Jade;0
