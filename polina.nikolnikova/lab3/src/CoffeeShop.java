@@ -19,14 +19,47 @@ public class CoffeeShop {
 
     public static void main(String[] args) {
 
-        ListInformation list = new ListInformation(new ArrayList<>(SIZE));
+        long startTime;
+        long timeSpeedLinkedList;
+        long timeSpeedArrayList;
 
-        list.fillingInTheList();
+        startTime = System.currentTimeMillis();
+
+        ListInformation listArray = new ListInformation(new ArrayList<>(SIZE));
+        listArray.fillingInTheList();
+        listArray.listOfDrinksOrderedFrom7To9Morning(1);
+        listArray.listOfDrinksThatHaveNotBeenOrderedFor3Months(1);
+        listArray.countOfPreparedCappuccinoForAllTime();
+        timeSpeedArrayList = System.currentTimeMillis() - startTime;
+
+        startTime = System.currentTimeMillis();
+
+        ListInformation listLinked = new ListInformation(new LinkedList<>());
+        listLinked.fillingInTheList();
+        listLinked.listOfDrinksOrderedFrom7To9Morning(2);
+        listLinked.listOfDrinksThatHaveNotBeenOrderedFor3Months(2);
+        listLinked.countOfPreparedCappuccinoForAllTime();
+        timeSpeedLinkedList = System.currentTimeMillis() - startTime;
+
+        System.out.println("Скорость для ArrayList: " + timeSpeedArrayList);
+        System.out.println("Скорость для LinkedList: " + timeSpeedLinkedList);
+
+        int k;
+        if (timeSpeedArrayList > timeSpeedLinkedList) {
+            k = 2;
+        } else {
+            k = 1;
+        }
 
         System.out.println();
         System.out.println("Cписок напитков, которые заказывают по утрам с 7 до 9");
 
-        List<String> listAnswer1 = list.listOfDrinksOrderedFrom7To9Morning();
+        List<String> listAnswer1;
+        if(k == 1) {
+            listAnswer1 = listArray.listOfDrinksOrderedFrom7To9Morning(k);
+        } else {
+            listAnswer1 = listLinked.listOfDrinksOrderedFrom7To9Morning(k);
+        }
 
         for (String answer : listAnswer1) {
             System.out.println(answer);
@@ -34,19 +67,31 @@ public class CoffeeShop {
 
         System.out.println();
         System.out.println("Список напитков, которые не заказывали последние 3 месяца");
-        List<String> listAnswer2 = list.listOfDrinksThatHaveNotBeenOrderedFor3Months();
+        List<String> listAnswer2;
+
+        if(k == 1) {
+            listAnswer2 = listArray.listOfDrinksThatHaveNotBeenOrderedFor3Months(k);
+        } else {
+            listAnswer2 = listLinked.listOfDrinksThatHaveNotBeenOrderedFor3Months(k);
+        }
 
         if (listAnswer2.size() != 0) {
 
             for (String answer : listAnswer2) {
                 System.out.println(answer);
             }
+
         } else {
             System.out.println("Таких напитков нет");
         }
 
         System.out.println();
         System.out.println("Количество приготовленных капучино за все время");
-        System.out.println(list.countOfPreparedCappuccinoForAllTime());
+
+        if(k == 1) {
+            System.out.println(listArray.countOfPreparedCappuccinoForAllTime());
+        } else {
+            System.out.println(listLinked.countOfPreparedCappuccinoForAllTime());
+        }
     }
 }

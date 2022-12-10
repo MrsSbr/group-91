@@ -3,6 +3,7 @@ package classes;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,9 +27,16 @@ public class ListInformation {
         }
     }
 
-    public List<String> listOfDrinksOrderedFrom7To9Morning() {
+    public List<String> listOfDrinksOrderedFrom7To9Morning(int k) {
 
-        List<String> answerList = new ArrayList<>();
+        List<String> answerList;
+
+        if (k == 1) {
+            answerList = new ArrayList<>();
+        } else {
+            answerList = new LinkedList<>();
+        }
+
         LocalTime firstTime = LocalTime.of(7, 0);
         LocalTime secondTime = LocalTime.of(9, 0);
 
@@ -45,9 +53,15 @@ public class ListInformation {
         return answerList;
     }
 
-    public List<String> listOfDrinksThatHaveNotBeenOrderedFor3Months() {
+    public List<String> listOfDrinksThatHaveNotBeenOrderedFor3Months(int k) {
 
-        List<String> answerList = new ArrayList<>();
+        List<String> answerList;
+
+        if (k == 1) {
+            answerList = new ArrayList<>();
+        } else {
+            answerList = new LinkedList<>();
+        }
 
         LocalDate date = LocalDate.now().minusMonths(3);
 

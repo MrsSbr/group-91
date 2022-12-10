@@ -4,13 +4,8 @@ import enums.VarietiesOfCoffee;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Calendar;
 
 public class Information {
-
-    public static final String[] coffee = {"AMERICANO", "CAPPUCCINO", "DOPPIO", "ESPRESSO", "FLAT_WHITE", "FRAPPE",
-            "GLACE", "ICE_COFFEE", "IRISH_COFFEE", "LATTE", "LONG_BLACK", "MACCHIATO", "MOCHA", "RAF", "VENICE_COFFEE"};
-
 
     private String nameOfTheDrink;
     private LocalDate dateOfPreparationOfTheDrink;
@@ -41,17 +36,13 @@ public class Information {
 
     public void fillingInInformation() {
 
-        nameOfTheDrink = VarietiesOfCoffee.valueOf(coffee[randBetween(0, 14)]).getName();
-
-        Calendar calendar = Calendar.getInstance();
+        nameOfTheDrink = VarietiesOfCoffee.getById(randBetween(0, 14));
 
         int year = randBetween(2000, 2022);
-        calendar.set(Calendar.YEAR, year);
-
         int month = randBetween(1, 12);
-        calendar.set(Calendar.MONTH, month - 1);
 
-        int day = randBetween(1, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        LocalDate date = LocalDate.of(year, month, 1);
+        int day = randBetween(1, date.lengthOfMonth());
 
         dateOfPreparationOfTheDrink = LocalDate.of(year, month, day);
 
