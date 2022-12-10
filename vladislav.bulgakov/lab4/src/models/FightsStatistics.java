@@ -45,7 +45,7 @@ public class FightsStatistics {
     }
 
     private boolean isDateFrom3YearGapWithFatality(Fight f) {
-        return f.getDate().compareTo(LocalDate.now().minusYears(3)) >= 0 && f.getIsFatality() == 1;
+        return !f.getDate().isBefore(LocalDate.now().minusYears(3)) && f.getIsFatality() == 1;
     }
 
     private Map<String, Integer> getStringDateWithFatalities() {
@@ -67,8 +67,8 @@ public class FightsStatistics {
 
     private Integer getMaxFatalityInMonth(Map<String, Integer> datesWithFatalities) {
         Integer maxFatalitiesNum = -1;
-        for (Map.Entry me : datesWithFatalities.entrySet()) {
-            Integer value = (Integer) me.getValue();
+        for (Map.Entry<String, Integer> me : datesWithFatalities.entrySet()) {
+            Integer value = me.getValue();
             if (maxFatalitiesNum.compareTo(value) < 0) {
                 maxFatalitiesNum = value;
             }
@@ -79,9 +79,9 @@ public class FightsStatistics {
     private Set<String> getMonthWithMaxFatalities(Map<String, Integer> datesWithFatalities) {
         Set<String> maxFatalitiesMonths = new HashSet<>();
         Integer maxFatalitiesNum = getMaxFatalityInMonth(datesWithFatalities);
-        for (Map.Entry me : datesWithFatalities.entrySet()) {
-            if (me.getValue() == maxFatalitiesNum) {
-                maxFatalitiesMonths.add(me.getKey().toString());
+        for (Map.Entry<String, Integer> me : datesWithFatalities.entrySet()) {
+            if (Objects.equals(me.getValue(), maxFatalitiesNum)) {
+                maxFatalitiesMonths.add(me.getKey());
             }
         }
         return maxFatalitiesMonths;
