@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MyFileReader {
-    private static final Logger LOGGER = Logger.getLogger(MyFileReader.class.getName());
+    private static final Logger logger = Logger.getLogger(MyFileReader.class.getName());
     private static final String FILE_PATH = "pavel.likhman/lab4/src/resources/info.txt";
     private static final String LOG_PATH = "pavel.likhman/lab4/logs/logs.txt";
 
@@ -27,7 +27,7 @@ public class MyFileReader {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             FileHandler fh = new FileHandler(LOG_PATH);
-            LOGGER.addHandler(fh);
+            logger.addHandler(fh);
 
             String fileLine = reader.readLine();
             while (fileLine != null) {
@@ -37,9 +37,9 @@ public class MyFileReader {
                 fileLine = reader.readLine();
             }
 
-            LOGGER.log(Level.INFO, "Информация из файла успешно считана");
+            logger.log(Level.INFO, "Информация из файла успешно считана");
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Ошибка при чтении из файла: ", e);
+            logger.log(Level.SEVERE, "Ошибка при чтении из файла: ", e);
         }
 
         return info;
