@@ -1,6 +1,8 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.LinkedList;
 
 public class Processing {
 
@@ -66,13 +68,23 @@ public class Processing {
 
 
         System.out.println("ArrayList: ");
-        MonthsArrayList mal = new MonthsArrayList(timeCheckState);
+
+        //MonthsArrayList mal = new MonthsArrayList(timeCheckState);
+
+        List<Month> al = new ArrayList<Month>();
+        MonthsList mal = new MonthsList(timeCheckState, al);
         mal.Proc(year, low);
 
         System.out.println();
 
         System.out.println("LinkedList: ");
-        MonthsLinkedList mll = new MonthsLinkedList(timeCheckState);
+
+        //MonthsLinkedList mll = new MonthsLinkedList(timeCheckState);
+
+
+        List<Month> ll = new LinkedList<Month>();
+        MonthsList mll = new MonthsList(timeCheckState, ll);
+
         mll.Proc(year, low);
     }
 }

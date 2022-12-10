@@ -1,15 +1,13 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
-
-public class MonthsLinkedList {
+public class MonthsList {
     private final boolean timeCheckState;
-    private final List<Month> monthNotes = new LinkedList<>();
+    private final List<Month> monthNotes;
 
-    MonthsLinkedList(boolean timeCheckState) {
+    MonthsList(boolean timeCheckState, List<Month> list) {
         this.timeCheckState = timeCheckState;
+        monthNotes = list;
     }
 
     void Proc(int year, double low) {
