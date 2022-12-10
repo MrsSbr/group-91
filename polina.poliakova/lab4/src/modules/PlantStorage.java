@@ -58,7 +58,7 @@ public class PlantStorage {
     }
 
 
-    private String getMaxValueString(Map<String, Integer> statistics) {
+    private StringBuilder getMaxValueString(Map<String, Integer> statistics) {
         Integer maxAmount = -1;
 
         for (var entry : statistics.entrySet()) {
@@ -75,7 +75,7 @@ public class PlantStorage {
             }
         }
 
-        return maxAmountEntriesStringBuilder.toString();
+        return maxAmountEntriesStringBuilder;
     }
 
     // - месяц, в котором было продано больше всего цветущих растений
@@ -93,7 +93,7 @@ public class PlantStorage {
                     (plant.getTypeName() == PlantType.FLOWERING ? 1 : 0) + (floweringPlantAmount != null ? floweringPlantAmount : 0));
         }
 
-        return getMaxValueString(monthsSoldFloweringPlants);
+        return getMaxValueString(monthsSoldFloweringPlants).toString();
     }
 
     //- для каждого растения найти все размеры горшков, в которых оно продается
