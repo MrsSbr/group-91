@@ -1,13 +1,12 @@
 package models;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Processing {
     private static final int ALCOHOL_NOTES_NUM = 20;
+    private static List<AlcoholNotes> alcoholNotes;
 
-    public static Set<String> getListTastedDrinks(List<AlcoholNotes> alcoholNotes) {
+    public static Set<String> getListTastedDrinks() {
         Set<String> tastedDrinks = new HashSet<>();
         for (AlcoholNotes an : alcoholNotes) {
             tastedDrinks.add(an.getAlcoholType());
@@ -15,7 +14,7 @@ public class Processing {
         return tastedDrinks;
     }
 
-    public static double getAmountAlcoholConsumed(List<AlcoholNotes> alcoholNotes) {
+    public static double getAmountAlcoholConsumed() {
         double sum = 0;
         for (AlcoholNotes an : alcoholNotes) {
             sum += an.getNumDrinkingAlcohol();
@@ -23,7 +22,7 @@ public class Processing {
         return sum;
     }
 
-    public static double getAvgDrunkAlcoholToPeakBallmer(List<AlcoholNotes> alcoholNotes) {
+    public static double getAvgDrunkAlcoholToPeakBallmer() {
         double drunkAlcohol = 0.0;
         int countAlcohol = 0;
         for (AlcoholNotes tp : alcoholNotes) {
@@ -35,15 +34,9 @@ public class Processing {
         return drunkAlcohol / countAlcohol;
     }
 
-    public void mainProcessing(boolean timeCheckState) {
-        System.out.println("ArrayList: ");
-        AlcoholArrayList aal = new AlcoholArrayList(timeCheckState, ALCOHOL_NOTES_NUM);
-        aal.Proc();
-
-        System.out.println();
-
-        System.out.println("LinkedList: ");
-        AlcoholLinkedList all = new AlcoholLinkedList(timeCheckState, ALCOHOL_NOTES_NUM);
-        all.Proc();
+    public void mainProcessing( List<AlcoholNotes> alcoholNotesList,boolean timeCheckState) {
+        alcoholNotes = alcoholNotesList;
+        AlcoholList aal = new AlcoholList(alcoholNotes, timeCheckState, ALCOHOL_NOTES_NUM);
+        aal.Process();
     }
 }

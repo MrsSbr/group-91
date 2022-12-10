@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Processing proc = new Processing();
-        String choice = "";
+        String choice;
         boolean isEnd = false;
         while (!isEnd) {
             System.out.println("\nВыберите пункт меню: ");
@@ -16,15 +16,14 @@ public class Main {
 
             choice = sc.nextLine();
             switch (choice) {
-                case "1":
-                    proc.mainProcessing(false);
-                    break;
-                case "2":
-                    proc.mainProcessing(true);
-                    break;
-                default:
-                    isEnd = true;
-                    break;
+                case "1" -> proc.mainProcessing(new ArrayList<>(), false);
+                case "2" -> {
+                    System.out.println("LinkedList: ");
+                    proc.mainProcessing(new LinkedList<>(), true);
+                    System.out.println("ArrayList: ");
+                    proc.mainProcessing(new ArrayList<>(), true);
+                }
+                default -> isEnd = true;
             }
         }
     }
