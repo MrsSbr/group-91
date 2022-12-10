@@ -19,7 +19,7 @@ public class Main {
 
         try {
             orders = new OrderReader().readOrders(FILE_PATH);
-        } catch (OrderReadingException | FileNotFoundException e) {
+        } catch (OrderReadingException | FileNotFoundException | DateTimeParseException e) {
             logger.severe(e.toString());
             return;
         }

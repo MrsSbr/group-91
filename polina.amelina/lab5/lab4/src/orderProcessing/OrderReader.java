@@ -35,7 +35,7 @@ public final class OrderReader {
         logger.entering(getClass().getName(), MethodNameGetter.getMethodName(), new Object[] {filename, dateTimeFormat, durationFormat});
         List<Order> listOfOrders = new ArrayList<>();
 
-        try (Scanner scanner = new Scanner(new File(filename)).useDelimiter(";").useLocale(Locale.ENGLISH)) {
+        try (Scanner scanner = new Scanner(new File(filename)).useDelimiter(";")) {
 
             while (scanner.hasNext()) {
                 String name = scanner.next();
