@@ -10,12 +10,10 @@ import java.util.stream.Collectors;
 public final class Election {
     private final static Logger logger = Logger.getGlobal();
     private final List<Integer> rawVotes;
-    private final int candidateCount;
     private final int minVoterPercent;
 
     public Election(List<Integer> rawVotes, int candidateCount, int minVoterPercent) {
         this.rawVotes = rawVotes;
-        this.candidateCount = candidateCount;
         this.minVoterPercent = minVoterPercent;
     }
 
