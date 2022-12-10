@@ -74,7 +74,7 @@ public final class OrderReader {
                     scanner.nextLine();
                 }
             }
-        } catch (OrderReadingException | FileNotFoundException e) {
+        } catch (OrderReadingException | FileNotFoundException | DateTimeParseException e) {
             logger.throwing(getClass().getName(), MethodNameGetter.getMethodName(), e);
             throw e;
         }
