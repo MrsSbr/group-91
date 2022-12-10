@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 
 public class MyFileReader {
     private static final Logger LOGGER = Logger.getLogger(MyFileReader.class.getName());
+    private static final String FILE_PATH = "pavel.likhman/lab4/src/resources/info.txt";
+    private static final String LOG_PATH = "pavel.likhman/lab4/logs/logs.txt";
 
     private static String[] getSplitString(String line) {
         return line.split(";");
@@ -21,10 +23,10 @@ public class MyFileReader {
 
     public static List<SportsmenInfo> getSportsmanInfoListFromFile() {
         List<SportsmenInfo> info = new ArrayList<>();
-        File file = new File("pavel.likhman/lab4/src/resources/info.txt");
+        File file = new File(FILE_PATH);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            FileHandler fh = new FileHandler("pavel.likhman/lab4/logs/logs.txt");
+            FileHandler fh = new FileHandler(LOG_PATH);
             LOGGER.addHandler(fh);
 
             String fileLine = reader.readLine();

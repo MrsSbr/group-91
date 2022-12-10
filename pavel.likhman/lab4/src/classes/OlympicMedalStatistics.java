@@ -5,103 +5,96 @@ import java.util.*;
 public class OlympicMedalStatistics {
     private List<SportsmenInfo> sportsmenInfoList;
 
-    private Set<String> getAllCountries() {
-        Set<String> countries = new HashSet<>();
-        for (SportsmenInfo info : sportsmenInfoList) {
-            countries.add(info.getCountry());
+    private List<Integer> getCountOfMedalsInCountry(String country) {
+        List<Integer> countOfMedalsInCountry = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            countOfMedalsInCountry.add(0);
         }
-        return countries;
-    }
-
-    private CountOfMedalsInCountry getCountOfMedalsInCountry(String country) {
-        CountOfMedalsInCountry count = new CountOfMedalsInCountry(country, 0, 0, 0);
         for (SportsmenInfo info : sportsmenInfoList) {
-            if (info.getCountry().equals(country)) {
-                switch (info.getPlace()) {
-                    case 1:
-                        count.setCountFirstPlaces(count.getCountFirstPlaces() + 1);
-                        break;
-                    case 2:
-                        count.setCountSecondPlaces(count.getCountSecondPlaces() + 1);
-                        break;
-                    case 3:
-                        count.setCountThirdPlaces(count.getCountThirdPlaces() + 1);
-                        break;
-                    default:
-                        break;
-                }
+            int place = info.getPlace();
+            if (info.getCountry().equals(country) && place > 0 && place < 4) {
+                countOfMedalsInCountry.set(place - 1, countOfMedalsInCountry.get(place - 1) + 1);
             }
         }
-        return count;
+        return countOfMedalsInCountry;
     }
 
-    private List<CountOfMedalsInCountry> getCountOfMedalsInAllCountries() {
-        List<CountOfMedalsInCountry> counts = new ArrayList<>();
-        Set<String> countries = getAllCountries();
-        for (String country : countries) {
-            counts.add(getCountOfMedalsInCountry(country));
+    private boolean isGreater(List<Integer> count1, List<Integer> count2) {
+        if (count1.get(0) > count2.get(0)) {
+            return true;
         }
-        return counts;
+        if (count1.get(0) < count2.get(0)) {
+            return false;
+        }
+        if (count1.get(1) > count2.get(1)) {
+            return true;
+        }
+        if (count1.get(1) < count2.get(1)) {
+            return false;
+        }
+        return count1.get(2) > count2.get(2);
     }
 
     private Set<String> getTop3MedalCountCountries() {
-        List<CountOfMedalsInCountry> counts = getCountOfMedalsInAllCountries();
-        Set<String> top3Countries = new HashSet<>();
+        Map<String, List<Integer>> countriesWithMedalsCount = new HashMap<>();
+        for (SportsmenInfo info : sportsmenInfoList) {
+            countriesWithMedalsCount.put(info.getCountry(), getCountOfMedalsInCountry(info.getCountry()));
+        }
+        List<List<Integer>> counts = new ArrayList<>(countriesWithMedalsCount.values());
+        List<String> countries = new ArrayList<>(countriesWithMedalsCount.keySet());
         for (int i = 0; i < counts.size() - 1; i++) {
-            for (int j = i + 1; j < counts.size(); j++) {
-                if (!counts.get(i).isGreater(counts.get(j))) {
+            for (int j = i; j < counts.size(); j++) {
+                if (!isGreater(counts.get(i), counts.get(j))) {
                     Collections.swap(counts, i, j);
+                    Collections.swap(countries, i, j);
                 }
             }
         }
+        Set<String> top3Countries = new HashSet<>();
         for (int i = 0; i < 3; i++) {
-            top3Countries.add(counts.get(i).getCountry());
+            top3Countries.add(countries.get(i));
         }
         return top3Countries;
     }
 
-    private Set<String> getAllKindsOfSports() {
-        Set<String> kindsOfSports = new HashSet<>();
-        for (SportsmenInfo info : sportsmenInfoList) {
-            kindsOfSports.add(info.getKindOfSport());
-        }
-        return kindsOfSports;
-    }
-
-    private List<String> getListOfSportsmenWithPlacesInKindOfSport(String sport) {
+    private List<String> getSportsmanForKindOfSportWithPlaces(String sport) {
         List<String> sportsman = new ArrayList<>();
         for (SportsmenInfo info : sportsmenInfoList) {
-            if (info.getKindOfSport().equals(sport) && info.getPlace() > 0 && info.getPlace() < 4) { // Здесь в зависимости от того, имеется ли в виду заняли с 1 по 3 места или вообще все места
+            if (info.getKindOfSport().equals(sport) && info.getPlace() > 0 && info.getPlace() < 4) {
                 sportsman.add(info.getFullName());
             }
         }
         return sportsman;
     }
 
-    private Set<String> getAllSportsman() {
-        Set<String> sportsman = new HashSet<>();
+    private Map<String, List<String>> getListOfSportsmenWithPlacesInKindOfSport() {
+        Map<String, List<String>> sportWithSportsman = new HashMap<>();
         for (SportsmenInfo info : sportsmenInfoList) {
-            sportsman.add(info.getFullName());
+            sportWithSportsman.put(info.getKindOfSport(), getSportsmanForKindOfSportWithPlaces(info.getKindOfSport()));
         }
-        return sportsman;
+        return sportWithSportsman;
+    }
+
+    private int getCountOfMedalsForSportsmen(String name) {
+        int count = 0;
+        for (SportsmenInfo info : sportsmenInfoList) {
+            if (info.getFullName().equals(name) && info.getPlace() > 0 && info.getPlace() < 4) {
+                count++;
+            }
+        }
+        return count;
     }
 
     private String getSportsmenWithMostMedals() {
-        Set<String> sportsman = getAllSportsman();
         String needName = "";
-        int max = 0;
-        int current;
-        for (String name : sportsman) {
-            current = 0;
-            for (SportsmenInfo info : sportsmenInfoList) {
-                if (info.getFullName().equals(name) && info.getPlace() > 0 && info.getPlace() < 4) {
-                    current++;
-                }
-
-                if (current > max) {
-                    max = current;
-                    needName = name;
-                }
+        Map<String, Integer> sportsmanWithMedals = new HashMap<>();
+        for (SportsmenInfo info : sportsmenInfoList) {
+            sportsmanWithMedals.put(info.getFullName(), getCountOfMedalsForSportsmen(info.getFullName()));
+        }
+        int max = Collections.max(sportsmanWithMedals.values());
+        for (String name : sportsmanWithMedals.keySet()) {
+            if (sportsmanWithMedals.get(name) == max) {
+                needName = name;
             }
         }
         return needName;
@@ -109,17 +102,10 @@ public class OlympicMedalStatistics {
 
     public void task(List<SportsmenInfo> sportsmenInfoList) {
         this.sportsmenInfoList = sportsmenInfoList;
-        System.out.println("Task 1. Top 3 countries by medal count: ");
-        for (String country : getTop3MedalCountCountries()) {
-            System.out.println(country);
-        }
+        System.out.println("Task 1. Top 3 countries by medal count: " + getTop3MedalCountCountries());
         System.out.println("Task 2. List of sportsman who won prizes for each kind of sports: ");
-        for (String sport : getAllKindsOfSports()) {
-            System.out.print(sport + " — ");
-            for (String name : getListOfSportsmenWithPlacesInKindOfSport(sport)) {
-                System.out.print(name + "; ");
-            }
-            System.out.println();
+        for (Map.Entry<String, List<String>> entry : getListOfSportsmenWithPlacesInKindOfSport().entrySet()) {
+            System.out.println(entry.getKey() + " — " + entry.getValue());
         }
         System.out.print("Task 3. Sportsmen with the most medals: " + getSportsmenWithMostMedals());
     }

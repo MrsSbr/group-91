@@ -9,22 +9,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Main {
-    private static final Logger LOGGER = Logger.getLogger(MyFileReader.class.getName());
+    private static final Logger logger = Logger.getLogger(MyFileReader.class.getName());
+    private static final String LOG_PATH = "pavel.likhman/lab4/logs/logs.txt";
 
     public static void main(String[] args) {
         try {
-            FileHandler fh = new FileHandler("pavel.likhman/lab4/logs/logs.txt");
-            LOGGER.addHandler(fh);
-            LOGGER.log(Level.INFO, "Начало работы");
+            FileHandler fh = new FileHandler(LOG_PATH);
+            logger.addHandler(fh);
+            logger.log(Level.INFO, "Начало работы");
 
             OlympicMedalStatistics statistics = new OlympicMedalStatistics();
             List<SportsmenInfo> info = MyFileReader.getSportsmanInfoListFromFile();
-            LOGGER.log(Level.INFO, "Информация из файла успешно передана и конвертирована");
+            logger.log(Level.INFO, "Информация из файла успешно передана и конвертирована");
             statistics.task(info);
-            LOGGER.log(Level.INFO, "Необходимая информация успешно выведена");
+            logger.log(Level.INFO, "Необходимая информация успешно выведена");
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Ошибка при обработке последовательности данных", e);
+            logger.log(Level.SEVERE, "Ошибка при обработке последовательности данных", e);
         }
-        LOGGER.log(Level.INFO, "Завершение работы");
+        logger.log(Level.INFO, "Завершение работы");
     }
 }
