@@ -2,14 +2,14 @@ package performances;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class PerformancesStorage {
 
     private static final int EMPLOYEES_COUNT = 12000;
 
-    private final Map<Performance, Integer> ticketsCountForPerformances =
+    private final Map<Performance, Integer> performancesTicketsStatistic =
             Arrays.stream(Performance.values())
                     .collect(Collectors.toMap(x -> x, x -> 0));
 
@@ -18,7 +18,7 @@ public class PerformancesStorage {
     }
 
     private void addTicketForPerformance(Performance performance) {
-        ticketsCountForPerformances.put(performance, ticketsCountForPerformances.get(performance) + 1);
+        performancesTicketsStatistic.put(performance, performancesTicketsStatistic.get(performance) + 1);
     }
 
     public void fillRandom() {
@@ -28,33 +28,25 @@ public class PerformancesStorage {
         }
     }
 
-    private String getPerformancesTicketsString(Stream<Map.Entry<Performance, Integer>> stream) {
-        return stream
-                .map(x -> x.getKey() + " : " + x.getValue())
-                .collect(Collectors.joining("\n"));
+    public Map<Performance, Integer> getPerformancesTicketsStatistic() {
+        return performancesTicketsStatistic;
     }
 
-    public String getPerformancesTicketsString() {
-        return getPerformancesTicketsString(ticketsCountForPerformances.entrySet().stream());
-    }
-
-    public String getMaxPopularPerformancesString() {
-        int maxTickets = ticketsCountForPerformances.values().stream()
+    public Set<Performance> getMaxPopularPerformances() {
+        int maxTickets = performancesTicketsStatistic.values().stream()
                 .max(Integer::compare)
                 .orElse(0);
 
-        var maxPopularPerformances =
-                ticketsCountForPerformances.entrySet().stream()
-                .filter(x -> x.getValue() == maxTickets);
-
-        return getPerformancesTicketsString(maxPopularPerformances);
+        return performancesTicketsStatistic.entrySet().stream()
+                .filter(x -> x.getValue() == maxTickets)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
     }
 
-    public String getPerformancesNotTicketsString() {
-        var performancesNotTickets =
-                ticketsCountForPerformances.entrySet().stream()
-                .filter(x -> x.getValue() == 0);
-
-        return getPerformancesTicketsString(performancesNotTickets);
+    public Set<Performance> getPerformancesNotTickets() {
+        return performancesTicketsStatistic.entrySet().stream()
+                .filter(x -> x.getValue() == 0)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
     }
 }

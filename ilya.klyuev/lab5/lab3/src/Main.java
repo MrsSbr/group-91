@@ -1,7 +1,10 @@
 import input.ConsoleInput;
 import input.InvalidBoundsException;
+import performances.Performance;
 import performances.PerformancesStorage;
 
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,9 +25,9 @@ public class Main {
                 selectedMenuItem = ConsoleInput.inputIntInRange("Выберите пункт: ", 1, MAX_MENU_ITEM);
                 switch (selectedMenuItem) {
                     case 1 -> performancesStorage.fillRandom();
-                    case 2 -> System.out.println(performancesStorage.getPerformancesTicketsString());
-                    case 3 -> System.out.println(performancesStorage.getMaxPopularPerformancesString());
-                    case 4 -> System.out.println(performancesStorage.getPerformancesNotTicketsString());
+                    case 2 -> printPerformancesTicketsStatistic(performancesStorage.getPerformancesTicketsStatistic());
+                    case 3 -> printMaxPopularPerformances(performancesStorage.getMaxPopularPerformances());
+                    case 4 -> printPerformancesNotTickets(performancesStorage.getPerformancesNotTickets());
                 }
 
             } while (selectedMenuItem != MAX_MENU_ITEM);
@@ -41,5 +44,26 @@ public class Main {
         System.out.println("3: Показать самые популярные спектакли");
         System.out.println("4: Показать спектакли, на которые никто не купил билет");
         System.out.println("5: Выход");
+    }
+
+    private static void printPerformancesTicketsStatistic(Map<Performance, Integer> performancesTicketsStatistic) {
+        if (performancesTicketsStatistic.isEmpty()) {
+            System.out.println("Нет информации о купленных билетах");
+        }
+        System.out.println(performancesTicketsStatistic.entrySet());
+    }
+
+    private static void printMaxPopularPerformances(Set<Performance> maxPopularPerformances) {
+        if (maxPopularPerformances.isEmpty()) {
+            System.out.println("Нет информации о самых продаваемых спектаклях");
+        }
+        System.out.println(maxPopularPerformances);
+    }
+
+    private static void printPerformancesNotTickets(Set<Performance> performancesNotTickets) {
+        if (performancesNotTickets.isEmpty()) {
+            System.out.println("Нет спектаклей, на которые не купили билеты");
+        }
+        System.out.println(performancesNotTickets);
     }
 }
