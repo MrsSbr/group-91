@@ -36,48 +36,43 @@ public class DealsStorage {
         logger.log(Level.INFO, "End read file");
     }
 
-    private Stream<Deal> getDealsAfterDate(LocalDate date) {
-        return deals.stream()
-                .filter(deal -> deal.getDate().compareTo(date) >= 0);
-    }
-
-    private String getMaxIncomeValueString(Map<String, IntSummaryStatistics> incomesStatistic) {
-        long maxIncome = incomesStatistic.values().stream()
-                .mapToLong(IntSummaryStatistics::getSum)
-                .max()
+    private Set<String> getKeysByMaxValueFromStatistic(Map<String, Integer> statistic) {
+        int maxValue = statistic.values().stream()
+                .max(Integer::compare)
                 .orElse(0);
 
-        return incomesStatistic.entrySet().stream()
-                .filter(x -> x.getValue().getSum() == maxIncome)
-                .map(x -> x.getKey() + " : " + x.getValue().getSum())
-                .collect(Collectors.joining("\n"));
+        return statistic.entrySet().stream()
+                .filter(x -> x.getValue() == maxValue)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
     }
 
-    public String getCustomersIncomeStatisticString() {
+    private Stream<Deal> getDealsAfterDate(LocalDate date) {
+        return deals.stream()
+                .filter(deal -> deal.getDate().isAfter(date));
+    }
+
+    public Map<String, Integer> getCustomersIncomeStatistic() {
         return deals.stream()
                 .collect(Collectors.groupingBy(Deal::getCustomerName,
-                        Collectors.summarizingInt(Deal::getAmount)))
-                .entrySet().stream()
-                .map(x -> x.getKey() + " : " + x.getValue().getSum())
-                .collect(Collectors.joining("\n"));
+                        Collectors.summingInt(Deal::getAmount)));
     }
 
-
-    public String getMostProfitableMonthsStringForLastYear() {
-        var lastYearStatisticByMonths =
+    public Set<String> getMostProfitableMonthsForLastYear() {
+        var monthsStatisticForLastYear =
                 getDealsAfterDate(LocalDate.now().minusYears(1))
-                .collect(Collectors.groupingBy(x -> x.getDate().getMonth().toString(),
-                        Collectors.summarizingInt(Deal::getAmount)));
+                        .collect(Collectors.groupingBy(x -> x.getDate().getMonth().toString(),
+                                Collectors.summingInt(Deal::getAmount)));
 
-        return getMaxIncomeValueString(lastYearStatisticByMonths);
+        return getKeysByMaxValueFromStatistic(monthsStatisticForLastYear);
     }
 
-    public String getMostEffectiveManagersStringForLastMonth() {
-        var lastMonthStatisticByManagers =
+    public Set<String> getMostEffectiveManagersForLastMonth() {
+        var managersStatisticForLastMonth =
                 getDealsAfterDate(LocalDate.now().minusMonths(1))
-                .collect(Collectors.groupingBy(Deal::getManagerName,
-                        Collectors.summarizingInt(Deal::getAmount)));
+                        .collect(Collectors.groupingBy(Deal::getManagerName,
+                                Collectors.summingInt(Deal::getAmount)));
 
-        return getMaxIncomeValueString(lastMonthStatisticByManagers);
+        return getKeysByMaxValueFromStatistic(managersStatisticForLastMonth);
     }
 }

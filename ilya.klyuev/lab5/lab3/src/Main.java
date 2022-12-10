@@ -49,21 +49,24 @@ public class Main {
     private static void printPerformancesTicketsStatistic(Map<Performance, Integer> performancesTicketsStatistic) {
         if (performancesTicketsStatistic.isEmpty()) {
             System.out.println("Нет информации о купленных билетах");
+        } else {
+            System.out.println(performancesTicketsStatistic.entrySet());
         }
-        System.out.println(performancesTicketsStatistic.entrySet());
     }
 
     private static void printMaxPopularPerformances(Set<Performance> maxPopularPerformances) {
         if (maxPopularPerformances.isEmpty()) {
             System.out.println("Нет информации о самых продаваемых спектаклях");
+        } else {
+            System.out.println(maxPopularPerformances);
         }
-        System.out.println(maxPopularPerformances);
     }
 
     private static void printPerformancesNotTickets(Set<Performance> performancesNotTickets) {
         if (performancesNotTickets.isEmpty()) {
             System.out.println("Нет спектаклей, на которые не купили билеты");
+        } else {
+            System.out.println(performancesNotTickets);
         }
-        System.out.println(performancesNotTickets);
     }
 }
