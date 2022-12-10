@@ -48,8 +48,11 @@ public abstract class DecorativeCosmetic implements Cosmetic {
         }
 
         DecorativeCosmetic cosmetic = (DecorativeCosmetic) obj;
-        return expiration_date == cosmetic.expiration_date && Objects.equals(texture, cosmetic.texture) && Objects.equals(appointment, cosmetic.appointment) &&
-                weight == cosmetic.weight && Objects.equals(brand, cosmetic.brand);
+        return expiration_date == cosmetic.expiration_date
+                && Objects.equals(texture, cosmetic.texture)
+                && Objects.equals(appointment, cosmetic.appointment)
+                && weight == cosmetic.weight
+                && Objects.equals(brand, cosmetic.brand);
     }
 
     @Override
