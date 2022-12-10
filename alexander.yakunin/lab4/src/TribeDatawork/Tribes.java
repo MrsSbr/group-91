@@ -2,9 +2,7 @@ package TribeDatawork;
 
 import Helpers.AllHuntResult;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,9 +26,14 @@ public class Tribes {
                 }
                 tribes.add(tribe);
             }
+        } catch (FileNotFoundException e) {
+            logger.log(Level.SEVERE, "Файл не нашелся", e.getMessage());
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Ошибка чтения", e.getMessage());
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Ошибка чтения из файла", e.getMessage());
+            logger.log(Level.SEVERE, "Что-то пошло не так!", e.getMessage());
         }
+
     }
 
     public String getAverageHuntResultForHunters() {
