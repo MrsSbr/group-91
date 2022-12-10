@@ -34,7 +34,7 @@ public class Processing {
         return drunkAlcohol / countAlcohol;
     }
 
-    public void mainProcessing( List<AlcoholNotes> alcoholNotesList,boolean timeCheckState) {
+    public void mainProcessing(List<AlcoholNotes> alcoholNotesList, boolean timeCheckState) {
         alcoholNotes = alcoholNotesList;
         AlcoholList aal = new AlcoholList(alcoholNotes, timeCheckState, ALCOHOL_NOTES_NUM);
         aal.Process();
