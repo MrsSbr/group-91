@@ -1,12 +1,36 @@
+package Classes;
 
 public class Month{
-    public String name;
+    private String name;
 
-    public int number;
-    public double averageTemp;
+    private int number;
+    private double averageTemp;
 
-    public Month(int number) {
+    private int year;
+
+
+    public void print() {
+        System.out.println(name + " " + year + " года. Температура " + averageTemp + ";");
+    }
+    public int getYear() {
+        return year;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public String getName () {
+        return name;
+    }
+
+    public double getAVG() {
+        return averageTemp;
+    }
+
+    public Month(int number, int y) {
         this.number = number;
+        year = y;
         int lowest = -100;
         int highest = 100;
         switch (number) {
@@ -74,7 +98,5 @@ public class Month{
         this.averageTemp = Math.random() * (highest - lowest) + lowest;;
     }
 
-    public double getAVG() {
-        return averageTemp;
-    }
+
 }

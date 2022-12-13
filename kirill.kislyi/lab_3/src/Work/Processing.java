@@ -1,51 +1,44 @@
+package Work;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.LinkedList;
+import Classes.Month;
+import Classes.MonthsList;
 
 public class Processing {
 
     //Найти месяцы, когда температура была ниже указанной пользователем
-    public static String getLowerTemp(List<Month> monthNotes, double lowRange) {
-        String result = " ";
-        for (int i = 0; i < 60; i++) {
-            if (monthNotes.get(i).getAVG() < lowRange) {
-                int y = i / 12;
-                result += monthNotes.get(i).name + " " + y + " года; ";
-            }
-        }
+    public static List<Month>  getLowerTemp(List<Month> monthNotes, double lowRange) {
+        List<Month> result = new ArrayList<Month>();
 
-        if (result == " ") {
-            result = " Не было таких месяцев! ";
+        for (Month m : monthNotes) {
+            if (m.getAVG() < lowRange) {
+                result.add(m);
+            }
         }
         return result;
     }
 
     //Найти самый жаркий месяц (месяцы)
-    public static String getHighestTemp(List<Month> monthNotes) {
-        double[] temps = new double[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-        for (Month m : monthNotes) {
-            temps[m.number - 1] += m.getAVG();
-        }
+    public static List<Month> getHighestTemp(List<Month> monthNotes) {
 
         double highest = -100;
-        for (int i =0; i< 12; i++) {
-            if (temps[i] > highest) {
-                highest = temps[i];
+        for (Month m : monthNotes) {
+            if (m.getAVG() > highest) {
+                highest = m.getAVG();
             }
         }
 
-        String result = " ";
+        List<Month> result = new ArrayList<Month>();
 
-        for (int i =0; i< 12; i++) {
-            if (temps[i] == highest) {
-                Month ex = new Month(i);
-                result += ex.name + " ";
+        for (Month m : monthNotes) {
+            if (m.getAVG() == highest) {
+                result.add(m);
             }
         }
-
         return result;
     }
 
@@ -68,23 +61,16 @@ public class Processing {
 
 
         System.out.println("ArrayList: ");
-
-        //MonthsArrayList mal = new MonthsArrayList(timeCheckState);
-
         List<Month> al = new ArrayList<Month>();
         MonthsList mal = new MonthsList(timeCheckState, al);
-        mal.Proc(year, low);
+        mal.proc(year, low);
 
         System.out.println();
 
         System.out.println("LinkedList: ");
-
-        //MonthsLinkedList mll = new MonthsLinkedList(timeCheckState);
-
-
         List<Month> ll = new LinkedList<Month>();
         MonthsList mll = new MonthsList(timeCheckState, ll);
 
-        mll.Proc(year, low);
+        mll.proc(year, low);
     }
 }

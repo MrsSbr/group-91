@@ -1,3 +1,5 @@
+package Work;
+
 import java.util.Scanner;
 
 public class Help {
