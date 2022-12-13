@@ -2,10 +2,9 @@ package reader;
 
 import models.Box;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -13,10 +12,13 @@ import java.util.Map;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.List;
 
 
 public class ReaderFile {
-    private static final String PATH_DATA_FILE_CONST = "Анастасия.Сысуева/lab5/lab5_lab4/src/Info/BeattyBox.txt";
+    private static final Path PATH_DATA_FILE_CONST = Path.of("Анастасия.Сысуева/lab5/lab5_lab4/src/Info/BeattyBox.txt");
     private static final String LOGGER_PATH_CONST = "Анастасия.Сысуева/lab5/lab5_lab4/logs/logs.txt";
     private static final Logger logger = Logger.getLogger(ReaderFile.class.getName());
 
@@ -30,20 +32,19 @@ public class ReaderFile {
 
     public static Map<Integer, Box> readFile() {
         Map<Integer, Box> beautyBoxes = new HashMap<>();
-        File file = new File(PATH_DATA_FILE_CONST);
         final boolean[] flag = new boolean[1];
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (Stream<String> lineStream = Files.lines(PATH_DATA_FILE_CONST)) {
             FileHandler fh = new FileHandler(LOGGER_PATH_CONST);
             logger.addHandler(fh);
-            String line = reader.readLine();
-            int count = 0;
+            List<String> lines = lineStream.collect(Collectors.toList());
+            final int[] count = {0};
 
-            while (line != null) {
+            lines.forEach(line -> {
                 String[] lineParts = splitLine(line);
                 String[] productLineParts = splitProductLine(lineParts[2]);
 
-                int finalCount = count;
+                int finalCount = count[0];
 
                 if (beautyBoxes.isEmpty()) {
                     Box box = new Box();
@@ -53,7 +54,7 @@ public class ReaderFile {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
                     box.getStock().addDataCountStatistics(LocalDate.parse(lineParts[0], formatter), Integer.parseInt(lineParts[1]));
                     beautyBoxes.put(finalCount, box);
-                    count++;
+                    count[0]++;
 
                 } else {
                     flag[0] = false;
@@ -73,13 +74,12 @@ public class ReaderFile {
                         }
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
                         box.getStock().addDataCountStatistics(LocalDate.parse(lineParts[0], formatter), Integer.parseInt(lineParts[1]));
-                        count++;
+                        count[0]++;
                         beautyBoxes.put(finalCount, box);
                     }
 
                 }
-                line = reader.readLine();
-            }
+            });
         } catch (IOException | NumberFormatException e) {
             logger.log(Level.SEVERE, "Ошибка работы с файлом ", e);
         }

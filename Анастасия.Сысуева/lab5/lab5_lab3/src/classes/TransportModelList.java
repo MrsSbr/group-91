@@ -2,6 +2,9 @@ package classes;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class TransportModelList {
     public static final int ROUTE_MIN_NUMBER_CONST = 1;
@@ -18,29 +21,33 @@ public class TransportModelList {
     }
 
     public void createBus() {
-        for (int i = 0; i < TransportStatistic.ROUTE_CONST; i++) {
-            transportStatistics.add(new TransportStatistic(new Bus("№" + numberBus())));
-        }
+        Stream.iterate(0, i -> i + 1).limit(TransportStatistic.ROUTE_CONST).
+                collect(Collectors.toList()).forEach(t -> transportStatistics.add(new TransportStatistic(new Bus("№" + numberBus()))));
     }
 
     public void busWorksInput(List<Integer> inputList) {
         final int[] listCount = {0};
+        final int[] daysCount = {1};
         transportStatistics.forEach(transport -> {
-            for (int day = 0; day < TransportStatistic.DAYS_CONST; day++) {
+            daysCount[0] = 1;
+            IntStream.range(0, TransportStatistic.DAYS_CONST).forEach(t -> {
                 transport.getBus().setCash(inputList.get(listCount[0]));
-                transport.pushCash(day);
+                transport.pushCash(daysCount[0]);
                 listCount[0]++;
-            }
+                daysCount[0]++;
+            });
         });
-
     }
 
     public void outWeekReport() {
         final int[] weekCash = {0};
+        final int[] daysCount = {1};
         transportStatistics.forEach(transport -> {
-            for (int i = 1; i < TransportStatistic.DAYS_CONST + 1; i++) {
-                weekCash[0] += transport.takeCash(i);
-            }
+            daysCount[0] = 1;
+            IntStream.range(0, TransportStatistic.DAYS_CONST).forEach(t -> {
+                weekCash[0] += transport.takeCash(daysCount[0]);
+                daysCount[0]++;
+            });
             System.out.println("Недельная выручка " + "маршрута "
                     + transport.getBus().getBusName() + " составляет: " + Arrays.toString(weekCash));
             weekCash[0] = 0;

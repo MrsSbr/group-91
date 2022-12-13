@@ -1,11 +1,10 @@
 import classes.TransportModelList;
 import classes.TransportStatistic;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -69,45 +68,35 @@ public class Main {
         return (minValue > inputValue || inputValue > maxValue);
     }
 
-    public static List<Integer> inputConsole() {
-        List<Integer> consoleList = new ArrayList<>();
+    public static Integer inputInt() {
         int temp;
-        for (int i = 0; i < TransportStatistic.ROUTE_CONST; i++) {
-            for (int j = 0; j < TransportStatistic.DAYS_CONST; j++) {
-                Scanner input = new Scanner(System.in);
-                System.out.println("Введите выручку для " + (i + 1) + "-го маршута "
-                        + "за " + (j + 1) + "-й день недели: (от 0 до 15000)");
-                while (!input.hasNextInt()) {
-                    System.out.println("Введено не int значение");
-                    input.next();
-                }
+        Scanner input = new Scanner(System.in);
+        System.out.println("Введите выручку для маршута (от 0 до 15000)");
+        while (!input.hasNextInt()) {
+            System.out.println("Введено не int значение");
+            input.next();
+        }
+        temp = input.nextInt();
+        while (inputCheck(TransportStatistic.MIN_CONST, TransportStatistic.MAX_CONST, temp)) {
+            System.out.println("Введите выручку для маршута (от 0 до 15000)");
+            while (!input.hasNextInt()) {
+                System.out.println("Введено не int значение");
+                input.next();
                 temp = input.nextInt();
-                while (inputCheck(TransportStatistic.MIN_CONST, TransportStatistic.MAX_CONST, temp)) {
-                    System.out.println("Введите выручку для" + (i + 1) + "-го маршута "
-                            + " за " + (j + 1) + "-й день недели: (от 0 до 15000)");
-                    while (!input.hasNextInt()) {
-                        System.out.println("Введено не int значение");
-                        input.next();
-                        temp = input.nextInt();
-                    }
-                }
-                consoleList.add(temp);
             }
         }
-        return consoleList;
+        return temp;
+    }
+
+    public static List<Integer> inputConsole() {
+        List<Integer> inputConsole = new ArrayList<>();
+        Stream.iterate(0, i -> i + 1).limit(TransportStatistic.ROUTE_CONST * TransportStatistic.DAYS_CONST).
+                collect(Collectors.toList()).forEach(t -> inputConsole.add(inputInt()));
+        return inputConsole;
     }
 
     public static List<Integer> inputRandom() {
-        List<Integer> randomList = new ArrayList<>();
-        int temp;
-        for (int i = 0; i < TransportStatistic.ROUTE_CONST; i++) {
-            for (int j = 0; j < TransportStatistic.DAYS_CONST; j++) {
-                temp = ((int) ((Math.random()
-                        * (TransportStatistic.MAX_CONST - TransportStatistic.MIN_CONST))
-                        + TransportStatistic.MIN_CONST));
-                randomList.add(temp);
-            }
-        }
-        return randomList;
+        return new Random().ints(TransportStatistic.DAYS_CONST * TransportStatistic.ROUTE_CONST,
+                TransportStatistic.MIN_CONST, TransportStatistic.MAX_CONST + 1).boxed().collect(Collectors.toList());
     }
 }
