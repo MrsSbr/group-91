@@ -37,6 +37,6 @@ public class Processing {
     public void mainProcessing(List<AlcoholNotes> alcoholNotesList, boolean timeCheckState) {
         alcoholNotes = alcoholNotesList;
         AlcoholList aal = new AlcoholList(alcoholNotes, timeCheckState, ALCOHOL_NOTES_NUM);
-        aal.Process();
+        aal.process();
     }
 }

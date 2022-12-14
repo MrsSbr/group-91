@@ -14,7 +14,7 @@ public class AlcoholList {
         this.ALCOHOL_NOTES_NUM = ALCOHOL_NOTES_NUM;
     }
 
-    public void Process() {
+    public void process() {
         long startTime = System.nanoTime();
 
         for (int i = 0; i < ALCOHOL_NOTES_NUM; i++) {

@@ -13,13 +13,13 @@ public class AlcoholNotes {
     public AlcoholNotes() {
         Random rnd = new Random();
         this.alcoholTypeList = new ArrayList<>();
-        PushAlcoholList();
+        pushAlcoholList();
         this.alcoholType = alcoholTypeList.get(rnd.nextInt(0, alcoholTypeList.size()));
         this.numDrinkingAlcohol = rnd.nextDouble(MIN_QUANTITY, MAX_QUANTITY);
         this.resultPeakBallmer = rnd.nextBoolean();
     }
 
-    public void PushAlcoholList() {
+    public void pushAlcoholList() {
         alcoholTypeList.add("Водка");
         alcoholTypeList.add("Коньяк");
         alcoholTypeList.add("Виски");

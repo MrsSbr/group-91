@@ -5,7 +5,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Processing proc = new Processing();
+        Processing processing = new Processing();
         String choice;
         boolean isEnd = false;
         while (!isEnd) {
@@ -16,12 +16,12 @@ public class Main {
 
             choice = sc.nextLine();
             switch (choice) {
-                case "1" -> proc.mainProcessing(new ArrayList<>(), false);
+                case "1" -> processing.mainProcessing(new ArrayList<>(), false);
                 case "2" -> {
                     System.out.println("LinkedList: ");
-                    proc.mainProcessing(new LinkedList<>(), true);
+                    processing.mainProcessing(new LinkedList<>(), true);
                     System.out.println("ArrayList: ");
-                    proc.mainProcessing(new ArrayList<>(), true);
+                    processing.mainProcessing(new ArrayList<>(), true);
                 }
                 default -> isEnd = true;
             }
