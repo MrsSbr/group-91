@@ -44,22 +44,15 @@ public class CoffeeShop {
         System.out.println("Скорость для ArrayList: " + timeSpeedArrayList);
         System.out.println("Скорость для LinkedList: " + timeSpeedLinkedList);
 
-        int k;
-        if (timeSpeedArrayList > timeSpeedLinkedList) {
-            k = 2;
-        } else {
-            k = 1;
-        }
+        int k = timeSpeedArrayList > timeSpeedLinkedList ? 2 : 1;
+
 
         System.out.println();
         System.out.println("Cписок напитков, которые заказывают по утрам с 7 до 9");
 
-        List<String> listAnswer1;
-        if(k == 1) {
-            listAnswer1 = listArray.listOfDrinksOrderedFrom7To9Morning(k);
-        } else {
-            listAnswer1 = listLinked.listOfDrinksOrderedFrom7To9Morning(k);
-        }
+        List<String> listAnswer1 = k == 1 ?
+                listArray.listOfDrinksOrderedFrom7To9Morning(k) :
+                listLinked.listOfDrinksOrderedFrom7To9Morning(k);
 
         for (String answer : listAnswer1) {
             System.out.println(answer);
@@ -67,13 +60,9 @@ public class CoffeeShop {
 
         System.out.println();
         System.out.println("Список напитков, которые не заказывали последние 3 месяца");
-        List<String> listAnswer2;
-
-        if(k == 1) {
-            listAnswer2 = listArray.listOfDrinksThatHaveNotBeenOrderedFor3Months(k);
-        } else {
-            listAnswer2 = listLinked.listOfDrinksThatHaveNotBeenOrderedFor3Months(k);
-        }
+        List<String> listAnswer2 = k == 1 ?
+            listArray.listOfDrinksThatHaveNotBeenOrderedFor3Months(k) :
+            listLinked.listOfDrinksThatHaveNotBeenOrderedFor3Months(k);
 
         if (listAnswer2.size() != 0) {
 
@@ -88,7 +77,7 @@ public class CoffeeShop {
         System.out.println();
         System.out.println("Количество приготовленных капучино за все время");
 
-        if(k == 1) {
+        if (k == 1) {
             System.out.println(listArray.countOfPreparedCappuccinoForAllTime());
         } else {
             System.out.println(listLinked.countOfPreparedCappuccinoForAllTime());
