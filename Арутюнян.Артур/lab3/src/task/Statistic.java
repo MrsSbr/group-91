@@ -2,8 +2,6 @@ package task;
 
 import data.*;
 import enums.StationType;
-
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +18,7 @@ public class Statistic {
     }
 
     public void recount() {
-        List<Note> list = Generator.generateNotes(17435 );
+        List<Note> list = Generator.generateNotes(17435);
 
         int countTypes = StationType.values().length;
 
@@ -50,7 +48,7 @@ public class Statistic {
             }
         }
 
-        countPowerMoreFifty = new ArrayList<StationType>();
+        countPowerMoreFifty = new ArrayList<>();
 
         for (int i = 0; i < countTypes; i++) {
             if (types[i]) {

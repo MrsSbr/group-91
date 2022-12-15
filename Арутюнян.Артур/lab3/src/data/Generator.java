@@ -1,8 +1,8 @@
 package data;
 
 import enums.StationType;
+
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.time.LocalDate;
@@ -23,18 +23,17 @@ public class Generator {
         return data;
     }
 
-    public static LocalDate generateDate()
-    {
+    public static LocalDate generateDate() {
         LocalDate date = LocalDate.now();
-        return LocalDate.ofYearDay(generateInt(2010,2022), generateInt(1,365));
+        return LocalDate.ofYearDay(generateInt(2010, 2022), generateInt(1, 365));
     }
 
-    public static int generateInt(int min, int max)
-    {
-        if(max < min)
+    public static int generateInt(int min, int max) {
+        if (max < min) {
             throw new IllegalArgumentException();
+        }
         Random random = new Random();
-        int randomNum = random.nextInt(max-min+1);
+        int randomNum = random.nextInt(max - min + 1);
         return min + randomNum;
     }
 }

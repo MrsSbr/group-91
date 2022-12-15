@@ -43,7 +43,7 @@ public class Note {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Note) {
-            Note note = (Note)obj;
+            Note note = (Note) obj;
             return power == note.power
                     && date == note.date
                     && type == note.type;
