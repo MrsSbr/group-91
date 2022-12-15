@@ -1,6 +1,7 @@
 package TribeDatawork;
 
 import Helpers.AllHuntResult;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +16,7 @@ public class Tribes {
 
     public void getTribesFromFile(String path) {
         File file = new File(path);
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file)))  {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 TribeEntry tribe = TribeEntry.getTribeFromString(line);
@@ -26,9 +27,11 @@ public class Tribes {
                 tribes.add(tribe);
             }
         } catch (FileNotFoundException e) {
-            logger.log(Level.SEVERE, "Файл не найден", e.getMessage());
+            // Здесь положил именно е потому что так мы получаем полный стек трейс откуда вызван и т.д.
+            // А если взять e.getStackTrace(), то всего лишь одну строку, в которй не очень понятно откуда и что идет
+            logger.log(Level.SEVERE, "Файл не найден", e);
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Ошибка чтения", e.getMessage());
+            logger.log(Level.SEVERE, "Ошибка чтения", e);
         }
     }
 
