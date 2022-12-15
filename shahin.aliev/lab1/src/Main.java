@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -31,11 +32,18 @@ public class Main {
 
     private static int getPositiveInt() {
         Scanner in = new Scanner(System.in);
-        int result = in.nextInt();
-
-        while (result <= 0) {
-            System.out.println("Ошибка ввода! Введите положительное число!");
+        int result;
+        try {
             result = in.nextInt();
+            while (result <= 0) {
+                System.out.println("Ошибка ввода! Введите положительное число!");
+                result = in.nextInt();
+            }
+        }
+        catch (InputMismatchException e) {
+            e.printStackTrace();
+            System.out.println("Ошибка ввода! Введите положительное число!");
+            result = getPositiveInt();
         }
         return result;
     }
