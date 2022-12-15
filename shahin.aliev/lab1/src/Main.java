@@ -29,10 +29,20 @@ public class Main {
         return arr.get(0);
     }
 
+    private static int getPositiveInt() {
+        Scanner in = new Scanner(System.in);
+        int result = in.nextInt();
+
+        while (result <= 0) {
+            System.out.println("Ошибка ввода! Введите положительное число!");
+            result = in.nextInt();
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         System.out.println("Введите целое число:");
-        Scanner scanner = new Scanner(System.in);
-        int num = Integer.parseInt(scanner.next());
+        int num = getPositiveInt();
         System.out.println("Ответ: " + lastRemaining(num));
     }
 }
