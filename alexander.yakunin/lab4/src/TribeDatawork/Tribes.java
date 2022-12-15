@@ -1,9 +1,7 @@
 package TribeDatawork;
 
 import Helpers.AllHuntResult;
-
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +14,8 @@ public class Tribes {
     private final List<TribeEntry> tribes = new ArrayList<>();
 
     public void getTribesFromFile(String path) {
-        try (var bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8))) {
+        File file = new File(path);
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file)))  {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 TribeEntry tribe = TribeEntry.getTribeFromString(line);
@@ -27,16 +26,13 @@ public class Tribes {
                 tribes.add(tribe);
             }
         } catch (FileNotFoundException e) {
-            logger.log(Level.SEVERE, "Файл не нашелся", e.getMessage());
+            logger.log(Level.SEVERE, "Файл не найден", e.getMessage());
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Ошибка чтения", e.getMessage());
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Что-то пошло не так!", e.getMessage());
         }
-
     }
 
-    public String getAverageHuntResultForHunters() {
+    public HashMap<String, AllHuntResult> getStatsForHunters() {
         if (tribes.isEmpty()) {
             logger.log(Level.INFO, "Tribes is Null");
             return null;
@@ -54,16 +50,10 @@ public class Tribes {
             }
         }
 
-        String resultString = "";
-        for (var entry : huntersResult.entrySet()) {
-            var entryValue = entry.getValue();
-            resultString += entry.getKey().toString() + ": " + (double) entryValue.getWeight() / entryValue.getCountOfHunt() + "\n";
-        }
-
-        return resultString;
+        return huntersResult;
     }
 
-    public String getBestMammothKiller() {
+    public HashMap<String, Integer> getMammothKillersStats() {
         if (tribes.isEmpty()) {
             logger.log(Level.INFO, "Tribes is Null");
             return null;
@@ -76,20 +66,10 @@ public class Tribes {
             huntersResult.put(tribe.getHunterName(), tribe.getMammothWeight() + (mammoth == null ? 0 : mammoth));
         }
 
-        String bestMammothKiller = "";
-        Integer maxWeightMammoth = -1;
-
-        for (var entry : huntersResult.entrySet()) {
-            if (entry.getValue() > maxWeightMammoth) {
-                bestMammothKiller = entry.getKey();
-                maxWeightMammoth = entry.getValue();
-            }
-        }
-
-        return bestMammothKiller;
+        return huntersResult;
     }
 
-    public String getMostKillerMonth() {
+    public HashMap<String, Integer> getMonthHuntStat() {
         if (tribes.isEmpty()) {
             logger.log(Level.INFO, "Tribes is Null");
             return null;
@@ -98,20 +78,11 @@ public class Tribes {
         HashMap<String, Integer> monthKillerStat = new HashMap<>();
 
         for (var tribe : tribes) {
-            String month = Integer.toString(tribe.getDate().getYear()) + "-" + Integer.toString(tribe.getDate().getMonthValue());
+            String month = tribe.getDate().getYear() + "-" + tribe.getDate().getMonthValue();
             Integer stat = monthKillerStat.get(month);
             monthKillerStat.put(month, tribe.getMammothWeight() + (stat == null ? 0 : stat));
         }
 
-        String mostKillerMonth = "";
-        Integer maxWeightMammoth = -1;
-        for (var entry : monthKillerStat.entrySet()) {
-            if (entry.getValue() > maxWeightMammoth) {
-                mostKillerMonth = entry.getKey();
-                maxWeightMammoth = entry.getValue();
-            }
-        }
-
-        return mostKillerMonth;
+        return monthKillerStat;
     }
 }
