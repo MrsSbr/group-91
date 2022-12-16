@@ -1,46 +1,51 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 public class Reception {
     private static final int CAPACITY = 5;
     private boolean isOpen = true;
     private boolean barberJob = false;
-    private final List<String> places = new ArrayList<>();
+    private final Object monitor = new Object();
+    private final BlockingQueue<String> queue = new ArrayBlockingQueue<>(CAPACITY, true);
 
     public void isOpen(boolean state) {
         isOpen = state;
     }
 
     public void add(String name) {
-        synchronized (this) {
-            if (places.size() == CAPACITY || !isOpen) {
-                System.out.println("Клиент " + name + " уходит");
-            } else if (places.size() < CAPACITY) {
-                places.add(name);
-                if (places.size() == 1 && !barberJob) {
-                    System.out.println("Клиент " + name + " будит барбера");
-                    this.notifyAll();
-                } else {
-                    System.out.println("Клиент " + name + " ожидает");
+        if (queue.size() == CAPACITY || !isOpen) {
+            System.out.println("Клиент " + name + " уходит");
+        } else {
+            if (queue.size() < CAPACITY) {
+                try {
+                    queue.put(name);
+                    synchronized (monitor) {
+                        if (queue.size() == 1 && !barberJob) {
+                            System.out.println("Клиент " + name + " будит барбера");
+                            monitor.notifyAll();
+                        } else {
+                            System.out.println("Клиент " + name + " ожидает");
+                        }
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
-
         }
     }
 
     public String get() throws InterruptedException {
-        synchronized (this) {
-            while (places.size() == 0) {
+        synchronized (monitor) {
+            while (queue.size() == 0) {
                 System.out.println("Клиентов нет. Барбер спит\n-----------------------");
                 barberJob = false;
-                this.wait();
+                monitor.wait();
             }
-            if (barberJob){
+            if (barberJob) {
                 System.out.println("Барбер идет в приемную за клиентом");
             }
             barberJob = true;
-            String name = places.get(0);
-            places.remove(0);
+            String name = queue.take();
 
             System.out.println("Барбер пригласил клиента " + name);
             return name;
