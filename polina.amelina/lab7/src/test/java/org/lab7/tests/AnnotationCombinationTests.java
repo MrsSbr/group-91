@@ -4,6 +4,7 @@ import com.google.testing.compile.Compilation;
 import com.google.testing.compile.JavaFileObjects;
 import org.junit.Test;
 import org.lab7.autowired.AutowiredProcessor;
+import org.lab7.component.ComponentProcessor;
 
 import static com.google.testing.compile.CompilationSubject.assertThat;
 import static com.google.testing.compile.Compiler.javac;
@@ -33,7 +34,7 @@ public class AnnotationCombinationTests {
 
         // when
         Compilation compilation = javac()
-                .withProcessors(new AutowiredProcessor())
+                .withProcessors(new AutowiredProcessor(), new ComponentProcessor())
                 .compile(
                         JavaFileObjects.forSourceLines(fieldClassName, fieldClassContent),
                         JavaFileObjects.forSourceLines(className, classContent)
@@ -67,7 +68,7 @@ public class AnnotationCombinationTests {
 
         // when
         Compilation compilation = javac()
-                .withProcessors(new AutowiredProcessor())
+                .withProcessors(new AutowiredProcessor(), new ComponentProcessor())
                 .compile(
                         JavaFileObjects.forSourceLines(fieldClassName, fieldClassContent),
                         JavaFileObjects.forSourceLines(className, classContent)
@@ -136,7 +137,7 @@ public class AnnotationCombinationTests {
 
         // when
         Compilation compilation = javac()
-                .withProcessors(new AutowiredProcessor())
+                .withProcessors(new AutowiredProcessor(), new ComponentProcessor())
                 .compile(
                         JavaFileObjects.forSourceLines(fieldClassName, fieldClassContent),
                         JavaFileObjects.forSourceLines(className, classContent)
@@ -159,7 +160,7 @@ public class AnnotationCombinationTests {
 
         // when
         Compilation compilation = javac()
-                .withProcessors(new AutowiredProcessor())
+                .withProcessors(new AutowiredProcessor(), new ComponentProcessor())
                 .compile(JavaFileObjects.forSourceLines(className, classContent));
 
         // then
