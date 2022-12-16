@@ -1,4 +1,4 @@
-package Helpers;
+package HelpersStreamApi;
 
 public class AllHuntResult {
     private int weight;
@@ -8,7 +8,6 @@ public class AllHuntResult {
         this.countOfHunt = countOfHunt;
         this.weight = weight;
     }
-
 
     public int getWeight() {
         return weight;

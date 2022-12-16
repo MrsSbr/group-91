@@ -1,4 +1,4 @@
-package TribeDatawork;
+package TribeDataworkStreamApi;
 
 import java.time.LocalDate;
 import java.util.logging.Level;

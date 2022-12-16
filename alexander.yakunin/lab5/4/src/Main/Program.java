@@ -1,5 +1,7 @@
-import Helpers.AllHuntResult;
-import TribeDatawork.Tribes;
+package Main;
+
+import HelpersStreamApi.AllHuntResult;
+import TribeDataworkStreamApi.Tribes;
 
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -9,43 +11,43 @@ import static UI.Menus.todos;
 
 public class Program {
     private static final Logger logger = Logger.getLogger(Program.class.getName());
-    private static final String DATASET_PATH = "/Users/alexander/Projects/Java/labs/alexander.yakunin/lab4/tribes.txt";
+    private static final String DATASET_PATH = "/Users/alexander/Projects/Java/labs/alexander.yakunin/lab5/4/tribes.txt";
 
     public static String getAverageHuntResultFromStatsForHunters(HashMap<String, AllHuntResult> huntersResult) {
         StringBuilder resultString = new StringBuilder();
-        for (var entry : huntersResult.entrySet()) {
-            var entryValue = entry.getValue();
-            double averageWeight = (double) entryValue.getWeight() / entryValue.getCountOfHunt();
-            resultString.append(entry.getKey()).append(": ").append(averageWeight).append("\n");
-        }
+        huntersResult.forEach((key, value) -> {
+            double averageWeight = (double) value.getWeight() / value.getCountOfHunt();
+            resultString.append(key).append(": ").append(averageWeight).append("\n");
+        });
         return resultString.toString();
     }
 
     public static String getBestMammothKillerFromMammothKillersStats(HashMap<String, Integer> huntersResult) {
-        String bestMammothKiller = "";
-        Integer maxWeightMammoth = -1;
+        final String[] bestMammothKiller = {""};
+        final Integer[] maxWeightMammoth = {-1};
 
-        for (var entry : huntersResult.entrySet()) {
-            if (entry.getValue() > maxWeightMammoth) {
-                bestMammothKiller = entry.getKey();
-                maxWeightMammoth = entry.getValue();
+        huntersResult.forEach((key, value) -> {
+            if (value > maxWeightMammoth[0]) {
+                bestMammothKiller[0] = key;
+                maxWeightMammoth[0] = value;
             }
-        }
+        });
 
-        return bestMammothKiller;
+        return bestMammothKiller[0];
     }
 
     public static String getMostKillerMonthFromMonthStat(HashMap<String, Integer> monthKillerStat) {
-        String mostKillerMonth = "";
-        Integer maxWeightMammoth = -1;
-        for (var entry : monthKillerStat.entrySet()) {
-            if (entry.getValue() > maxWeightMammoth) {
-                mostKillerMonth = entry.getKey();
-                maxWeightMammoth = entry.getValue();
-            }
-        }
+        final String[] mostKillerMonth = {""};
+        final Integer[] maxWeightMammoth = {-1};
 
-        return mostKillerMonth;
+        monthKillerStat.forEach((key, value) -> {
+            if (value > maxWeightMammoth[0]) {
+                mostKillerMonth[0] = key;
+                maxWeightMammoth[0] = value;
+            }
+        });
+
+        return mostKillerMonth[0];
     }
 
     public static void main(String[] args) {
