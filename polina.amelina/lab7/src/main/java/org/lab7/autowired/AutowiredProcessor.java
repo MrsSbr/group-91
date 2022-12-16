@@ -18,26 +18,28 @@ public class AutowiredProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 
-        Set<? extends Element> annotatedElements = roundEnv.getElementsAnnotatedWith(Autowired.class);
+        for (Element element : roundEnv.getElementsAnnotatedWith(Autowired.class)) {
+            Set<? extends Element> componentElements = roundEnv.getElementsAnnotatedWith(Component.class);
 
-        for (Element element : annotatedElements) {
-            if (!element.getClass().isAnnotationPresent(Component.class)) {
+            if (componentElements.stream().noneMatch(x -> x.asType().equals(element.asType()))) {
+
                 processingEnv
                         .getMessager()
                         .printMessage(
                                 Diagnostic.Kind.ERROR,
-                                "Only field, whose class is annotated with @Component, can be annotated with @Autowired",
+                                "Only a field of type annotated with @Component can be annotated with @Autowired",
                                 element
                         );
                 return true;
             }
 
-            if (!element.getEnclosingElement().getClass().isAnnotationPresent(Component.class)) {
+            if (componentElements.stream().noneMatch(x -> x.asType().equals(element.getEnclosingElement().asType()))) {
+
                 processingEnv
                         .getMessager()
                         .printMessage(
                                 Diagnostic.Kind.ERROR,
-                                "Only field, that belongs to a class annotated with @Component, can be annotated with @Autowired",
+                                "Only a field of class annotated with @Component can be annotated with @Autowired",
                                 element
                         );
                 return true;
