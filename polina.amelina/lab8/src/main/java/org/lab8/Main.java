@@ -7,7 +7,7 @@ public class Main {
     private static final String PHILOSOPHER_NAME_3 = "Пифагор";
     private static final String PHILOSOPHER_NAME_4 = "Платон";
     private static final String PHILOSOPHER_NAME_5 = "Сократ";
-    private static final int PROGRAM_DURATION_IN_MILLIS = 30000;
+    private static final long PROGRAM_DURATION_IN_MILLIS = 30000;
 
     public static void main(String[] args) {
 

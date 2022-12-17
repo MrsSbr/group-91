@@ -6,13 +6,13 @@ public class Philosopher extends Thread {
 
     private final Fork forkLeft;
     private final Fork forkRight;
-    private final int programDurationInMillis;
+    private final long programDurationInMillis;
 
     public Philosopher(
             Fork forkLeft,
             Fork forkRight,
             String name,
-            int programDurationInMillis) {
+            long programDurationInMillis) {
 
         this.forkLeft = forkLeft;
         this.forkRight = forkRight;
@@ -26,8 +26,9 @@ public class Philosopher extends Thread {
 
         Random random = new Random();
         long startTime = System.currentTimeMillis();
+        long duration = 0;
 
-        while (System.currentTimeMillis() - startTime < programDurationInMillis) {
+        while (duration < programDurationInMillis) {
 
             synchronized (forkLeft) {
                 synchronized (forkRight) {
@@ -48,6 +49,8 @@ public class Philosopher extends Thread {
             try {
                 sleep(random.nextInt(500, 2500));
             } catch (InterruptedException ignored) {}
+
+            duration = System.currentTimeMillis() - startTime;
         }
     }
 }
