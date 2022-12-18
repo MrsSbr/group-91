@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-12-18T18:37:01.214515700Z</date>
+  <millis>1671388621214</millis>
+  <nanos>515700</nanos>
+  <sequence>2</sequence>
+  <logger>SchoolOlympiad</logger>
+  <level>INFO</level>
+  <class>SchoolOlympiad</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Начало работы</message>
+</record>
+</log>
