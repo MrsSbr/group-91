@@ -8,8 +8,8 @@ public class Main {
 
     public static void main(String[] args) {
         int n = readN();
-        interval[] intervals = readInterval(n);
-        interval[] notIntersectIntervals = new interval[n];
+        Interval[] intervals = readInterval(n);
+        Interval[] notIntersectIntervals = new Interval[n];
         int countNotIntresect = 0;
 
         int i;
@@ -65,17 +65,17 @@ public class Main {
         return num;
     }
 
-    private static interval[] readInterval(int n) {
+    private static Interval[] readInterval(int n) {
         Scanner in = new Scanner(System.in);
         System.out.print("Введите интервалы(n*2 чисел через пробел) ");
         String str = in.nextLine();
         String[] strArr = str.split(" ");
-        interval[] intervals = new interval[n];
+        Interval[] intervals = new Interval[n];
         int j = 0;
 
         for(int i = 0; i < strArr.length; i += 2) {
             try {
-                intervals[j] = new interval((double)Integer.parseInt(strArr[i]), (double)Integer.parseInt(strArr[i + 1]));
+                intervals[j] = new Interval((double)Integer.parseInt(strArr[i]), (double)Integer.parseInt(strArr[i + 1]));
             } catch (NumberFormatException var8) {
                 System.out.printf("error on the element, its value is equal to 0 %s\n", strArr[i]);
                 var8.printStackTrace();

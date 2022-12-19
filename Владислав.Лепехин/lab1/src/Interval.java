@@ -1,8 +1,8 @@
-public class interval {
+public class Interval {
     private double start;
     private double end;
 
-    public interval(double start, double end) {
+    public Interval(double start, double end) {
         this.start = start;
         this.end = end;
     }
