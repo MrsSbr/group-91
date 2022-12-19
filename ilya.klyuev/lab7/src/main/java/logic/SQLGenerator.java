@@ -14,14 +14,14 @@ public class SQLGenerator {
     }
 
     private static String getWhereByPrimaryKey(Object entityInstance) throws EntityException {
-        Entity entity = entityInstance.getClass().getAnnotation(Entity.class);
+        PrimaryKey entity = entityInstance.getClass().getAnnotation(PrimaryKey.class);
 
         if (entity == null) {
             throw new EntityException("not find entity annotation");
         }
 
         try {
-            Field primaryKey = entityInstance.getClass().getDeclaredField(entity.primaryKey());
+            Field primaryKey = entityInstance.getClass().getDeclaredField(entity.value());
             primaryKey.setAccessible(true);
             return "WHERE " +
                     primaryKey.getName().toUpperCase() +
@@ -72,7 +72,7 @@ public class SQLGenerator {
     }
 
     public static String getUpdateQuery(Object entityInstance) throws EntityException {
-        String primaryKey = entityInstance.getClass().getAnnotation(Entity.class).primaryKey();
+        String primaryKey = entityInstance.getClass().getAnnotation(PrimaryKey.class).value();
 
         var fields = Arrays.stream(entityInstance.getClass().getDeclaredFields())
                 .filter(field -> !field.getName().equalsIgnoreCase(primaryKey))
