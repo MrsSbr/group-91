@@ -1,7 +1,5 @@
 package data;
 
-import logic.Student;
-
 import java.math.BigDecimal;
 
 public class TestsData {

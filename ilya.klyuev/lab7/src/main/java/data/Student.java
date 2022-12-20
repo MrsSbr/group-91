@@ -1,4 +1,6 @@
-package logic;
+package data;
+
+import logic.PrimaryKey;
 
 import java.math.BigDecimal;
 
