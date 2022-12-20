@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2022-12-18T18:37:01.214515700Z</date>
-  <millis>1671388621214</millis>
-  <nanos>515700</nanos>
+  <date>2022-12-20T20:34:37.239430100Z</date>
+  <millis>1671568477239</millis>
+  <nanos>430100</nanos>
   <sequence>2</sequence>
   <logger>SchoolOlympiad</logger>
   <level>INFO</level>
@@ -12,5 +12,17 @@
   <method>main</method>
   <thread>1</thread>
   <message>Начало работы</message>
+</record>
+<record>
+  <date>2022-12-20T20:35:04.642262600Z</date>
+  <millis>1671568504642</millis>
+  <nanos>262600</nanos>
+  <sequence>3</sequence>
+  <logger>SchoolOlympiad</logger>
+  <level>INFO</level>
+  <class>SchoolOlympiad</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Завершение работы</message>
 </record>
 </log>

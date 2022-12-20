@@ -33,7 +33,7 @@ public class SchoolOlympiad {
 
     public static void main(String[] args) throws IOException {
 
-        ListOlympiads listOlympiads = new ListOlympiads(new ArrayList<Olympiad>(SIZE));
+        ListOlympiads listOlympiads = new ListOlympiads(new ArrayList<>(SIZE));
         listOlympiads.fillingInTheList();
 
         FileWriter writer = new FileWriter(dataPath, false);
@@ -72,32 +72,31 @@ public class SchoolOlympiad {
             Map<Integer, Olympiad> olympiadMap = ReaderFile.readFile();
 
             ArchiveOfOlympiads archiveOfOlympiads = new ArchiveOfOlympiads(olympiadMap);
-            Map<String, Integer> olympiadMapList =
+            List<String> olympiadMapList =
                     archiveOfOlympiads.creatingListOfStudentsWhoHaveTakenPlacesEachYearOfTheirStudiesAtTheSchool();
             System.out.println("Список учеников, которые занимали места каждый год своего обучения в школе");
 
-            for (String people : olympiadMapList.keySet()) {
+            for (String people : olympiadMapList) {
                 System.out.println(people);
             }
 
             for (int i = 0; i < ListOfSubjects.values().length; i++) {
-                List<String> Answer = archiveOfOlympiads.creatingListOfStudentsWhoHaveOccupiedPlacesInTheLast10Years();
+                olympiadMapList = archiveOfOlympiads.creatingListOfStudentsWhoHaveOccupiedPlacesInTheLast10Years(i);
                 System.out.println("Для предмета " + ListOfSubjects.getById(i) + " список всех учеников, которые" +
                         "занимали места за последние 10 лет");
 
-                for (String people : Answer) {
+                for (String people : olympiadMapList) {
                     System.out.println(people);
                 }
             }
 
             for (int i = 2000; i < 2023; i++) {
-                List<String> olympiadMapList1 = archiveOfOlympiads.
-                        creatingListOfStudentsWhoParticipatedInLargeNumberOfOlympiads(i);
+                olympiadMapList = archiveOfOlympiads.creatingListOfStudentsWhoParticipatedInLargeNumberOfOlympiads(i);
 
                 System.out.println("Список учеников, участвовавших в олимпиадах по наибольшему количеству предметов в "
                         + i + "-м году");
 
-                for (String people : olympiadMapList1) {
+                for (String people : olympiadMapList) {
                     System.out.println(people);
                 }
             }

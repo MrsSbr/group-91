@@ -1,5 +1,7 @@
 package classes;
 
+import enums.ListOfSubjects;
+
 import java.util.*;
 
 public class ArchiveOfOlympiads {
@@ -9,7 +11,7 @@ public class ArchiveOfOlympiads {
         this.olympiadsList = olympiadsList;
     }
 
-    public Map<String, Integer> creatingListOfStudentsWhoHaveTakenPlacesEachYearOfTheirStudiesAtTheSchool() {
+    public List<String> creatingListOfStudentsWhoHaveTakenPlacesEachYearOfTheirStudiesAtTheSchool() {
         Map<String, Integer> listOfStudents = new HashMap<>();
 
         for (int i = 1; i < 12; i++) {
@@ -56,14 +58,15 @@ public class ArchiveOfOlympiads {
             }
         }
 
-        return listOfStudents;
+        return listAnswer;
     }
 
-    public List<String> creatingListOfStudentsWhoHaveOccupiedPlacesInTheLast10Years() {
+    public List<String> creatingListOfStudentsWhoHaveOccupiedPlacesInTheLast10Years(int i) {
         List<String> listOfStudents = new LinkedList<>();
 
         for (Olympiad olympiad : olympiadsList.values()) {
-            if (olympiad.getYearInWhichTheOlympiadWasHeld() > 2012) {
+            if (olympiad.getYearInWhichTheOlympiadWasHeld() > 2012 && Objects.equals(ListOfSubjects.getById(i),
+                    olympiad.getSubjectOnWhichTheOlympiadWasHeld())) {
 
                 if (!listOfStudents.contains(olympiad.getStudentWhoTookTheFirstPlace())) {
                     listOfStudents.add(olympiad.getStudentWhoTookTheFirstPlace());
@@ -120,11 +123,15 @@ public class ArchiveOfOlympiads {
         int max = 0;
 
         for (Integer number : listOfStudents.values()) {
-            if (max < number) max = number;
+            if (max < number) {
+                max = number;
+            }
         }
 
         for (String people : listOfStudents.keySet()) {
-            if (listOfStudents.get(people) == max) listAnswer.add(people);
+            if (listOfStudents.get(people) == max) {
+                listAnswer.add(people);
+            }
         }
 
         return listAnswer;
