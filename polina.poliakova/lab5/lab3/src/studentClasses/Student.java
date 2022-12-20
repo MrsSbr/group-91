@@ -27,15 +27,21 @@ public class Student {
     }
 
     public double getAverageGrade() {
-        return grades.stream().mapToInt(a -> a).average().orElse(0);
+        return grades.stream()
+                .mapToInt(a -> a)
+                .average()
+                .orElse(0);
     }
 
     public boolean isGotAllGrades() {
-        return grades.stream().distinct().count() == 5;
+        return grades.stream()
+                .distinct()
+                .count() == 5;
     }
 
     public boolean isAStudent() {
-        return grades.stream().allMatch(x -> x == 5);
+        return grades.stream()
+                .allMatch(x -> x == 5);
     }
 
     private List<Integer> generateListGrades() {

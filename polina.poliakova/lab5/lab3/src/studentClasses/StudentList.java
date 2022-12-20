@@ -42,7 +42,8 @@ public class StudentList {
 
     public void findAverageGrades() {
         long start = System.nanoTime();
-        students.stream().map(student -> student.nameToString() + " " + student.getAverageGrade()).forEach(System.out::println);
+        students.stream()
+                .map(student -> student.nameToString() + " " + student.getAverageGrade()).forEach(System.out::println);
 
         long finish = System.nanoTime();
         System.out.println("Time ms: " + (finish - start));
@@ -50,7 +51,10 @@ public class StudentList {
 
     public void findAStudents() {
         long start = System.nanoTime();
-        students.stream().filter(Student::isAStudent).map(Student::nameToString).forEach(System.out::println);
+        students.stream()
+                .filter(Student::isAStudent)
+                .map(Student::nameToString)
+                .forEach(System.out::println);
 
         long finish = System.nanoTime();
         System.out.println("Time ms: " + (finish - start));
@@ -58,7 +62,10 @@ public class StudentList {
 
     public void findStudentGotAllGrades() {
         long start = System.nanoTime();
-        students.stream().filter(Student::isGotAllGrades).map(Student::nameToString).forEach(System.out::println);
+        students.stream()
+                .filter(Student::isGotAllGrades)
+                .map(Student::nameToString)
+                .forEach(System.out::println);
 
         long finish = System.nanoTime();
         System.out.println("Time ms: " + (finish - start));

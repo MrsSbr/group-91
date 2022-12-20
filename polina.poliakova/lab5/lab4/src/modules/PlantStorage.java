@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PlantStorage {
     private static final Logger logger = Logger.getLogger(PlantStorage.class.getName());
@@ -34,8 +35,10 @@ public class PlantStorage {
         logger.log(Level.INFO, "End read file");
     }
 
-    private List<Plant> getPlantsAfterDate(LocalDate date) {
-        return plants.stream().filter(plant -> plant.getDate().compareTo(date) >= 0).collect(Collectors.toList());
+    private Stream<Plant> getPlantsAfterDate(LocalDate date) {
+        return plants.stream()
+                .filter(plant -> plant.getDate()
+                        .compareTo(date) >= 0);
     }
 
     private void putMapEntryOnStringBuilder(StringBuilder stringBuilder, Map.Entry<String, Integer> entry) {
@@ -45,7 +48,6 @@ public class PlantStorage {
                 .append(entry.getValue())
                 .append("\n");
     }
-
 
     private StringBuilder getMaxValueString(Map<String, Integer> statistics) {
         int maxAmount = statistics.values().stream().max(Integer::compare).orElse(-1);
@@ -64,39 +66,35 @@ public class PlantStorage {
         if (plants.isEmpty()) {
             return "Нет растений :(";
         }
-        Map<String, Integer> monthsSoldFloweringPlants = new HashMap<>();
-        var yearSoldPlants = getPlantsAfterDate(LocalDate.now().minusYears(1));
 
-        yearSoldPlants.forEach(plant -> {
-            String month = plant.getDate().getMonth().toString();
-            Integer floweringPlantAmount = monthsSoldFloweringPlants.get(month);
-            monthsSoldFloweringPlants.put(month,
-                    (plant.getTypeName() == PlantType.FLOWERING ? 1 : 0) + (floweringPlantAmount != null ? floweringPlantAmount : 0));
-        });
+        Map<String, List<Plant>> yearSoldPlants =
+                getPlantsAfterDate(LocalDate.now().minusYears(1))
+                        .collect(Collectors.groupingBy(x -> x.getDate().getMonth().toString()));
+
+        Map<String, Integer> monthsSoldFloweringPlants = new HashMap<>();
+
+        yearSoldPlants.forEach((month, list) -> monthsSoldFloweringPlants.put(month,
+                (int) list.stream()
+                .filter(plant -> plant.getTypeName() == PlantType.FLOWERING)
+                .count()));
 
         return getMaxValueString(monthsSoldFloweringPlants).toString();
     }
 
-    //- для каждого растения найти все размеры горшков, в которых оно продается
+    //для каждого растения найти все размеры горшков, в которых оно продается
     public String getAllSizesPotsForEveryPlant() {
         if (plants.isEmpty()) {
             return "Нет растений :(";
         }
+        StringBuilder builder = new StringBuilder();
+        Map<String, List<Plant>> groupedByNamePlants = plants.stream()
+                .collect(Collectors.groupingBy(Plant::getPlantName));
 
-        Map<String, Set<Double>> plantsWithSizePots = new HashMap<>();
+        for (Map.Entry<String, List<Plant>> item : groupedByNamePlants.entrySet()) {
+            builder.append(item.getKey()).append(item.getValue().stream().map(Plant::getSizePot).collect(Collectors.toSet()));
+        }
 
-        plants.forEach(plant -> {
-            String plantName = plant.getPlantName();
-            Set<Double> potsSizes = plantsWithSizePots.get(plantName) == null ? new HashSet<>() : plantsWithSizePots.get(plantName);
-            potsSizes.add(plant.getSizePot());
-            plantsWithSizePots.put(plantName, potsSizes);
-        });
-
-        return mapStringBuilder(plantsWithSizePots);
-    }
-
-    public String mapStringBuilder(Map<String, Set<Double>> map) {
-        return map.keySet().stream().map(i -> i + " " + map.get(i).toString() + "\n").collect(Collectors.joining());
+        return builder.toString();
     }
 
     //найти растение(растения), на продаже которого(-ых) магазин заработал меньше всего;
@@ -105,22 +103,19 @@ public class PlantStorage {
             return "Нет растений :(";
         }
 
-        Map<String, Double> eachPlantAllIncome = new HashMap<>();
-        plants.forEach(plant -> {
-            String name = plant.getPlantName();
-            eachPlantAllIncome.put(name, eachPlantAllIncome.get(name) == null ? 0 : eachPlantAllIncome.get(name) + plant.getPrice());
-        });
+        Map<String, List<Plant>> groupedByPlantsName = plants.stream().collect(Collectors.groupingBy(Plant::getPlantName));
+        Map<String, Double> eachNameAllIncome = new HashMap<>();
+        groupedByPlantsName.forEach((name, list) -> eachNameAllIncome.put(name,
+                list.stream().mapToDouble(Plant::getPrice).sum()));
 
-        String plantWithMinIncome = "";
-
-        Double minIncome = eachPlantAllIncome.get(plants.get(0).getPlantName());
-        for (var plant : eachPlantAllIncome.keySet()) {
-            if (eachPlantAllIncome.get(plant) < minIncome) {
-                minIncome = eachPlantAllIncome.get(plant);
-                plantWithMinIncome = plant;
-            }
-        }
-
-        return plantWithMinIncome;
+        return eachNameAllIncome.entrySet()
+                .stream()
+                .filter(elem -> elem.getValue() == (eachNameAllIncome.values()
+                        .stream()
+                        .mapToDouble(value -> value)
+                        .min()
+                        .orElse(0)))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.joining());
     }
 }
