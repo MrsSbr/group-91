@@ -2,67 +2,110 @@ package logic;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SQLGenerator {
 
-    private static String getFieldsNames(Class<?> entity) {
-        return Arrays.stream(entity.getDeclaredFields())
-                .map(Field::getName)
-                .map(String::toUpperCase)
-                .collect(Collectors.joining(", "));
+    // получить имя сущности в верхнем регистре
+    private static String getEntityName(Class<?> entity) {
+        return entity.getSimpleName().toUpperCase();
     }
 
-    private static String getWhereByPrimaryKey(Object entityInstance) throws EntityException {
-        PrimaryKey entity = entityInstance.getClass().getAnnotation(PrimaryKey.class);
+    // получить имя сущности по её экземляру в верхнем регистре
+    private static String getEntityName(Object entity) {
+        return getEntityName(entity.getClass());
+    }
 
-        if (entity == null) {
-            throw new EntityException("not find entity annotation");
-        }
+    // получить имя атрибута в вехнем регистре
+    private static String getFieldName(Field field) {
+        return field.getName().toUpperCase();
+    }
 
+    // получить значение атрибута
+    private static String getFieldValue(Field field, Object entityInstance) {
+        // получаем значение
+        field.setAccessible(true);
+        Object value;
         try {
-            Field primaryKey = entityInstance.getClass().getDeclaredField(entity.value());
-            primaryKey.setAccessible(true);
-            return "WHERE " +
-                    primaryKey.getName().toUpperCase() +
-                    " = " +
-                    primaryKey.get(entityInstance) +
-                    ";";
-
-        } catch (NoSuchFieldException e) {
-            throw new EntityException("not find primary key");
+            value = field.get(entityInstance);
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+
+        if (field.getType() != String.class) {
+            return value.toString();
+        }
+
+        // если строка, то добавялем апострофы в начале и конце, экранируем апострофы в середине
+        String str = (String) value;
+
+        return "'" +
+                str.chars()
+                        .mapToObj(c -> c == '\'' ? "'" + (char) c : String.valueOf((char) c))
+                        .collect(Collectors.joining()) +
+                "'";
     }
 
+    private static String getFieldNameWithValue(Field field, Object entityInstance) {
+        return getFieldName(field) + " = " + getFieldValue(field, entityInstance);
+    }
+
+    // получить первичные ключи сущности
+    private static Set<Field> getPrimaryKeys(Class<?> entity) throws EntityException {
+        var result = Arrays.stream(entity.getDeclaredFields())
+                .filter(field -> field.isAnnotationPresent(PrimaryKey.class))
+                .collect(Collectors.toSet());
+        if (result.isEmpty()) {
+            throw new EntityException("Primary key not found");
+        }
+        return result;
+    }
+
+    // получить имена атрибутов, перечисленных через запятую
+    private static String getFieldsNames(Class<?> entity) {
+        return Arrays.stream(entity.getDeclaredFields())
+                .map(SQLGenerator::getFieldName)
+                .collect(Collectors.joining(", "));
+    }
+
+    // получить выражение WHERE, используя в качестве условия значения заданных полей
+    private static String getWhereStatementByFields(Set<Field> fields, Object entityInstance) {
+        return "WHERE " +
+                fields.stream()
+                        .map(field -> getFieldNameWithValue(field, entityInstance))
+                        .collect(Collectors.joining(", "))
+                + ";";
+    }
+
+    // получить выражение WHERE, используя в качетсве условия значения первичных ключей
+    private static String getWhereStatementByPrimaryKeys(Object entityInstance) throws EntityException {
+        var primaryKeys = getPrimaryKeys(entityInstance.getClass());
+        return getWhereStatementByFields(primaryKeys, entityInstance);
+    }
+
+    // генерация запроса на получение
     public static String getSelectQuery(Class<?> entity) {
         var fieldsNames = getFieldsNames(entity);
 
         return "SELECT " +
                 fieldsNames +
                 " FROM " +
-                entity.getSimpleName().toUpperCase() +
+                getEntityName(entity) +
                 ";";
     }
 
+    // генерация запроса на вставку
     public static String getInsertQuery(Object entityInstance) {
         var insertQueryBuilder = new StringBuilder()
                 .append("INSERT INTO ")
-                .append(entityInstance.getClass().getSimpleName().toUpperCase())
+                .append(getEntityName(entityInstance))
                 .append("(")
                 .append(getFieldsNames(entityInstance.getClass()))
                 .append(") VALUES(");
 
         var values = Arrays.stream(entityInstance.getClass().getDeclaredFields())
-                .map(field -> {
-                    try {
-                        field.setAccessible(true);
-                        return field.get(entityInstance).toString();
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
+                .map(field -> getFieldValue(field, entityInstance))
                 .collect(Collectors.joining(", "));
 
         return insertQueryBuilder
@@ -71,33 +114,28 @@ public class SQLGenerator {
                 .toString();
     }
 
+    // генерация запроса на обновление
     public static String getUpdateQuery(Object entityInstance) throws EntityException {
-        String primaryKey = entityInstance.getClass().getAnnotation(PrimaryKey.class).value();
+        var primaryKeys = getPrimaryKeys(entityInstance.getClass());
 
         var fields = Arrays.stream(entityInstance.getClass().getDeclaredFields())
-                .filter(field -> !field.getName().equalsIgnoreCase(primaryKey))
-                .map(field -> {
-                    field.setAccessible(true);
-                    try {
-                        return field.getName().toUpperCase() + " = " + field.get(entityInstance);
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
+                .filter(field -> !primaryKeys.contains(field))
+                .map(field -> getFieldNameWithValue(field, entityInstance))
                 .collect(Collectors.joining(", "));
 
         return "UPDATE " +
-                entityInstance.getClass().getSimpleName().toUpperCase() +
+                getEntityName(entityInstance) +
                 " SET " +
                 fields +
                 " " +
-                getWhereByPrimaryKey(entityInstance);
+                getWhereStatementByFields(primaryKeys, entityInstance);
     }
 
+    // генерация запроса на удаление
     public static String getDeleteQuery(Object entityInstance) throws EntityException {
         return "DELETE FROM " +
-                entityInstance.getClass().getSimpleName().toUpperCase() +
+                getEntityName(entityInstance) +
                 " " +
-                getWhereByPrimaryKey(entityInstance);
+                getWhereStatementByPrimaryKeys(entityInstance);
     }
 }

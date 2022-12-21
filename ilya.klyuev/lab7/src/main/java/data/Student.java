@@ -4,7 +4,6 @@ import logic.PrimaryKey;
 
 import java.math.BigDecimal;
 
-@PrimaryKey("id")
-public record Student(int id, String fio, BigDecimal scholarship, int course, int group) {
+public record Student(@PrimaryKey int id, String fio, BigDecimal scholarship, int course, int group) {
 
 }

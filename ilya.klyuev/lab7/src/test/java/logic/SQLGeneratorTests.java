@@ -23,7 +23,7 @@ public class SQLGeneratorTests {
     @Test
     public void generateInsertQueryTest() {
         // given
-        String expectedInsertQuery = "INSERT INTO STUDENT(ID, FIO, SCHOLARSHIP, COURSE, GROUP) VALUES(0, Клюев Илья Алексеевич, 2500, 3, 91);";
+        String expectedInsertQuery = "INSERT INTO STUDENT(ID, FIO, SCHOLARSHIP, COURSE, GROUP) VALUES(0, 'Клюев Илья Алексеевич', 2500, 3, 91);";
 
         //when
         String actualInsertQuery = SQLGenerator.getInsertQuery(TestsData.ILYA_STUDENT);
@@ -35,7 +35,7 @@ public class SQLGeneratorTests {
     @Test
     public void generateUpdateQueryTest() {
         // given
-        String expectedUpdateQuery = "UPDATE STUDENT SET FIO = Клюев Илья Алексеевич, SCHOLARSHIP = 2500, COURSE = 3, GROUP = 91 WHERE ID = 0;";
+        String expectedUpdateQuery = "UPDATE STUDENT SET FIO = 'Клюев Илья Алексеевич', SCHOLARSHIP = 2500, COURSE = 3, GROUP = 91 WHERE ID = 0;";
 
         //when
         String actualUpdateQuery = "";
@@ -60,6 +60,35 @@ public class SQLGeneratorTests {
             actualDeleteQuery = SQLGenerator.getDeleteQuery(TestsData.ILYA_STUDENT);
         } catch (EntityException e) {
             fail(e.toString());
+        }
+
+        //then
+        assertEquals(expectedDeleteQuery, actualDeleteQuery);
+    }
+
+    @Test
+    void generateInsertQueryWithApostropheInString() {
+        //given
+        String expectedInsertQuery = "INSERT INTO STUDENT(ID, FIO, SCHOLARSHIP, COURSE, GROUP) VALUES(1, 'Ani''mani Mach''lac', 3500, 2, 9);";
+        
+        //when
+        String actualInsertQuery = SQLGenerator.getInsertQuery(TestsData.STUDENT_WITH_APOSTROPHE);
+        
+        //then
+        assertEquals(expectedInsertQuery, actualInsertQuery);
+    }
+
+    @Test
+    void generateDeleteQueryForEntityWithManyPrimaryKeysTest() {
+        // given
+        String expectedDeleteQuery = "DELETE FROM PERSON WHERE FIRSTNAME = 'Vasiliy', LASTNAME = 'Ivanov';";
+
+        //when
+        String actualDeleteQuery = "";
+        try {
+            actualDeleteQuery = SQLGenerator.getDeleteQuery(TestsData.VASILIY_IVANOV);
+        } catch (EntityException e) {
+            fail(e);
         }
 
         //then

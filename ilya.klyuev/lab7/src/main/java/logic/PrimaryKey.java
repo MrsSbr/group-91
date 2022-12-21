@@ -3,8 +3,7 @@ package logic;
 import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(value = ElementType.TYPE)
+@Target(value = ElementType.FIELD)
 @Inherited
 public @interface PrimaryKey {
-    String value() default "ID";
 }
