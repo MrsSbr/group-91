@@ -34,11 +34,17 @@ public class Task {
     }
 
     public int getSumMeat(List<MammothPrey> list, int date) {
-        return list.stream().filter(mp -> mp.getYear() >= date && mp.getYear() < date + 3).mapToInt(MammothPrey::getWeight).sum();
+        return list.stream()
+                .filter(mp -> mp.getYear() >= date && mp.getYear() < date + 3)
+                .mapToInt(MammothPrey::getWeight)
+                .sum();
     }
 
     public int getMeatHunter(List<MammothPrey> list, String name) {
-        return list.stream().filter(mp -> mp.getNickname().equals(name)).mapToInt(MammothPrey::getWeight).sum();
+        return list.stream()
+                .filter(mp -> mp.getNickname().equals(name))
+                .mapToInt(MammothPrey::getWeight)
+                .sum();
     }
 
     public void task(List<MammothPrey> list, int date, boolean isNeedCheckTime) {
