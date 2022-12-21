@@ -3,32 +3,41 @@ package task;
 import data.*;
 import enums.StationType;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Timer;
 
 public class Statistic {
 
-    private ArrayList<StationType> countPowerMoreFifty;
+    private LinkedHashSet<StationType> countPowerMoreFifty;
     private double[] avgPower;
     private int sumPower;
 
     public Statistic() {
-        recount();
+        long time = System.currentTimeMillis();
+        recount(Generator.generateNotesList(17435));
+        System.out.print("\nLinkedList: " + (System.currentTimeMillis() - time) + "\n");
+        System.out.print(this);
+        time = System.currentTimeMillis();
+        recount(Generator.generateNotesArray(17435));
+        System.out.print("\nArrayList: " + (System.currentTimeMillis() - time) + "\n");
+        System.out.print(this);
     }
 
-    public void recount() {
-        List<Note> list = Generator.generateNotes(17435);
+    public void recount(List<Note> list) {
 
         int countTypes = StationType.values().length;
 
-        boolean[] types = new boolean[countTypes];
+        countPowerMoreFifty = new LinkedHashSet<>();
+
         avgPower = new double[countTypes];
         int[] avgCount = new int[countTypes];
 
         for (Note note : list) {
             if (note.getPower() > 50) {
-                types[note.getType().ordinal()] = true;
+                countPowerMoreFifty.add(note.getType());
             }
 
             LocalDate date = note.getDate();
@@ -47,17 +56,9 @@ public class Statistic {
                 avgPower[i] /= avgCount[i];
             }
         }
-
-        countPowerMoreFifty = new ArrayList<>();
-
-        for (int i = 0; i < countTypes; i++) {
-            if (types[i]) {
-                countPowerMoreFifty.add(StationType.values()[i]);
-            }
-        }
     }
 
-    public ArrayList<StationType> getCountPowerMoreFifty() {
+    public LinkedHashSet<StationType> getCountPowerMoreFifty() {
         return countPowerMoreFifty;
     }
 

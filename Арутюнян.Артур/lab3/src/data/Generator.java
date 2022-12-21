@@ -3,13 +3,22 @@ package data;
 import enums.StationType;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.time.LocalDate;
 
 public class Generator {
-    public static List<Note> generateNotes(int count) {
-        ArrayList<Note> list = new ArrayList<Note>();
+    public static List<Note> generateNotesArray(int count) {
+        List<Note> list = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            list.add(generateNote());
+        }
+        return list;
+    }
+
+    public static List<Note> generateNotesList(int count) {
+        List<Note> list = new LinkedList<>();
         for (int i = 0; i < count; i++) {
             list.add(generateNote());
         }
@@ -17,10 +26,9 @@ public class Generator {
     }
 
     public static Note generateNote() {
-        Note data = new Note(generateDate(),
+        return new Note(generateDate(),
                 StationType.values()[generateInt(0, StationType.values().length - 1)],
                 generateInt(10, 51));
-        return data;
     }
 
     public static LocalDate generateDate() {

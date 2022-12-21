@@ -40,14 +40,12 @@ public class Note {
         return Objects.hash(power, type, date);
     }
 
+
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Note) {
-            Note note = (Note) obj;
-            return power == note.power
-                    && date == note.date
-                    && type == note.type;
-        }
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Note note = (Note) o;
+        return power == note.power && date.equals(note.date) && type == note.type;
     }
 }
