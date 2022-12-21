@@ -8,7 +8,7 @@ public class Interval {
     }
 
     public double getStart() {
-        return this.start;
+        return start;
     }
 
     public void setStart(double start) {
@@ -16,7 +16,8 @@ public class Interval {
     }
 
     public double getEnd() {
-        return this.end;
+        return end;
+
     }
 
     public void setEnd(double end) {
@@ -26,8 +27,7 @@ public class Interval {
     public boolean isIntersects(double start, double end) {
         if (this.start <= start && this.end >= start) {
             return true;
-        } else {
-            return this.start >= start && this.start <= end;
         }
+        return this.start >= start && this.start <= end;
     }
 }
