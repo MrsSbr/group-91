@@ -4,28 +4,28 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         int n = readN();
-        Interval[] Intervals = readInterval(n);
+        Interval[] intervals = readInterval(n);
         Interval[] notIntersectIntervals = new Interval[n];
         int countNotIntresect = 0;
         for (int i = 0; i < n; i++) {
             boolean isIntersect = false;
             int j = 0;
             while (!isIntersect & j < countNotIntresect) {
-                if (notIntersectIntervals[j].isIntersects(Intervals[i].getStart(), Intervals[i].getEnd())) {
+                if (notIntersectIntervals[j].isIntersects(intervals[i].getStart(), intervals[i].getEnd())) {
                     isIntersect = true;
                 } else {
                     j++;
                 }
             }
             if (isIntersect) {
-                if (Intervals[i].getStart() < notIntersectIntervals[j].getStart()) {
-                    notIntersectIntervals[j].setStart(Intervals[i].getStart());
+                if (intervals[i].getStart() < notIntersectIntervals[j].getStart()) {
+                    notIntersectIntervals[j].setStart(intervals[i].getStart());
                 }
-                if (Intervals[i].getEnd() > notIntersectIntervals[j].getEnd()) {
-                    notIntersectIntervals[j].setEnd(Intervals[i].getEnd());
+                if (intervals[i].getEnd() > notIntersectIntervals[j].getEnd()) {
+                    notIntersectIntervals[j].setEnd(intervals[i].getEnd());
                 }
             } else {
-                notIntersectIntervals[j] = Intervals[i];
+                notIntersectIntervals[j] = intervals[i];
                 countNotIntresect++;
             }
         }
@@ -56,17 +56,17 @@ public class Main {
         System.out.print("Введите интервалы(n*2 чисел через пробел) ");
         String str = in.nextLine();
         String[] strArr = str.split(" ");
-        Interval[] Intervals = new Interval[n];
+        Interval[] intervals = new Interval[n];
         int j = 0;
         for (int i = 0; i < strArr.length; i += 2) {
             try {
-                Intervals[j] = new Interval(Integer.parseInt(strArr[i]), Integer.parseInt(strArr[i + 1]));
+                intervals[j] = new Interval(Integer.parseInt(strArr[i]), Integer.parseInt(strArr[i + 1]));
             } catch (final NumberFormatException e) {
                 System.out.printf("error on the element, its value is equal to 0 %s\n", strArr[i]);
                 e.printStackTrace();
             }
             j++;
         }
-        return Intervals;
+        return intervals;
     }
 }
