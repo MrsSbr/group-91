@@ -1,7 +1,5 @@
-package Movies;
+package movies;
 
 public interface Scaryble {
-
     void getFear();
-
 }

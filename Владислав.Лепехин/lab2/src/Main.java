@@ -34,9 +34,6 @@ public class Main {
                 case 5 -> cinema.showScary();
             }
         }
-
         System.out.println("Конец работы...");
-
     }
-
 }
