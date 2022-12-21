@@ -51,12 +51,14 @@ public class Processing {
     }
 
     private double getHeaviestPackageOfCurrentSort(String sortName) {
-        return teaPackages.stream().filter(tp -> sortName.equals(tp.getSort())).mapToDouble(TeaPackage::getMas).max().getAsDouble();
+        return teaPackages.stream().filter(tp -> sortName.equals(tp.getSort())).mapToDouble(TeaPackage::getMas).max().orElse(0);
     }
 
     public void mainProcessing(List<TeaPackage> teaPackagesList, boolean timeCheckState) {
         teaPackages = teaPackagesList;
-        IntStream.range(0, PACKAGE_NUM).mapToObj(tp -> new TeaPackage(getRandomSort(), getRandomYear(), getRandomMas())).forEach(teaPackages::add);
+        IntStream.range(0, PACKAGE_NUM)
+                .mapToObj(tp -> new TeaPackage(getRandomSort(), getRandomYear(), getRandomMas()))
+                .forEach(teaPackages::add);
 
         long startTime = System.nanoTime();
         for (String name : teaSorts) {

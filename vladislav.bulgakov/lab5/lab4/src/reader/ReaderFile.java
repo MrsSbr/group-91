@@ -33,7 +33,12 @@ public class ReaderFile {
             List<String> strings = stringsStream.toList();
             strings.forEach(s -> {
                 String[] splittedInfo = getSplittedString(s);
-                Fight currentFight = new Fight(splittedInfo[0], splittedInfo[1], splittedInfo[2], splittedInfo[3], splittedInfo[4], splittedInfo[5]);
+                Fight currentFight = new Fight(splittedInfo[0],
+                        splittedInfo[1],
+                        splittedInfo[2],
+                        splittedInfo[3],
+                        splittedInfo[4],
+                        splittedInfo[5]);
                 fights.add(currentFight);
             });
 

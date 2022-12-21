@@ -54,14 +54,18 @@ public class FightsStatistics {
     }
 
     private Integer getMaxFatalityInMonth(Map<String, Integer> datesWithFatalities) {
-        return datesWithFatalities.values().stream().mapToInt(integer -> integer).max().getAsInt();
+        return datesWithFatalities.values().stream()
+                .mapToInt(integer -> integer)
+                .max()
+                .orElseThrow();
     }
 
     private Set<String> getMonthWithMaxFatalities(Map<String, Integer> datesWithFatalities) {
         Set<String> maxFatalitiesMonths = new HashSet<>();
         Integer maxFatalitiesNum = getMaxFatalityInMonth(datesWithFatalities);
-        datesWithFatalities.entrySet().stream().filter(key -> Objects.equals(key.getValue(), maxFatalitiesNum)).
-                forEach(key -> maxFatalitiesMonths.add(key.getKey()));
+        datesWithFatalities.entrySet().stream()
+                .filter(key -> Objects.equals(key.getValue(), maxFatalitiesNum))
+                .forEach(key -> maxFatalitiesMonths.add(key.getKey()));
         return maxFatalitiesMonths;
     }
 
