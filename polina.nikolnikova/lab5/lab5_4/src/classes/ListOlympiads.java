@@ -1,9 +1,5 @@
 package classes;
 
-import enums.ListOfNamesOfStudents;
-import enums.ListOfPatronymicsOfStudents;
-import enums.ListOfSurnamesOfStudents;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

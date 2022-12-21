@@ -34,6 +34,7 @@ public class Olympiad {
     public Olympiad(int yearInWhichTheOlympiadWasHeld, String subjectOnWhichTheOlympiadWasHeld,
                     int classForWhichTheOlympiadWasIntended, String studentWhoTookTheFirstPlace,
                     String studentWhoTookTheSecondPlace, String studentWhoTookTheThirdPlace) {
+
         this.yearInWhichTheOlympiadWasHeld = yearInWhichTheOlympiadWasHeld;
         this.subjectOnWhichTheOlympiadWasHeld = subjectOnWhichTheOlympiadWasHeld;
         this.classForWhichTheOlympiadWasIntended = classForWhichTheOlympiadWasIntended;

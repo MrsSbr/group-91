@@ -4,12 +4,7 @@ import enums.ListOfSubjects;
 
 import java.util.*;
 
-public class ArchiveOfOlympiads {
-    private final Map<Integer, Olympiad> olympiadsList;
-
-    public ArchiveOfOlympiads(Map<Integer, Olympiad> olympiadsList) {
-        this.olympiadsList = olympiadsList;
-    }
+public record ArchiveOfOlympiads(Map<Integer, Olympiad> olympiadsList) {
 
     public List<String> creatingListOfStudentsWhoHaveTakenPlacesEachYearOfTheirStudiesAtTheSchool() {
         Map<String, Integer> listOfStudents = new HashMap<>();
@@ -90,7 +85,6 @@ public class ArchiveOfOlympiads {
     public List<String> creatingListOfStudentsWhoParticipatedInLargeNumberOfOlympiads(int year) {
 
         Map<String, Integer> listOfStudents = new HashMap<>();
-        List<String> listAnswer = new LinkedList<>();
 
         olympiadsList.values().forEach(olympiad -> {
             if (olympiad.getYearInWhichTheOlympiadWasHeld() == year) {
@@ -128,6 +122,8 @@ public class ArchiveOfOlympiads {
                 max[0] = number;
             }
         });
+
+        List<String> listAnswer = new LinkedList<>();
 
         listOfStudents.keySet().forEach(people -> {
             if (listOfStudents.get(people) == max[0]) {

@@ -68,14 +68,20 @@ public class SchoolOlympiadNew {
                     archiveOfOlympiads.creatingListOfStudentsWhoHaveTakenPlacesEachYearOfTheirStudiesAtTheSchool();
             System.out.println("Список учеников, которые занимали места каждый год своего обучения в школе");
 
-            olympiadMapList.forEach(System.out::println);
+            if (olympiadMapList.size() > 0) {
+                olympiadMapList.forEach(System.out::println);
+            } else {
+            System.out.println("Таких учеников нет");
+            }
 
             for (int i = 0; i < ListOfSubjects.values().length; i++) {
                 olympiadMapList = archiveOfOlympiads.creatingListOfStudentsWhoHaveOccupiedPlacesInTheLast10Years(i);
                 System.out.println("Для предмета " + ListOfSubjects.getById(i) + " список всех учеников, которые" +
                         "занимали места за последние 10 лет");
 
-                olympiadMapList.forEach(System.out::println);
+                if (olympiadMapList.size() > 0) {
+                    olympiadMapList.forEach(System.out::println);
+                }
             }
 
             for (int i = 2000; i < 2023; i++) {
@@ -85,7 +91,9 @@ public class SchoolOlympiadNew {
                 System.out.println("Список учеников, участвовавших в олимпиадах по наибольшему количеству предметов в "
                         + i + "-м году");
 
-                olympiadMapList.forEach(System.out::println);
+                if (olympiadMapList.size() > 0) {
+                    olympiadMapList.forEach(System.out::println);
+                }
             }
         } catch (IOException ioException) {
             logger.log(Level.SEVERE, "Ошибка работы с файлом", ioException);

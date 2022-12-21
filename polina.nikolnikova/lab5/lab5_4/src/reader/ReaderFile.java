@@ -20,9 +20,9 @@ public class ReaderFile {
     private static final Logger logger = Logger.getLogger(ReaderFile.class.getName());
     private static final String loggerPath = "C:/пары/3 курс/1 семестр/Java/group-91/polina.nikolnikova/lab5/" +
             "lab5_4/files/logs.txt";
-    private static final int SIZE = 10000;
 
     private static String[] splitLine(String line) {
+
         return line.split(";");
     }
 
