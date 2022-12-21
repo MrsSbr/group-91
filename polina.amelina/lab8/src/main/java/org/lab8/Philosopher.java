@@ -29,28 +29,37 @@ public class Philosopher extends Thread {
         long duration = 0;
 
         while (duration < programDurationInMillis) {
-
-            synchronized (forkLeft) {
-                synchronized (forkRight) {
-                    System.out.println(getName() + " хватает две вилки и принимается за еду");
-
-                    try {
-                        sleep(random.nextInt(1000, 5000));
-                    } catch (InterruptedException ignored) {}
-
-                    System.out.println(getName() + " откладывает вилки и удаляется в глубокие размышления");
-
-                    try {
-                        sleep(random.nextInt(500, 2500));
-                    } catch (InterruptedException ignored) {}
-                }
-            }
-
             try {
+
+                if (forkLeft.number() < forkRight.number()) {
+                    synchronized (forkLeft) {
+                        synchronized (forkRight) {
+                            useForks(forkLeft, forkRight, random);
+                        }
+                    }
+
+                } else {
+                    synchronized (forkRight) {
+                        synchronized (forkLeft) {
+                            useForks(forkRight, forkLeft, random);
+                        }
+                    }
+                }
+
                 sleep(random.nextInt(500, 2500));
+
             } catch (InterruptedException ignored) {}
 
             duration = System.currentTimeMillis() - startTime;
         }
+    }
+
+    private void useForks(Fork forkFirst, Fork forkSecond, Random random) throws InterruptedException {
+
+        System.out.println(getName() + " хватает вилки " + forkFirst.number() + " и " + forkSecond.number() + " и принимается за еду");
+        sleep(random.nextInt(1000, 5000));
+
+        System.out.println(getName() + " откладывает вилки " + forkFirst.number() + " и " + forkSecond.number() + " и удаляется в глубокие размышления");
+        sleep(random.nextInt(500, 2500));
     }
 }

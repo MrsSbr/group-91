@@ -1,3 +1,3 @@
 package org.lab8;
 
-public class Fork {}
+public record Fork(int number) {}

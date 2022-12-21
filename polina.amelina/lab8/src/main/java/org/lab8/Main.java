@@ -11,11 +11,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Fork fork1 = new Fork();
-        Fork fork2 = new Fork();
-        Fork fork3 = new Fork();
-        Fork fork4 = new Fork();
-        Fork fork5 = new Fork();
+        Fork fork1 = new Fork(1);
+        Fork fork2 = new Fork(2);
+        Fork fork3 = new Fork(3);
+        Fork fork4 = new Fork(4);
+        Fork fork5 = new Fork(5);
 
         Thread philosopher1 = new Philosopher(fork1, fork2, PHILOSOPHER_NAME_1, PROGRAM_DURATION_IN_MILLIS);
         Thread philosopher2 = new Philosopher(fork2, fork3, PHILOSOPHER_NAME_2, PROGRAM_DURATION_IN_MILLIS);
