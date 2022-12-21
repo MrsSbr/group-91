@@ -2,16 +2,13 @@ package task;
 
 import data.*;
 import enums.StationType;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Timer;
+import java.util.*;
 
 public class Statistic {
 
-    private LinkedHashSet<StationType> countPowerMoreFifty;
+    private Set<StationType> countPowerMoreFifty;
     private double[] avgPower;
     private int sumPower;
 
@@ -27,27 +24,29 @@ public class Statistic {
     }
 
     public void recount(List<Note> list) {
+        recountCountMoreFifty(list);
+        recountAvgPowerForLastThreeMonth(list);
+        recountLastYearSumPower(list);
+    }
 
-        int countTypes = StationType.values().length;
-
-        countPowerMoreFifty = new LinkedHashSet<>();
-
-        avgPower = new double[countTypes];
-        int[] avgCount = new int[countTypes];
-
+    public void recountCountMoreFifty(List<Note> list) {
+        countPowerMoreFifty = new HashSet<StationType>();
         for (Note note : list) {
             if (note.getPower() > 50) {
                 countPowerMoreFifty.add(note.getType());
             }
+        }
+    }
 
+    public void recountAvgPowerForLastThreeMonth(List<Note> list) {
+        int countTypes = StationType.values().length;
+        avgPower = new double[countTypes];
+        int[] avgCount = new int[countTypes];
+        for (Note note : list) {
             LocalDate date = note.getDate();
             if (date.getMonthValue() > 9 && date.getYear() == 2022) {
                 avgCount[note.getType().ordinal()]++;
                 avgPower[note.getType().ordinal()] += note.getPower();
-            }
-
-            if (date.getYear() == 2022) {
-                sumPower += note.getPower();
             }
         }
 
@@ -58,7 +57,15 @@ public class Statistic {
         }
     }
 
-    public LinkedHashSet<StationType> getCountPowerMoreFifty() {
+    public void recountLastYearSumPower(List<Note> list){
+        for (Note note : list) {
+            if (note.getDate().getYear() == 2022) {
+                sumPower += note.getPower();
+            }
+        }
+    }
+
+    public Set<StationType> getCountPowerMoreFifty() {
         return countPowerMoreFifty;
     }
 
