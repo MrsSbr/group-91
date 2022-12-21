@@ -12,7 +12,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 public class Context {
 
     private final Logger logger = Logger.getGlobal();
-    private final Set<Object> instances = new HashSet<>();
+    private final Map<Class<?>, Object> instances = new HashMap<>();
 
     public Context(String pkg) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 
@@ -46,7 +47,7 @@ public class Context {
                 Constructor<?> constructor = component.getDeclaredConstructor();
                 constructor.setAccessible(true);
                 Object instance = constructor.newInstance();
-                instances.add(instance);
+                instances.put(component, instance);
             }
 
         } catch (NoSuchMethodException
@@ -61,20 +62,14 @@ public class Context {
             throws IllegalAccessException {
 
         try {
-            for (Object instance : instances) {
+            for (Object instance : instances.values()) {
                 for (Field field : Arrays
                         .stream(instance.getClass().getDeclaredFields())
                         .filter(x -> x.isAnnotationPresent(Autowired.class))
                         .collect(Collectors.toSet())) {
 
                     field.setAccessible(true);
-
-                    Object componentInstance = instances
-                            .stream()
-                            .filter(x -> x.getClass().equals(field.getType()))
-                            .findFirst()
-                            .orElseThrow();
-
+                    Object componentInstance = instances.get(field.getType());
                     field.set(instance, componentInstance);
                 }
             }
@@ -86,11 +81,6 @@ public class Context {
     }
 
     public Object get(Class<?> component) {
-
-        return instances
-                .stream()
-                .filter(x -> x.getClass().equals(component))
-                .findFirst()
-                .orElseThrow();
+        return instances.get(component);
     }
 }
