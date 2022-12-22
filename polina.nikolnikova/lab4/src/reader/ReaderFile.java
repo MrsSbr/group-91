@@ -13,10 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ReaderFile {
-    private static final String DATA_PATH =  "C:/пары/3 курс/1 семестр/Java/group-91/" +
-            "polina.nikolnikova/lab4/information/information.txt";
-    private static final String LOGGER_PATH = "C:/пары/3 курс/1 семестр/Java/group-91/" +
-            "polina.nikolnikova/lab4/logs/logs.txt";
+    private static final String DATA_PATH = "polina.nikolnikova/lab4/information/information.txt";
+    private static final String LOGGER_PATH = "polina.nikolnikova/lab4/logs/logs.txt";
     private static final Logger logger = Logger.getLogger(ReaderFile.class.getName());
     private static final int SIZE = 10000;
 

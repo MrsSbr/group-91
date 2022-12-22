@@ -19,8 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SchoolOlympiad {
-    private static final String LOGGER_PATH = "C:/пары/3 курс/1 семестр/Java/group-91/" +
-            "polina.nikolnikova/lab4/logs/logs.txt";;
+    private static final String LOGGER_PATH = "polina.nikolnikova/lab4/logs/logs.txt";;
     private static final Logger logger = Logger.getLogger(SchoolOlympiad.class.getName());
 
     public static void main(String[] args) {
