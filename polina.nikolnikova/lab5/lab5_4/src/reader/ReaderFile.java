@@ -15,11 +15,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ReaderFile {
-    private static final Path dataPath = Path.of("C:/пары/3 курс/1 семестр/Java/group-91/polina.nikolnikova/lab5/" +
-            "lab5_4/files/information.txt");
+    private static final Path dataPath = Path.of("polina.nikolnikova/lab5/lab5_4/information/information.txt");
     private static final Logger logger = Logger.getLogger(ReaderFile.class.getName());
-    private static final String loggerPath = "C:/пары/3 курс/1 семестр/Java/group-91/polina.nikolnikova/lab5/" +
-            "lab5_4/files/logs.txt";
+    private static final String loggerPath = "polina.nikolnikova/lab5/lab5_4/logs/logs.txt";
 
     private static String[] splitLine(String line) {
 
@@ -34,7 +32,6 @@ public class ReaderFile {
             FileHandler fileHandler = new FileHandler(loggerPath);
             logger.addHandler(fileHandler);
             List<String> lines = lineStream.collect(Collectors.toList());
-
 
             int[] i = {0};
             lines.forEach(line -> {
