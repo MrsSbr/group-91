@@ -4,12 +4,7 @@ import enums.ListOfSubjects;
 
 import java.util.*;
 
-public class ArchiveOfOlympiads {
-    private final Map<Integer, Olympiad> olympiadsList;
-
-    public ArchiveOfOlympiads(Map<Integer, Olympiad> olympiadsList) {
-        this.olympiadsList = olympiadsList;
-    }
+public record ArchiveOfOlympiads(Map<Integer, Olympiad> olympiadsList) {
 
     public List<String> creatingListOfStudentsWhoHaveTakenPlacesEachYearOfTheirStudiesAtTheSchool() {
         Map<String, Integer> listOfStudents = new HashMap<>();
