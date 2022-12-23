@@ -6,7 +6,7 @@ public class ReaderList extends GetterList{
 
     @Override
     protected int nextInt() throws InputMismatchException {
-        return ReaderInteger.nextInt();
+         return ReaderInteger.nextInt();
     }
 
     @Override

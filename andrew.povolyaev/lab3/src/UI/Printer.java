@@ -11,6 +11,6 @@ public final class Printer {
             System.out.println("Нет таких игроков");
             return;
         }
-        System.out.println(results);
+         System.out.println(results);
     }
 }

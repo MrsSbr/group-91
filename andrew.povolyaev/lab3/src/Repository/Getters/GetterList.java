@@ -26,7 +26,7 @@ public abstract class GetterList {
                         resultOfOneMatch.add(player);
                     }
                 }
-            } else {
+            }  else {
                 System.out.println("Player is not found");
             }
         }

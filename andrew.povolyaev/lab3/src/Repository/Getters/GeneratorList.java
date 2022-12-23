@@ -11,6 +11,6 @@ public class GeneratorList extends GetterList{
 
     @Override
     protected void fillList(){
-        saveAnswers();
+         saveAnswers();
     }
 }

@@ -98,6 +98,6 @@ public class Menu {
             }
         }
 
-        implMenu(getterList);
+         implMenu(getterList);
     }
 }

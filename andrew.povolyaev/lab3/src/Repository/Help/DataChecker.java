@@ -6,6 +6,6 @@ public class DataChecker {
     }
 
     public static boolean isCorrectNumber(int number){
-        return number >= 1 && number <= 22;
+         return number >= 1 && number <= 22;
     }
 }
