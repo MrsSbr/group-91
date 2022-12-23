@@ -11,10 +11,15 @@ public class SQLGeneratorTests {
     @Test
     public void generateSelectQuery() {
         //given
-        String expectedSelectQuery = "SELECT ID, FIO, SCHOLARSHIP, COURSE, GROUP FROM STUDENT;";
+        String expectedSelectQuery = "SELECT ID, FIO, SCHOLARSHIP, COURSE, GROUP FROM \"STUDENTS\";";
 
         //when
-        String actualSelectQuery = SQLGenerator.getSelectQuery(TestsData.ILYA_STUDENT.getClass());
+        String actualSelectQuery = null;
+        try {
+            actualSelectQuery = SQLGenerator.getSelectQuery(TestsData.ILYA_STUDENT.getClass());
+        } catch (TableException e) {
+            fail(e.toString());
+        }
 
         //then
         assertEquals(expectedSelectQuery, actualSelectQuery);
@@ -23,10 +28,15 @@ public class SQLGeneratorTests {
     @Test
     public void generateInsertQueryTest() {
         // given
-        String expectedInsertQuery = "INSERT INTO STUDENT(ID, FIO, SCHOLARSHIP, COURSE, GROUP) VALUES(0, 'Клюев Илья Алексеевич', 2500, 3, 91);";
+        String expectedInsertQuery = "INSERT INTO \"STUDENTS\"(ID, FIO, SCHOLARSHIP, COURSE, GROUP) VALUES(0, 'Клюев Илья Алексеевич', 2500, 3, 91);";
 
         //when
-        String actualInsertQuery = SQLGenerator.getInsertQuery(TestsData.ILYA_STUDENT);
+        String actualInsertQuery = null;
+        try {
+            actualInsertQuery = SQLGenerator.getInsertQuery(TestsData.ILYA_STUDENT);
+        } catch (TableException e) {
+            fail(e.toString());
+        }
 
         //then
         assertEquals(expectedInsertQuery, actualInsertQuery);
@@ -35,13 +45,13 @@ public class SQLGeneratorTests {
     @Test
     public void generateUpdateQueryTest() {
         // given
-        String expectedUpdateQuery = "UPDATE STUDENT SET FIO = 'Клюев Илья Алексеевич', SCHOLARSHIP = 2500, COURSE = 3, GROUP = 91 WHERE ID = 0;";
+        String expectedUpdateQuery = "UPDATE \"STUDENTS\" SET FIO = 'Клюев Илья Алексеевич', SCHOLARSHIP = 2500, COURSE = 3, GROUP = 91 WHERE ID = 0;";
 
         //when
-        String actualUpdateQuery = "";
+        String actualUpdateQuery = null;
         try {
             actualUpdateQuery = SQLGenerator.getUpdateQuery(TestsData.ILYA_STUDENT);
-        } catch (EntityException e) {
+        } catch (TableException e) {
             fail(e.toString());
         }
 
@@ -52,13 +62,13 @@ public class SQLGeneratorTests {
     @Test
     public void generateDeleteQueryTest() {
         //given
-        String expectedDeleteQuery = "DELETE FROM STUDENT WHERE ID = 0;";
+        String expectedDeleteQuery = "DELETE FROM \"STUDENTS\" WHERE ID = 0;";
 
         //when
-        String actualDeleteQuery = "";
+        String actualDeleteQuery = null;
         try {
             actualDeleteQuery = SQLGenerator.getDeleteQuery(TestsData.ILYA_STUDENT);
-        } catch (EntityException e) {
+        } catch (TableException e) {
             fail(e.toString());
         }
 
@@ -69,11 +79,16 @@ public class SQLGeneratorTests {
     @Test
     void generateInsertQueryWithApostropheInString() {
         //given
-        String expectedInsertQuery = "INSERT INTO STUDENT(ID, FIO, SCHOLARSHIP, COURSE, GROUP) VALUES(1, 'Ani''mani Mach''lac', 3500, 2, 9);";
-        
+        String expectedInsertQuery = "INSERT INTO \"STUDENTS\"(ID, FIO, SCHOLARSHIP, COURSE, GROUP) VALUES(1, 'Ani''mani Mach''lac', 3500, 2, 9);";
+
         //when
-        String actualInsertQuery = SQLGenerator.getInsertQuery(TestsData.STUDENT_WITH_APOSTROPHE);
-        
+        String actualInsertQuery = null;
+        try {
+            actualInsertQuery = SQLGenerator.getInsertQuery(TestsData.STUDENT_WITH_APOSTROPHE);
+        } catch (TableException e) {
+            fail(e.toString());
+        }
+
         //then
         assertEquals(expectedInsertQuery, actualInsertQuery);
     }
@@ -81,17 +96,17 @@ public class SQLGeneratorTests {
     @Test
     void generateDeleteQueryForEntityWithManyPrimaryKeysTest() {
         // given
-        String expectedDeleteQuery = "DELETE FROM PERSON WHERE FIRSTNAME = 'Vasiliy', LASTNAME = 'Ivanov';";
+        String expectedDeleteQuery = "DELETE FROM \"ЛЮДИ\" WHERE FIRSTNAME = 'Vasiliy', LASTNAME = 'Ivanov';";
 
-        //when
-        String actualDeleteQuery = "";
+        // when
+        String actualDeleteQuery = null;
         try {
             actualDeleteQuery = SQLGenerator.getDeleteQuery(TestsData.VASILIY_IVANOV);
-        } catch (EntityException e) {
-            fail(e);
+        } catch (TableException e) {
+            fail(e.toString());
         }
 
-        //then
+        // then
         assertEquals(expectedDeleteQuery, actualDeleteQuery);
     }
 }
