@@ -16,7 +16,7 @@ public class GeneratorSql {
                 .collect(Collectors.joining(", "));
     }
 
-    public static String getField(Field field, Object values) {
+    public static String getFieldValue(Field field, Object values) {
         field.setAccessible(true);
         Object value;
         try {
@@ -32,7 +32,7 @@ public class GeneratorSql {
 
     public static String getFieldsValues(Object values) {
         return Arrays.stream(values.getClass().getDeclaredFields())
-                .map(field -> getField(field, values))
+                .map(field -> getFieldValue(field, values))
                 .collect(Collectors.joining(", "));
     }
 
@@ -56,7 +56,7 @@ public class GeneratorSql {
     }
 
     public static String getEqualityString(Field field, Object value, String name) {
-        return name + " = " + getField(field, value);
+        return name + " = " + getFieldValue(field, value);
     }
 
     public static String getCondition(Object values) {
