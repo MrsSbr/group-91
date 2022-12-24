@@ -37,11 +37,11 @@ public class GeneratorSql {
     }
 
     public static String getSelectQuery(Class<?> object) {
-        return "SELECT " + getFieldsName(object) + " FROM " + getTableName(object);
+        return "SELECT " + getFieldsName(object) + " FROM \"" + getTableName(object) + "\"";
     }
 
     public static String getInsertQuery(Object values) {
-        return "INSERT INTO " + getTableName(values.getClass()) + " VALUES (" + getFieldsValues(values) + ")";
+        return "INSERT INTO \"" + getTableName(values.getClass()) + "\" VALUES (" + getFieldsValues(values) + ")";
     }
 
     public static String getSetString(Object values) {
@@ -52,7 +52,7 @@ public class GeneratorSql {
     }
 
     public static String getUpdateQuery(Object values) {
-        return "UPDATE " + getTableName(values.getClass()) + " SET " + getSetString(values) + " WHERE " + getCondition(values);
+        return "UPDATE \"" + getTableName(values.getClass()) + "\" SET " + getSetString(values) + " WHERE " + getCondition(values);
     }
 
     public static String getEqualityString(Field field, Object value, String name) {
@@ -67,6 +67,6 @@ public class GeneratorSql {
     }
 
     public static String getDeleteQuery(Object values) {
-        return "DELETE FROM " + getTableName(values.getClass()) + " WHERE " + getCondition(values);
+        return "DELETE FROM \"" + getTableName(values.getClass()) + "\" WHERE " + getCondition(values);
     }
 }
