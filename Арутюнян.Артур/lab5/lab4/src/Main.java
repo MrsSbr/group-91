@@ -6,13 +6,10 @@ import java.util.logging.Logger;
 public class Main {
 
     private static final Logger logger = Logger.getLogger(Main.class.getName());
+    private static final String path = "D:/Artooorcheck/group-91/Арутюнян.Артур/lab5/lab4/data.txt";
 
     public static void main(final String[] args) {
         logger.log(Level.INFO, "started");
-
-        Scanner in = new Scanner(System.in);
-        System.out.println("Input file name");
-        String path = in.next();
 
         OrderStorage orderStorage = new OrderStorage();
         orderStorage.read(path);

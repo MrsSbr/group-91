@@ -1,12 +1,14 @@
 package order;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class OrderStorage {
 
@@ -16,16 +18,16 @@ public class OrderStorage {
     public void read(String path) {
         logger.log(Level.INFO, "read_file_started");
 
-        try (BufferedReader buffer = new BufferedReader(new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8))) {
-            String line;
-            while ((line = buffer.readLine()) != null) {
+        try (Stream<String> stream = Files.lines(Paths.get(path))) {
+            stream.forEach(line->{
                 Order order = Order.parse(line);
                 if (order == null) {
                     logger.log(Level.SEVERE, "order_cast_error");
-                    break;
                 }
-                orders.add(order);
-            }
+                else {
+                    orders.add(order);
+                }
+            });
             logger.log(Level.INFO, "file_read");
         } catch (FileNotFoundException e) {
             logger.log(Level.SEVERE, "file_not_founded", e);
