@@ -10,7 +10,7 @@ import java.util.List;
 public class Cinema {
     final List<Movie> movies;
     public Cinema() {
-        movies = new ArrayList<Movie>();
+        movies = new ArrayList<>();
     }
 
     public List<Movie> getMovies() {
