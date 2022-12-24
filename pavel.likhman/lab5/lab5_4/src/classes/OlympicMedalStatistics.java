@@ -59,20 +59,25 @@ public class OlympicMedalStatistics {
 
     private Map<String, List<String>> getListOfSportsmenWithPlacesInKindOfSport() {
         Map<String, List<String>> sportWithSportsman = new HashMap<>();
-        sportsmenInfoList.forEach(info -> sportWithSportsman.put(info.getKindOfSport(), getSportsmanForKindOfSportWithPlaces(info.getKindOfSport())));
+        sportsmenInfoList.forEach(info -> sportWithSportsman.put(info.getKindOfSport(),
+                getSportsmanForKindOfSportWithPlaces(info.getKindOfSport())));
         return sportWithSportsman;
     }
 
     private int getCountOfMedalsForSportsmen(String name) {
-        return (int) sportsmenInfoList.stream().
-                filter(info -> info.getFullName().equals(name) && info.getPlace() > 0 && info.getPlace() < 4).count();
+        return (int) sportsmenInfoList.stream()
+                        .filter(info -> info.getFullName().equals(name) && info.getPlace() > 0 && info.getPlace() < 4).count();
     }
 
     private String getSportsmenWithMostMedals() {
         Map<String, Integer> sportsmanWithMedals = new HashMap<>();
         sportsmenInfoList.forEach(info -> sportsmanWithMedals.put(info.getFullName(), getCountOfMedalsForSportsmen(info.getFullName())));
         int max = Collections.max(sportsmanWithMedals.values());
-        return sportsmanWithMedals.keySet().stream().filter(name -> sportsmanWithMedals.get(name) == max).findFirst().get();
+        return sportsmanWithMedals.keySet()
+                .stream()
+                .filter(name -> sportsmanWithMedals.get(name) == max)
+                .findFirst()
+                .orElseThrow();
     }
 
     public void task(List<SportsmenInfo> sportsmenInfoList) {
