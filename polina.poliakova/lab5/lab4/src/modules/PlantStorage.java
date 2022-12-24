@@ -82,25 +82,25 @@ public class PlantStorage {
     }
 
     //для каждого растения найти все размеры горшков, в которых оно продается
-    public String getAllSizesPotsForEveryPlant() {
+    public Map<String, Set<Double>> getAllSizesPotsForEveryPlant() {
         if (plants.isEmpty()) {
-            return "Нет растений :(";
+            return null;
         }
-        StringBuilder builder = new StringBuilder();
+
         Map<String, List<Plant>> groupedByNamePlants = plants.stream()
                 .collect(Collectors.groupingBy(Plant::getPlantName));
 
-        for (Map.Entry<String, List<Plant>> item : groupedByNamePlants.entrySet()) {
-            builder.append(item.getKey()).append(item.getValue().stream().map(Plant::getSizePot).collect(Collectors.toSet()));
-        }
-
-        return builder.toString();
+        return groupedByNamePlants.entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, item -> item.getValue().stream()
+                        .map(Plant::getSizePot)
+                        .collect(Collectors.toSet()), (a, b) -> b));
     }
 
     //найти растение(растения), на продаже которого(-ых) магазин заработал меньше всего;
-    public String getLessProfitablePlant() {
+    public Map<String, Double> getLessProfitablePlant() {
         if (plants.isEmpty()) {
-            return "Нет растений :(";
+            return null;
         }
 
         Map<String, List<Plant>> groupedByPlantsName = plants.stream().collect(Collectors.groupingBy(Plant::getPlantName));
@@ -108,14 +108,12 @@ public class PlantStorage {
         groupedByPlantsName.forEach((name, list) -> eachNameAllIncome.put(name,
                 list.stream().mapToDouble(Plant::getPrice).sum()));
 
-        return eachNameAllIncome.entrySet()
-                .stream()
+        return eachNameAllIncome.entrySet().stream()
                 .filter(elem -> elem.getValue() == (eachNameAllIncome.values()
                         .stream()
                         .mapToDouble(value -> value)
                         .min()
                         .orElse(0)))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.joining());
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
