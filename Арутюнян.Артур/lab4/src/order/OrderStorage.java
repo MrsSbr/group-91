@@ -37,8 +37,8 @@ public class OrderStorage {
 
     public int getRestaurantsCount() {
         Set<String> restaurants = new HashSet<>();
-        for (var order1 : orders) {
-            restaurants.add(order1.restaurantName());
+        for (var order : orders) {
+            restaurants.add(order.restaurantName());
         }
         return restaurants.size();
     }
@@ -48,17 +48,16 @@ public class OrderStorage {
         int restCount = getRestaurantsCount();
         for (var order1 : orders) {
             String courierName = order1.courier();
-            if (couriers.contains(courierName)) {
-                continue;
-            }
-            Set<String> restsForCourier = new HashSet<>();
-            for (var order2 : orders) {
-                if (courierName.equals(order2.courier())) {
-                    restsForCourier.add(order2.restaurantName());
+            if (!couriers.contains(courierName)) {
+                Set<String> restsForCourier = new HashSet<>();
+                for (var order2 : orders) {
+                    if (courierName.equals(order2.courier())) {
+                        restsForCourier.add(order2.restaurantName());
+                    }
                 }
-            }
-            if (restsForCourier.size() == restCount) {
-                couriers.add(courierName);
+                if (restsForCourier.size() == restCount) {
+                    couriers.add(courierName);
+                }
             }
         }
         return couriers;
@@ -68,15 +67,15 @@ public class OrderStorage {
         Map<String, Integer> restaurants = new HashMap<>();
         LocalDate date = LocalDate.now();
         for (var order : orders) {
-            if (order.startDate().getYear() != date.getYear()) {
-                continue;
+            if (!(order.startDate().getYear() != date.getYear())) {
+                String rest = order.restaurantName();
+                if (!restaurants.containsKey(rest)) {
+                    restaurants.put(rest, order.composition().length);
+                }
+                else {
+                    restaurants.put(rest, restaurants.get(rest) + order.composition().length);
+                }
             }
-            String rest = order.restaurantName();
-            if (!restaurants.containsKey(rest)) {
-                restaurants.put(rest, order.composition().length);
-                continue;
-            }
-            restaurants.put(rest, restaurants.get(rest) + order.composition().length);
         }
         return getMaxValueFromMap(restaurants);
     }
@@ -103,9 +102,10 @@ public class OrderStorage {
             int value = (int) ChronoUnit.SECONDS.between(order.startDate(), order.finishDate());
             if (months.containsKey(key)) {
                 months.put(key, months.get(key) + value);
-                continue;
             }
-            months.put(key, value);
+            else {
+                months.put(key, value);
+            }
         }
         return getMaxValueFromMap(months);
     }
