@@ -35,12 +35,11 @@ public class Miceputers {
     //Для каждого ответа найти суммарное время его вычисления
     //Вывести суперкомпьютеры в порядке возрастания их времени работы
 
-    public HashMap<String, Integer> getAnswersMore3() {
+    public List<String> getAnswersMore3() {  //Лист с ответами, которе получили больше 3 мышепутеров
         if (mputers.isEmpty()) {
             logger.log(Level.INFO, "Miceputers is Null");
             return null;
         }
-
 
         HashMap<String, Integer> countOfMiceputers = new HashMap<>();
 
@@ -49,12 +48,19 @@ public class Miceputers {
             countOfMiceputers.put(miceputer.getAnswer(), 1 + (count == null ? 0 : count));
         }
 
+        Object[] keys = countOfMiceputers.keySet().toArray();
+        ArrayList<String> answers = new ArrayList<>();
 
+        for (int i=0; i<countOfMiceputers.size(); i++) {
+            if (countOfMiceputers.get(keys[i]) >= 3) {
+                answers.add(keys[i].toString());
+            }
+        }
 
-        return countOfMiceputers;
+        return answers;
     }
 
-    public HashMap<String, Integer> getTimeForAnswers() {
+    public HashMap<String, Integer> getTimeForAnswers() {  //Только время для каждого ответа, ничего больше
         if (mputers.isEmpty()) {
             logger.log(Level.INFO, "Miceputers is Null");
             return null;
@@ -70,7 +76,7 @@ public class Miceputers {
         return answersTime;
     }
 
-    public HashMap<String, Integer> getTimeForMiceputers() {
+    public HashMap<String, Integer> getTimeForMiceputers() { //Только время для каждого мышепутера, сортировать уже в процессе вывода
         if (mputers.isEmpty()) {
             logger.log(Level.INFO, "Miceputers is Null");
             return null;
