@@ -1,4 +1,4 @@
-package Help;
+package help;
 
 import java.util.Scanner;
 import java.util.logging.Level;

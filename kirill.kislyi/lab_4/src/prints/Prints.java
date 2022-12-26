@@ -1,4 +1,4 @@
-package Prints;
+package prints;
 
 import java.util.Map;
 

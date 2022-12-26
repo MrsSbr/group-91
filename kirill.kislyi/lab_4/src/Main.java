@@ -7,15 +7,13 @@
         //в задаче запрещено использовать элементы функционального программирования
 
 
-import Help.Helper;
-import Models.Miceputers;
+import help.Helper;
+import models.Miceputers;
 
-import java.util.*;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import Prints.Prints;
-import Tasks.Tasks;
+import prints.Prints;
+import tasks.Tasks;
 
 public class Main {
 
@@ -38,7 +36,6 @@ public class Main {
             case 3 -> Tasks.Task3(miceputers);
             case 0 -> {
                 System.out.println("Завершение");
-                return;
             }
         }
     }

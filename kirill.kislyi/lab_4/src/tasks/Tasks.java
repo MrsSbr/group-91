@@ -1,7 +1,7 @@
-package Tasks;
+package tasks;
 
-import Models.Miceputers;
-import Prints.Prints;
+import models.Miceputers;
+import prints.Prints;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +23,7 @@ public class Tasks {
     public static void Task3(Miceputers miceputers) {
         HashMap<String, Integer> mps = miceputers.getTimeForMiceputers();
         mps.entrySet().stream()
-                .sorted(Map.Entry.<String, Integer>comparingByValue())
+                .sorted(Map.Entry.comparingByValue())
                 .forEach(System.out::println);
     }
 

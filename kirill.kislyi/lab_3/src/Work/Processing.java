@@ -55,9 +55,9 @@ public class Processing {
     public void mainProcessing(boolean timeCheckState) {
 
         System.out.println("Введите год для поиска средней температуры");
-        int year = Help.getIntInDiapason(0, 4);
+        int year = help.getIntInDiapason(0, 4);
         System.out.println("Введите температуру, для поиска месяцев, в которые она была ниже");
-        double low = Help.getDouble();
+        double low = help.getDouble();
 
 
         System.out.println("ArrayList: ");

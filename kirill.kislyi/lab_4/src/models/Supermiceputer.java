@@ -1,7 +1,5 @@
-package Models;
+package models;
 
-import java.util.*;
-import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,11 +32,10 @@ public class Supermiceputer {
     public static Supermiceputer convertStringToSPM (String data) {
         try {
             String[] split = data.split("; ");
-            Supermiceputer mps = new Supermiceputer(split[0], split[2], Integer.parseInt(split[1]));
-            return mps;
+            return new Supermiceputer(split[0], split[2], Integer.parseInt(split[1]));
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Creation Error Found on string " + data, e);
+            return null;
         }
-        return null;
     }
 }

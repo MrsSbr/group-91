@@ -1,10 +1,11 @@
-package Models;
+package models;
 
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,7 +19,7 @@ public class Miceputers {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 Supermiceputer smputer = Supermiceputer.convertStringToSPM(line);
-                if (mputers == null) {
+                if (mputers.isEmpty()) {
                     logger.log(Level.SEVERE, "Supermiceputer is Null");
                     break;
                 }
@@ -48,12 +49,12 @@ public class Miceputers {
             countOfMiceputers.put(miceputer.getAnswer(), 1 + (count == null ? 0 : count));
         }
 
-        Object[] keys = countOfMiceputers.keySet().toArray();
+        Set<String> keys = countOfMiceputers.keySet();
         ArrayList<String> answers = new ArrayList<>();
 
-        for (int i=0; i<countOfMiceputers.size(); i++) {
-            if (countOfMiceputers.get(keys[i]) >= 3) {
-                answers.add(keys[i].toString());
+        for (String key : keys) {
+            if (countOfMiceputers.get(key) >= 3) {
+                answers.add(key);
             }
         }
 
