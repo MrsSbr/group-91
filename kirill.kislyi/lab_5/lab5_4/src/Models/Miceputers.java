@@ -5,10 +5,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Miceputers {
     private static final Logger logger = Logger.getLogger(Miceputers.class.getName());
@@ -20,7 +20,7 @@ public class Miceputers {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 Supermiceputer smputer = Supermiceputer.convertStringToSPM(line);
-                if (mputers == null) {
+                if (mputers.isEmpty()) {
                     logger.log(Level.SEVERE, "Supermiceputer is Null");
                     break;
                 }
@@ -52,11 +52,8 @@ public class Miceputers {
             countOfMiceputers.put(miceputer.getAnswer(), 1 + (count == null ? 0 : count));
         });
 
-        Object[] keys = countOfMiceputers.keySet().toArray();
-        ArrayList<String> answers = IntStream.range(0, countOfMiceputers.size())
-                .filter(i -> countOfMiceputers.get(keys[i]) >= 3)
-                .mapToObj(i -> keys[i].toString())
-                .collect(Collectors.toCollection(ArrayList::new));
+        Set<String> keys = countOfMiceputers.keySet();
+        ArrayList<String> answers = keys.stream().filter(key -> countOfMiceputers.get(key) >= 3).collect(Collectors.toCollection(ArrayList::new));
 
         return answers;
     }

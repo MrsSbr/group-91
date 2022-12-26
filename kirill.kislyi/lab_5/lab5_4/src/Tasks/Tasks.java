@@ -21,7 +21,7 @@ public class Tasks {
     public static void Task3(Miceputers miceputers) {
         HashMap<String, Integer> mps = miceputers.getTimeForMiceputers();
         mps.entrySet().stream()
-                .sorted(Map.Entry.<String, Integer>comparingByValue())
+                .sorted(Map.Entry.comparingByValue())
                 .forEach(System.out::println);
     }
 
