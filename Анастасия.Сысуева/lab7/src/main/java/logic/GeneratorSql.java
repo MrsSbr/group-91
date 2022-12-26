@@ -1,5 +1,7 @@
 package logic;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -7,7 +9,7 @@ import java.util.stream.Collectors;
 public class GeneratorSql {
 
     public static String getTableName(Class<?> object) {
-        return "\"" + object.getAnnotation(TableName.class).name() + "\"";
+        return "\"" + StringEscapeUtils.escapeSql(object.getAnnotation(TableName.class).name()) + "\"";
     }
 
     public static String getFieldsName(Class<?> object) {
@@ -25,7 +27,7 @@ public class GeneratorSql {
             throw new RuntimeException(e);
         }
         if (value.getClass() == String.class) {
-            return "'" + value + "'";
+            return "'" + StringEscapeUtils.escapeSql(value.toString()) + "'";
         }
         return value.toString();
     }

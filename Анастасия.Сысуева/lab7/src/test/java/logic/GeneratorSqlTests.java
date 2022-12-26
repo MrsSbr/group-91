@@ -23,7 +23,7 @@ public class GeneratorSqlTests {
     @Test
     public void generatorInsertQueryTest() {
         //given
-        String expectedInsertQuery = "INSERT INTO \"Anime\" VALUES (2, 'Наруто', 'Хаято Датэ', 'сёнэн', 2002, 9.2)";
+        String expectedInsertQuery = "INSERT INTO \"Anime\" VALUES (2, 'Нар''уто', 'Хаято Датэ', 'сёнэн', 2002, 9.2)";
 
         //when
         String actualInsertQuery = GeneratorSql.getInsertQuery(AnimeTestsData.NARUTO_ANIME);
@@ -35,7 +35,7 @@ public class GeneratorSqlTests {
     @Test
     public void generatorUpdateQueryTest() {
         //given
-        String expectedUpdateQuery = "UPDATE \"Anime\" SET animeName = 'Хоримия', filmmakerName = 'Масаси Исихама', genre = 'романтика', yearOfCreation = 2021, rating = 9.4 WHERE id = 3";
+        String expectedUpdateQuery = "UPDATE \"Anime\" SET animeName = 'Хор''имия', filmmakerName = 'Масаси Исихама', genre = 'романтика', yearOfCreation = 2021, rating = 9.4 WHERE id = 3";
 
         //when
         String actualUpdateQuery = GeneratorSql.getUpdateQuery(AnimeTestsData.XORIMIYA_ANIME);
