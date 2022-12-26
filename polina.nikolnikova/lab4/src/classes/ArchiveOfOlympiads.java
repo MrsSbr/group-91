@@ -45,7 +45,7 @@ public record ArchiveOfOlympiads(Map<Integer, Olympiad> olympiadsList) {
             }
         }
 
-        List<String> listAnswer = new LinkedList<>();
+        List<String> listAnswer = new ArrayList<>();
 
         for (String people : listOfStudents.keySet()) {
             if (listOfStudents.get(people) == 11) {
@@ -57,7 +57,7 @@ public record ArchiveOfOlympiads(Map<Integer, Olympiad> olympiadsList) {
     }
 
     public List<String> creatingListOfStudentsWhoHaveOccupiedPlacesInTheLast10Years(int i) {
-        List<String> listOfStudents = new LinkedList<>();
+        List<String> listOfStudents = new ArrayList<>();
 
         for (Olympiad olympiad : olympiadsList.values()) {
             if (olympiad.getYearInWhichTheOlympiadWasHeld() > 2012 && Objects.equals(ListOfSubjects.getById(i),
@@ -83,7 +83,7 @@ public record ArchiveOfOlympiads(Map<Integer, Olympiad> olympiadsList) {
     public List<String> creatingListOfStudentsWhoParticipatedInLargeNumberOfOlympiads(int year) {
 
         Map<String, Integer> listOfStudents = new HashMap<>();
-        List<String> listAnswer = new LinkedList<>();
+        List<String> listAnswer = new ArrayList<>();
 
         for (Olympiad olympiad : olympiadsList.values()) {
 
