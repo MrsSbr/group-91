@@ -3,9 +3,7 @@ import classes.Olympiad;
 import enums.ListOfSubjects;
 import reader.ReaderFile;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.FileHandler;
@@ -15,12 +13,12 @@ import java.util.logging.Logger;
 public class SchoolOlympiadNew {
 
     private static final Logger logger = Logger.getLogger(SchoolOlympiadNew.class.getName());
-    private static final String loggerPath = "polina.nikolnikova/lab5/lab5_4/logs/logs.txt";
+    private static final String LOGGER_PATH = "polina.nikolnikova/lab5/lab5_4/logs/logs.txt";
 
     public static void main(String[] args) {
 
         try {
-            FileHandler fileHandler = new FileHandler(loggerPath);
+            FileHandler fileHandler = new FileHandler(LOGGER_PATH);
             logger.addHandler(fileHandler);
             logger.log(Level.INFO, "Начало работы");
 

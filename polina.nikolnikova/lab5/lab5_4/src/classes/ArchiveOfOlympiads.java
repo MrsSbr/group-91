@@ -47,7 +47,7 @@ public record ArchiveOfOlympiads(Map<Integer, Olympiad> olympiadsList) {
             i[0]++;
         }
 
-        List<String> listAnswer = new LinkedList<>();
+        List<String> listAnswer = new ArrayList<>();
 
         listOfStudents.keySet().forEach(people -> {
             if (listOfStudents.get(people) == 11) {
@@ -59,7 +59,7 @@ public record ArchiveOfOlympiads(Map<Integer, Olympiad> olympiadsList) {
     }
 
     public List<String> creatingListOfStudentsWhoHaveOccupiedPlacesInTheLast10Years(int year) {
-        List<String> listOfStudents = new LinkedList<>();
+        List<String> listOfStudents = new ArrayList<>();
 
         olympiadsList.values().forEach(olympiad -> {
             if (olympiad.getYearInWhichTheOlympiadWasHeld() > 2012 && Objects.equals(ListOfSubjects.getById(year),
@@ -123,7 +123,7 @@ public record ArchiveOfOlympiads(Map<Integer, Olympiad> olympiadsList) {
             }
         });
 
-        List<String> listAnswer = new LinkedList<>();
+        List<String> listAnswer = new ArrayList<>();
 
         listOfStudents.keySet().forEach(people -> {
             if (listOfStudents.get(people) == max[0]) {

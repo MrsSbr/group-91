@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ReaderFile {
-    private static final Path dataPath = Path.of("polina.nikolnikova/lab5/lab5_4/information/information.txt");
+    private static final Path DATA_PATH = Path.of("polina.nikolnikova/lab5/lab5_4/information/information.txt");
     private static final Logger logger = Logger.getLogger(ReaderFile.class.getName());
-    private static final String loggerPath = "polina.nikolnikova/lab5/lab5_4/logs/logs.txt";
+    private static final String LOGGER_PATH = "polina.nikolnikova/lab5/lab5_4/logs/logs.txt";
 
     private static String[] splitLine(String line) {
 
@@ -27,9 +27,9 @@ public class ReaderFile {
     public static Map<Integer, Olympiad> readFile() {
         Map<Integer, Olympiad> olympiads = new HashMap<>();
 
-        try (Stream<String> lineStream = Files.lines(dataPath)) {
+        try (Stream<String> lineStream = Files.lines(DATA_PATH)) {
 
-            FileHandler fileHandler = new FileHandler(loggerPath);
+            FileHandler fileHandler = new FileHandler(LOGGER_PATH);
             logger.addHandler(fileHandler);
             List<String> lines = lineStream.collect(Collectors.toList());
 
