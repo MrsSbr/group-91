@@ -67,7 +67,7 @@ public class OrderStorage {
         Map<String, Integer> restaurants = new HashMap<>();
         LocalDate date = LocalDate.now();
         for (var order : orders) {
-            if (!(order.startDate().getYear() != date.getYear())) {
+            if (order.startDate().getYear() == date.getYear()) {
                 String rest = order.restaurantName();
                 if (!restaurants.containsKey(rest)) {
                     restaurants.put(rest, order.composition().length);
