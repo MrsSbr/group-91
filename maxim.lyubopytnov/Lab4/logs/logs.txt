@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-12-27T11:08:39.198910200Z</date>
+  <millis>1672139319198</millis>
+  <nanos>910200</nanos>
+  <sequence>0</sequence>
+  <logger>reader.ReaderFile</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Начало работы</message>
+</record>
+<record>
+  <date>2022-12-27T11:08:39.261765600Z</date>
+  <millis>1672139319261</millis>
+  <nanos>765600</nanos>
+  <sequence>1</sequence>
+  <logger>reader.ReaderFile</logger>
+  <level>INFO</level>
+  <class>reader.ReaderFile</class>
+  <method>getHereticNotesFromFile</method>
+  <thread>1</thread>
+  <message>Информация из файла успешно считана</message>
+</record>
+<record>
+  <date>2022-12-27T11:08:39.261765600Z</date>
+  <millis>1672139319261</millis>
+  <nanos>765600</nanos>
+  <sequence>2</sequence>
+  <logger>reader.ReaderFile</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Информация из файла успешно передана и конвертирована</message>
+</record>
+<record>
+  <date>2022-12-27T11:08:39.263758500Z</date>
+  <millis>1672139319263</millis>
+  <nanos>758500</nanos>
+  <sequence>3</sequence>
+  <logger>reader.ReaderFile</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Задача выполнена. Завершение работы</message>
+</record>
+</log>

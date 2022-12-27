@@ -9,7 +9,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
 public class Main {
-    private static final String LOG_PATH = "maxim.lyubopytnov/Lab4/logs/logs.txt";
+    private static final String LOG_PATH = "D:/Вгу МОиАИС/Java_practic/Lyubopytnov_Maxim/maxim.lyubopytnov/Lab4/logs/logs.txt";
     private static final Logger logger = Logger.getLogger(ReaderFile.class.getName());
 
     public static void main(String[] args) {

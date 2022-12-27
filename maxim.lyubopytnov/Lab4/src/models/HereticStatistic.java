@@ -1,6 +1,8 @@
 package models;
 
+import java.time.Duration;
 import java.time.LocalTime;
+import java.time.temporal.ChronoField;
 import java.util.*;
 
 public class HereticStatistic {
@@ -27,15 +29,15 @@ public class HereticStatistic {
     }
 
     private LocalTime getNumTimeSuffer(String nameSuspect) {
+
         LocalTime timeSuffer = LocalTime.of(0, 0, 0);
+        int timeInSec = 0;
         for (HereticNote hn : hereticNotes) {
             if (hn.getNameSuspect().equals(nameSuspect)) {
-                timeSuffer.plusHours(hn.getSufferTime().getHour());
-                timeSuffer.plusMinutes(hn.getSufferTime().getMinute());
-                timeSuffer.plusSeconds(hn.getSufferTime().getSecond());
+                timeInSec += hn.getSufferTime().getLong(ChronoField.SECOND_OF_DAY);
             }
         }
-        return timeSuffer;
+        return timeSuffer.plus(Duration.ofSeconds(timeInSec));
     }
 
     private Map<String, LocalTime> getTimeSufferForEverySuspect() {
@@ -43,9 +45,17 @@ public class HereticStatistic {
         String nameSuspect;
         for (HereticNote hn : hereticNotes) {
             nameSuspect = hn.getNameSuspect();
-            timeSufferForEverySuspect.put(nameSuspect, getNumTimeSuffer(nameSuspect));
+            timeSufferForEverySuspect.put(nameSuspect, getNumTimeSuffer(nameSuspect)); //
         }
         return timeSufferForEverySuspect;
+    }
+
+    private Set<String> getAllSufferTools() {
+        Set<String> namesTools = new HashSet<>();
+        for (HereticNote hn : hereticNotes) {
+            namesTools.add(hn.getSufferTool());
+        }
+        return namesTools;
     }
 
     private Set<String> getAllNamesSuspects() {
@@ -57,13 +67,13 @@ public class HereticStatistic {
     }
 
     private boolean isSufferAllTools(String name) {
-        int count = 0;
+        Set<String> listSufferToolsForEveryHeretic = new HashSet<>();
         for (HereticNote hn : hereticNotes) {
             if (hn.getNameSuspect().equals(name) && hn.getIsConfession() == 0) {
-                count++;
+                listSufferToolsForEveryHeretic.add(hn.getSufferTool());
             }
         }
-        return count == getAllNamesSuspects().size();
+        return listSufferToolsForEveryHeretic.equals(getAllSufferTools());
     }
 
     private Set<String> getAllSuffersWithoutConfusion() {

@@ -11,3 +11,9 @@ Alex;Handles;02:20:30;1
 Igor;Pen;00:55:10;1
 Bob;Handles;02:20:30;1
 Bob;Handles;00:55:10;1
+Nick;Axe;01:15:30;0
+Nick;Knife;00:35:32;0
+Nick;Needle;04:00:38;0
+Nick;Pen;00:55:10;0
+Nick;Handles;02:20:30;0
+Nick;Pen;01:55:10;0

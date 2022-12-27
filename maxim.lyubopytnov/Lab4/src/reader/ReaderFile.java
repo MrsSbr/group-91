@@ -13,8 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ReaderFile {
-    private static final String FILE_PATH = "maxim.lyubopytnov/Lab4/src/resources/hereticNotes.txt";
-    private static final String LOG_PATH = "maxim.lyubopytnov/Lab4/logs/logs.txt";
+    private static final String FILE_PATH = "D:/Вгу МОиАИС/Java_practic/Lyubopytnov_Maxim/maxim.lyubopytnov/Lab4/src/resources/hereticNotes.txt";
+    private static final String LOG_PATH = "D:/Вгу МОиАИС/Java_practic/Lyubopytnov_Maxim/maxim.lyubopytnov/Lab4/logs/logs.txt";
     private static final Logger logger = Logger.getLogger(ReaderFile.class.getName());
 
     private static String[] getSplitterString(String line) {
