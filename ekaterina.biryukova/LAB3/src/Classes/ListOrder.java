@@ -3,6 +3,7 @@ package Classes;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -43,8 +44,13 @@ public class ListOrder {
     }
 
     //день (дни) с максимальным количеством заказов в день за последний месяц
-    public List<LocalDate> listOfDaysWithMaxCountOfOrders() {
-        List<LocalDate> answerList = new ArrayList<>();
+    public List<LocalDate> listOfDaysWithMaxCountOfOrders(int k) {
+        List<LocalDate> answerList;
+        if (k == 1) {
+            answerList = new ArrayList<>();
+        } else {
+            answerList = new LinkedList<>();
+        }
         boolean[] isChecked = new boolean[SIZE];
         for (int i = 0; i < SIZE; i++) {
             isChecked[i] = false;
@@ -84,5 +90,4 @@ public class ListOrder {
         }
         return totalWeight;
     }
-
 }
