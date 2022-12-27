@@ -4,158 +4,100 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
 import java.util.stream.Stream;
-
+import enums.*;
 public class Tasks {
     private static final int AMOUNT_OF_SELLGAMES = 7283;
-    private static final List<String> name = new ArrayList<>(Arrays.asList("sdfgfd", "dfghgf", "jfhsdf", "asdwe",
-            "hfghjhg", "kyufk", "dfshy", "jtynxvcb", "estyrt", "fghd", "e5yhj", "edhy"));
-    private static final List<String> genre = new ArrayList<>(Arrays.asList("scary", "story", "rpg"));
-
-
     public String randName() {
         StringBuilder stringBuilder = new StringBuilder();
-        Stream.of(name)
-                .forEach(Collections::shuffle);
         Random rand = new Random();
-        int indexName = rand.nextInt(name.size());
-        stringBuilder.append(name.get(indexName));
+        int indexName = rand.nextInt(0,NamesGames.values().length);
+        stringBuilder.append(Arrays.stream(NamesGames.values()).toList().get(indexName));
         return stringBuilder.toString();
     }
 
     public String randGenre() {
         StringBuilder stringBuilder = new StringBuilder();
-        Stream.of(genre)
-                .forEach(Collections::shuffle);
         Random rand = new Random();
-        int indexGenre = rand.nextInt(genre.size());
-        stringBuilder.append(genre.get(indexGenre));
+        int indexGenre = rand.nextInt(0,Genre.values().length);
+        stringBuilder.append(Arrays.stream(Genre.values()).toList().get(indexGenre));
         return stringBuilder.toString();
     }
-
     public double randPrice() {
         Random random = new Random();
         return random.nextDouble();
     }
-
     private List<SellGame> bestGamesByGanre(List<SellGame> sellGames) {
-
         List<SellGame> result = new ArrayList<>();
         String bestGanre = "";
         int countGamesBestGanre = 0;
-        for (var genre : genre) {
+        for (var genre : Genre.values()) {
             int countGenre = 0;
             for (var game : sellGames) {
-
-                if (game.getGenre().equals(genre)) {
-
+                if (game.getGenre().equals(genre.toString())) {
                     countGenre++;
-
                 }
-
             }
-
             if (countGenre > countGamesBestGanre) {
-
-                bestGanre = genre;
+                bestGanre = genre.toString();
                 countGamesBestGanre = countGenre;
-
             }
-
         }
         for (var game : sellGames) {
-
             if (game.getGenre().equals(bestGanre)) {
-
                 result.add(game);
-
             }
-
         }
-
         return result;
-
     }
-
     private Month bestMonth(List<SellGame> sellGames) {
-
         double maxPriceMonth = 0;
         Month bestMonth = null;
 
         for (var month : Month.values()) {
-
             double sumPrice = 0;
             for (var game : sellGames) {
                 if (game.getDate().getMonth() == month) {
-
                     sumPrice += game.getPrice();
-
                 }
-
             }
             if (sumPrice > maxPriceMonth) {
-
                 maxPriceMonth = sumPrice;
                 bestMonth = month;
-
             }
-
         }
-
         return bestMonth;
-
     }
 
     private boolean isNotSellInLastThreeMonth(LocalDate date) {
-
         int countDaysDate = date.getYear() * 365 + date.getMonthValue() * 30 + date.getDayOfMonth();
         LocalDate now = LocalDate.now();
         int countDayNow = now.getYear() * 365 + now.getMonthValue() * 30 + now.getDayOfMonth();
         return countDayNow - countDaysDate > 90;
-
     }
 
     private String notPopularyGame(List<SellGame> sellGames) {
-
-
         List<String> nameGamesSellLastThreeMonth = new ArrayList<>();
         List<String> nameGamesNotSellLastThreeMonth = new ArrayList<>();
+
         for (var game : sellGames) {
             if (isNotSellInLastThreeMonth(game.getDate())) {
-
                 if (!nameGamesSellLastThreeMonth.contains(game.getName())) {
                     if (!nameGamesSellLastThreeMonth.contains(game.getName())) {
-
                         nameGamesNotSellLastThreeMonth.add(game.getName());
-
                     }
-
-
                 }
-
             } else {
-
                 nameGamesNotSellLastThreeMonth.remove(game.getName());
-
                 if (!nameGamesSellLastThreeMonth.contains(game.getName())) {
-
                     nameGamesSellLastThreeMonth.add(game.getName());
-
                 }
-
             }
-
-
         }
         if (nameGamesNotSellLastThreeMonth.size() != 0) {
-
             return nameGamesNotSellLastThreeMonth.get(0);
-
         }
-
         return "Такой игры нет!";
-
     }
-
 
     public void task(List<SellGame> sellGames, boolean checkTime) {
         Random random = new Random();
@@ -175,9 +117,6 @@ public class Tasks {
             System.out.printf("Elapsed %,9.3f ms\n", startTime / 1_000_000.0);
         }
         if (!checkTime) {
-            for (int i = 0; i < AMOUNT_OF_SELLGAMES; i++) {
-                System.out.println(sellGames.get(i).toString());
-            }
             //task1
             System.out.println("Список игр самого популярного жанра");
             for (SellGame f : task1) {

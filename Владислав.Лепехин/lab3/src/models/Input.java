@@ -1,7 +1,5 @@
 package models;
-
 import java.util.Scanner;
-
 public class Input {
     public static int userInput(int l, int r) {
         Scanner sc = new Scanner(System.in);
