@@ -1,20 +1,20 @@
 import Classes.RaceResult;
 import Classes.RaceResultsArrayList;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
         RaceResultsArrayList raceResults = new RaceResultsArrayList();
-        List<Integer> awardeesForLastThreeYears = raceResults.getAwardeesForLastThreeYears();
-        List<RaceResult> awardeesForLastThreeYearsResults = new LinkedList<>();
-        List<Integer> lastYearAwardeesThatHasNotBeenAwardeeForLastFiveYears =
-                raceResults.lastYearAwardeesThatHaveNotBeenAwardeeForLastFiveYears();
-        List<RaceResult> lastYearAwardeesThatHasNotBeenAwardeeForLastFiveYearsResults = new LinkedList<>();
+        Set<Integer> awardeesForLastThreeYears = raceResults.effectiveGetAwardeesForLastThreeYears();
+        Set<RaceResult> awardeesForLastThreeYearsResults = new HashSet<>();
+        Set<Integer> lastYearAwardeesThatHasNotBeenAwardeeForLastFiveYears =
+                raceResults.effectiveLastYearAwardeesThatHaveNotBeenAwardeeForLastFiveYears();
+        Set<RaceResult> lastYearAwardeesThatHasNotBeenAwardeeForLastFiveYearsResults = new HashSet<>();
 
         for (int awardee : awardeesForLastThreeYears) {
-            awardeesForLastThreeYearsResults.addAll(raceResults.getCyclistsResults(awardee));
+            awardeesForLastThreeYearsResults.addAll(raceResults.getCyclistsResultsTest(awardee));
         }
 
         for (RaceResult raceResult : awardeesForLastThreeYearsResults) {
@@ -26,7 +26,7 @@ public class Main {
         System.out.println("---------------------------\n");
 
         for (int awardee : lastYearAwardeesThatHasNotBeenAwardeeForLastFiveYears) {
-            lastYearAwardeesThatHasNotBeenAwardeeForLastFiveYearsResults.addAll(raceResults.getCyclistsResults(awardee));
+            lastYearAwardeesThatHasNotBeenAwardeeForLastFiveYearsResults.addAll(raceResults.getCyclistsResultsTest(awardee));
         }
 
         for (RaceResult raceResult : lastYearAwardeesThatHasNotBeenAwardeeForLastFiveYearsResults) {
