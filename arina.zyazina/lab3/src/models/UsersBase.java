@@ -7,7 +7,7 @@ import java.util.List;
 public class UsersBase {
     public static final int NUM_OF_USERS = 500;
 
-    private List<User> users;
+    private final List<User> users;
 
     public UsersBase(List<User> users) {
         this.users = users;

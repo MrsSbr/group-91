@@ -99,7 +99,7 @@ public class Menu {
                 Printer.printPlaylist(favoriteSongs);
                 break;
             case 5:
-                System.out.printf("Время работы: %,9.4f мс\n", Testing.getWorkTime(usersBase));
+                System.out.printf("Время работы: %d мс\n", Testing.getWorkTime(usersBase));
                 break;
             case 0:
                 System.out.println("Завершение работы...");

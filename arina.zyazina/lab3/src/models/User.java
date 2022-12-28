@@ -6,7 +6,7 @@ import java.util.*;
 public class User {
     public static final int NUM_OF_SONGS = 100;
 
-    private List<ListeningSong> songs;
+    private final List<ListeningSong> songs;
 
     public User(List<ListeningSong> songs) {
         this.songs = songs;
@@ -59,13 +59,7 @@ public class User {
         Map<String, Integer> listeningAmount = new HashMap<>();
         for (ListeningSong song : songs) {
             String curSongName = song.getSongName();
-
-            if (!listeningAmount.containsKey(curSongName)) {
-                listeningAmount.put(curSongName, 1);
-            } else {
-                Integer curAmount = listeningAmount.get(curSongName) + 1;
-                listeningAmount.replace(curSongName, curAmount);
-            }
+            listeningAmount.merge(curSongName, 1, (curr, def) -> curr + 1);
         }
 
         List<String> favoriteSongs = new ArrayList<>();
@@ -73,7 +67,7 @@ public class User {
         for (String songName : listeningAmount.keySet()) {
             Integer curAmount = listeningAmount.get(songName);
 
-            if (curAmount == curMaxAmount) {
+            if (curAmount.equals(curMaxAmount)) {
                 favoriteSongs.add(songName);
             } else if (curAmount > curMaxAmount) {
                 curMaxAmount = curAmount;
