@@ -1,6 +1,5 @@
 package Repository.Getters;
 
-import java.util.List;
 
 public class GeneratorList extends GetterList{
 

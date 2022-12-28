@@ -8,35 +8,35 @@ public class AnswersHandler {
     private final List<Integer> results;
     private Predicate<Integer> predicate;
 
-    public AnswersHandler(List<Integer> results){
+    public AnswersHandler(List<Integer> results) {
         this.results = results;
     }
 
-    private void predicateForBestPlayers(){
+    private void predicateForBestPlayers() {
         int maxMVP = results.stream().max(Integer::compare).orElseThrow();
         predicate = x -> x == maxMVP;
     }
 
-    private void predicateForOneTimeMVP(){
+    private void predicateForOneTimeMVP() {
         predicate = x -> x == 1;
     }
 
-    private void predicateForAwayMVP(){
+    private void predicateForAwayMVP() {
         predicate = x -> x != 0;
     }
 
-    private List<Integer> getPlayers(){
+    private List<Integer> getPlayers() {
         List<Integer> players = new ArrayList<>();
         for (int i = 0; i < results.size(); i++) {
             int countMVP = results.get(i);
-            if (predicate.test(countMVP)){
-                players.add(i+1);
+            if (predicate.test(countMVP)) {
+                players.add(i + 1);
             }
         }
         return players;
     }
 
-    public List<Integer> getBestPlayers(){
+    public List<Integer> getBestPlayers() {
         predicateForBestPlayers();
         return getPlayers();
     }
@@ -46,12 +46,12 @@ public class AnswersHandler {
         return getPlayers();
     }
 
-    public List<Integer> getAwayMVPPlayers(){
+    public List<Integer> getAwayMVPPlayers() {
         predicateForAwayMVP();
         return getPlayers();
     }
 
-    public void lifeCycle(){
+    public void lifeCycle() {
         predicateForBestPlayers();
         getBestPlayers();
         predicateForOneTimeMVP();
@@ -60,9 +60,9 @@ public class AnswersHandler {
         getAwayMVPPlayers();
     }
 
-    public long getWorkTime(){
+    public long getWorkTime() {
         long start = System.currentTimeMillis();
-        for (int  i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             lifeCycle();
         }
 
