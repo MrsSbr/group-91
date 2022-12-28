@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-12-23T22:24:18.257355300Z</date>
+  <millis>1671834258257</millis>
+  <nanos>355300</nanos>
+  <sequence>0</sequence>
+  <logger>UI.Menu</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Начало работы</message>
+</record>
+<record>
+  <date>2022-12-23T22:24:22.175355300Z</date>
+  <millis>1671834262175</millis>
+  <nanos>355300</nanos>
+  <sequence>1</sequence>
+  <logger>UI.Menu</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Завершение работы</message>
+</record>
+</log>
