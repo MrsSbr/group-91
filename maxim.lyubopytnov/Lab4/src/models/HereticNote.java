@@ -6,13 +6,13 @@ public class HereticNote {
     private final String nameSuspect;
     private final String sufferTool;
     private final LocalTime sufferTime;
-    private final int isConfession;
+    private final boolean isConfession;
 
     public HereticNote(String nameSuspect, String sufferTool, String sufferTime, String isConfession) {
         this.nameSuspect = nameSuspect;
         this.sufferTool = sufferTool;
         this.sufferTime = LocalTime.parse(sufferTime);
-        this.isConfession = Integer.parseInt(isConfession);
+        this.isConfession = Boolean.parseBoolean(isConfession);
     }
 
     public String getNameSuspect() {
@@ -27,7 +27,7 @@ public class HereticNote {
         return sufferTime;
     }
 
-    public int getIsConfession() {
+    public boolean getIsConfession() {
         return isConfession;
     }
 
@@ -37,6 +37,6 @@ public class HereticNote {
                 + "\nНазвание инструмента для пыток: " + sufferTool
                 + "\nВремя пытки" + sufferTime
                 + "\nФаталити: ";
-        return isConfession == 0 ? info + "Нет" : info + "Да";
+        return isConfession ? info + "Нет" : info + "Да";
     }
 }

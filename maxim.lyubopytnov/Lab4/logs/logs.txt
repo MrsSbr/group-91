@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2022-12-27T11:08:39.198910200Z</date>
-  <millis>1672139319198</millis>
-  <nanos>910200</nanos>
+  <date>2022-12-28T14:19:13.355537100Z</date>
+  <millis>1672237153355</millis>
+  <nanos>537100</nanos>
   <sequence>0</sequence>
   <logger>reader.ReaderFile</logger>
   <level>INFO</level>
@@ -14,9 +14,9 @@
   <message>Начало работы</message>
 </record>
 <record>
-  <date>2022-12-27T11:08:39.261765600Z</date>
-  <millis>1672139319261</millis>
-  <nanos>765600</nanos>
+  <date>2022-12-28T14:19:13.402921400Z</date>
+  <millis>1672237153402</millis>
+  <nanos>921400</nanos>
   <sequence>1</sequence>
   <logger>reader.ReaderFile</logger>
   <level>INFO</level>
@@ -26,9 +26,9 @@
   <message>Информация из файла успешно считана</message>
 </record>
 <record>
-  <date>2022-12-27T11:08:39.261765600Z</date>
-  <millis>1672139319261</millis>
-  <nanos>765600</nanos>
+  <date>2022-12-28T14:19:13.403933600Z</date>
+  <millis>1672237153403</millis>
+  <nanos>933600</nanos>
   <sequence>2</sequence>
   <logger>reader.ReaderFile</logger>
   <level>INFO</level>
@@ -38,9 +38,9 @@
   <message>Информация из файла успешно передана и конвертирована</message>
 </record>
 <record>
-  <date>2022-12-27T11:08:39.263758500Z</date>
-  <millis>1672139319263</millis>
-  <nanos>758500</nanos>
+  <date>2022-12-28T14:19:13.404930400Z</date>
+  <millis>1672237153404</millis>
+  <nanos>930400</nanos>
   <sequence>3</sequence>
   <logger>reader.ReaderFile</logger>
   <level>INFO</level>

@@ -8,83 +8,64 @@ import java.util.*;
 public class HereticStatistic {
     private List<HereticNote> hereticNotes;
 
-    private int getNumConfusionByTool(String tool) {
-        int toolNum = 0;
-        for (HereticNote hn : hereticNotes) {
-            if (hn.getSufferTool().equals(tool) && hn.getIsConfession() == 1) {
-                toolNum++;
-            }
-        }
-        return toolNum;
-    }
-
     private Map<String, Integer> getMapNumConfusionByTool() {
         Map<String, Integer> numConfusionTool = new HashMap<>();
         String nameSufferTool;
-        for (HereticNote hn : hereticNotes) {
-            nameSufferTool = hn.getSufferTool();
-            numConfusionTool.put(nameSufferTool, getNumConfusionByTool(nameSufferTool));
-        }
-        return numConfusionTool;
-    }
-
-    private LocalTime getNumTimeSuffer(String nameSuspect) {
-
-        LocalTime timeSuffer = LocalTime.of(0, 0, 0);
-        int timeInSec = 0;
-        for (HereticNote hn : hereticNotes) {
-            if (hn.getNameSuspect().equals(nameSuspect)) {
-                timeInSec += hn.getSufferTime().getLong(ChronoField.SECOND_OF_DAY);
+        for (var hn : hereticNotes) {
+            if (hn.getIsConfession()) {
+                nameSufferTool = hn.getSufferTool();
+                if (!numConfusionTool.containsKey(nameSufferTool)) {
+                    numConfusionTool.put(nameSufferTool, 1);
+                } else {
+                    numConfusionTool.put(nameSufferTool, numConfusionTool.get(nameSufferTool) + 1);
+                }
             }
         }
-        return timeSuffer.plus(Duration.ofSeconds(timeInSec));
+        return numConfusionTool;
     }
 
     private Map<String, LocalTime> getTimeSufferForEverySuspect() {
         Map<String, LocalTime> timeSufferForEverySuspect = new HashMap<>();
         String nameSuspect;
+        LocalTime timeSuffer = LocalTime.of(0, 0, 0);
         for (HereticNote hn : hereticNotes) {
             nameSuspect = hn.getNameSuspect();
-            timeSufferForEverySuspect.put(nameSuspect, getNumTimeSuffer(nameSuspect)); //
+            if (!timeSufferForEverySuspect.containsKey(nameSuspect)) {
+                timeSufferForEverySuspect.put(nameSuspect, timeSuffer.plus(Duration.ofSeconds(hn.getSufferTime().getLong(ChronoField.SECOND_OF_DAY))));
+                timeSuffer = LocalTime.of(0, 0, 0);
+            } else {
+                timeSufferForEverySuspect.put(nameSuspect, timeSufferForEverySuspect.get(nameSuspect).plus(Duration.ofSeconds(hn.getSufferTime().getLong(ChronoField.SECOND_OF_DAY))));
+            }
         }
         return timeSufferForEverySuspect;
     }
 
-    private Set<String> getAllSufferTools() {
+    private int getAllSufferTools() {
         Set<String> namesTools = new HashSet<>();
         for (HereticNote hn : hereticNotes) {
             namesTools.add(hn.getSufferTool());
         }
-        return namesTools;
-    }
-
-    private Set<String> getAllNamesSuspects() {
-        Set<String> namesSuspects = new HashSet<>();
-        for (HereticNote hn : hereticNotes) {
-            namesSuspects.add(hn.getNameSuspect());
-        }
-        return namesSuspects;
-    }
-
-    private boolean isSufferAllTools(String name) {
-        Set<String> listSufferToolsForEveryHeretic = new HashSet<>();
-        for (HereticNote hn : hereticNotes) {
-            if (hn.getNameSuspect().equals(name) && hn.getIsConfession() == 0) {
-                listSufferToolsForEveryHeretic.add(hn.getSufferTool());
-            }
-        }
-        return listSufferToolsForEveryHeretic.equals(getAllSufferTools());
+        return namesTools.size();
     }
 
     private Set<String> getAllSuffersWithoutConfusion() {
-        Set<String> resultNames = new HashSet<>();
-        Set<String> names = getAllNamesSuspects();
-        for (String name : names) {
-            if (isSufferAllTools(name)) {
-                resultNames.add(name);
+        Set<String> heretics = new HashSet<>();
+        int toolCount = getAllSufferTools();
+        for (HereticNote hn1 : hereticNotes) {
+            String hereticName = hn1.getNameSuspect();
+            if (!heretics.contains(hereticName) && hn1.getIsConfession()) {
+                Set<String> toolsForHeretic = new HashSet<>();
+                for (HereticNote hn2 : hereticNotes) {
+                    if (hereticName.equals(hn2.getNameSuspect())) {
+                        toolsForHeretic.add(hn2.getSufferTool());
+                    }
+                }
+                if (toolsForHeretic.size() == toolCount) {
+                    heretics.add(hereticName);
+                }
             }
         }
-        return resultNames;
+        return heretics;
     }
 
     public void mainProcess(List<HereticNote> hereticNotes) {
