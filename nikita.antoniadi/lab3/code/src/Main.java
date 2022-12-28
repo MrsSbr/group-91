@@ -6,7 +6,23 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        RaceResultsArrayList raceResults = new RaceResultsArrayList();
+        long start = System.currentTimeMillis();
+
+        run(true);
+        long end = System.currentTimeMillis();
+        long arrayListTimeDelta = end - start;
+
+        start = System.currentTimeMillis();
+        run(false);
+        end = System.currentTimeMillis();
+        long linkedListTimeDelta = end - start;
+
+        System.out.println(String.format("Время выполнения с ArrayList: %d\nВремя выполнения с LinkedList: %d",
+                arrayListTimeDelta, linkedListTimeDelta));
+    }
+
+    public static void run(boolean useArrayList) {
+        RaceResultsArrayList raceResults = new RaceResultsArrayList(useArrayList);
         Set<Integer> awardeesForLastThreeYears = raceResults.effectiveGetAwardeesForLastThreeYears();
         Set<RaceResult> awardeesForLastThreeYearsResults = new HashSet<>();
         Set<Integer> lastYearAwardeesThatHasNotBeenAwardeeForLastFiveYears =

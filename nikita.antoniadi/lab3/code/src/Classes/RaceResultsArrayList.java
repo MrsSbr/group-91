@@ -4,17 +4,24 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class RaceResultsArrayList {
-    private final List<RaceResult>  raceResults = new ArrayList<>(RACE_RESULTS_AMOUNT);
+    private final List<RaceResult>  raceResults;
     private static final int PARTICIPANTS = 17;
     private static final int RACES_AMOUNT = 731;
     private static final int RACE_RESULTS_AMOUNT = PARTICIPANTS * RACES_AMOUNT;
 
-    public RaceResultsArrayList() {
+    public RaceResultsArrayList(boolean useArrayList) {
+        if(useArrayList) {
+            raceResults = new ArrayList<>(RACE_RESULTS_AMOUNT);
+        } else {
+            raceResults = new LinkedList<>();
+        }
+
         Random random = new Random();
         int yearRange = random.nextInt(12);
         int monthRange = random.nextInt(12);
         int dayRange = random.nextInt(31);
 
+        long start = System.currentTimeMillis();
         for (int i = 0; i < RACES_AMOUNT; i++) {
             LocalDate date = LocalDate.now()
                     .minusYears(yearRange)
@@ -25,6 +32,8 @@ public class RaceResultsArrayList {
                 raceResults.add(new RaceResult(random.nextInt(1000), date, j + 1));
             }
         }
+        long end = System.currentTimeMillis();
+        System.out.println("Время выполнения: " + (end - start));
     }
 
     public Set<Integer> effectiveGetAwardeesForLastThreeYears() {
