@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-12-26T21:32:46.641937400Z</date>
+  <millis>1672090366641</millis>
+  <nanos>937400</nanos>
+  <sequence>0</sequence>
+  <logger>SchoolOlympiadNew</logger>
+  <level>INFO</level>
+  <class>SchoolOlympiadNew</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Начало работы</message>
+</record>
+<record>
+  <date>2022-12-26T21:32:47.128053100Z</date>
+  <millis>1672090367128</millis>
+  <nanos>53100</nanos>
+  <sequence>1</sequence>
+  <logger>SchoolOlympiadNew</logger>
+  <level>INFO</level>
+  <class>SchoolOlympiadNew</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Завершение работы</message>
+</record>
+</log>
