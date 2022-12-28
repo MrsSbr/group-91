@@ -53,9 +53,8 @@ public class Miceputers {
         });
 
         Set<String> keys = countOfMiceputers.keySet();
-        ArrayList<String> answers = keys.stream().filter(key -> countOfMiceputers.get(key) >= 3).collect(Collectors.toCollection(ArrayList::new));
 
-        return answers;
+        return keys.stream().filter(key -> countOfMiceputers.get(key) >= 3).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public HashMap<String, Integer> getTimeForAnswers() {

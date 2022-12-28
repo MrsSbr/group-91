@@ -13,10 +13,9 @@ public class Processing {
 
     //Найти месяцы, когда температура была ниже указанной пользователем
     public static List<Month>  getLowerTemp(List<Month> monthNotes, double lowRange) {
-        List<Month> result = monthNotes.stream()
+        return monthNotes.stream()
                 .filter(m -> m.getAVG() < lowRange)
                 .collect(Collectors.toList());
-        return result;
     }
 
     //Найти самый жаркий месяц (месяцы)
@@ -27,11 +26,9 @@ public class Processing {
                 .filter(m -> m >= -100).max()
                 .orElse(-100);
 
-        List<Month> result = monthNotes
+        return monthNotes
                 .stream().filter(m -> m.getAVG() == highest)
                 .collect(Collectors.toList());
-
-        return result;
     }
 
     //Посчитать среднюю температуру за введенный пользователем год
@@ -51,14 +48,14 @@ public class Processing {
 
 
         System.out.println("ArrayList: ");
-        List<Month> al = new ArrayList<Month>();
+        List<Month> al = new ArrayList<>();
         MonthsList mal = new MonthsList(timeCheckState, al);
         mal.proc(year, low);
 
         System.out.println();
 
         System.out.println("LinkedList: ");
-        List<Month> ll = new LinkedList<Month>();
+        List<Month> ll = new LinkedList<>();
         MonthsList mll = new MonthsList(timeCheckState, ll);
 
         mll.proc(year, low);

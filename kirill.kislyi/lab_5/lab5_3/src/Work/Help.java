@@ -5,13 +5,11 @@ import java.util.Scanner;
 public class Help {
 
     public static double getRandomTemp() {
-        double temp = Math.random() * 60 - 30;
-        return temp;
+        return Math.random() * 60 - 30;
     }
 
     public static double getRandomTempInDiapason(double start, double end) {
-        double temp = Math.random() * (end - start) + start;
-        return temp;
+        return Math.random() * (end - start) + start;
     }
 
     public static int getInt() {
@@ -31,17 +29,16 @@ public class Help {
         int result = 0;
         boolean exitFlag = false;
 
-        while (true) {
-            while (!exitFlag) {
-                result = getInt();
-                if (result >= start && result <= end) {
-                    exitFlag = true;
-                } else {
-                    System.out.println("Число должно находится в диапазоне от " + start + " до " + end);
-                }
+        while (!exitFlag) {
+            result = getInt();
+            if (result >= start && result <= end) {
+                exitFlag = true;
+            } else {
+                System.out.println("Число должно находится в диапазоне от " + start + " до " + end);
             }
-            return result;
         }
+        return result;
+
     }
 
     public static double getDouble() {
@@ -50,8 +47,8 @@ public class Help {
         while (true) {
             try {
                 return Double.parseDouble(in.next());
-            } catch (Exception var4) {
-                var4.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Некорректный ввод. Повторите!");
             }
         }
@@ -69,8 +66,8 @@ public class Help {
                 }
 
                 return result;
-            } catch (Exception var4) {
-                var4.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Некорректный ввод. Повторите!");
             }
         }
