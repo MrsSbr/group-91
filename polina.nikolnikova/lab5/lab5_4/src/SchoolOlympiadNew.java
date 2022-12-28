@@ -4,8 +4,8 @@ import enums.ListOfSubjects;
 import reader.ReaderFile;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +25,7 @@ public class SchoolOlympiadNew {
             Map<Integer, Olympiad> olympiadMap = ReaderFile.readFile();
 
             ArchiveOfOlympiads archiveOfOlympiads = new ArchiveOfOlympiads(olympiadMap);
-            List<String> olympiadMapList =
+            Set<String> olympiadMapList =
                     archiveOfOlympiads.creatingListOfStudentsWhoHaveTakenPlacesEachYearOfTheirStudiesAtTheSchool();
 
             System.out.println("Список учеников, которые занимали места каждый год своего обучения в школе");

@@ -6,7 +6,7 @@ import java.util.*;
 
 public record ArchiveOfOlympiads(Map<Integer, Olympiad> olympiadsList) {
 
-    public List<String> creatingListOfStudentsWhoHaveTakenPlacesEachYearOfTheirStudiesAtTheSchool() {
+    public Set<String> creatingListOfStudentsWhoHaveTakenPlacesEachYearOfTheirStudiesAtTheSchool() {
         Map<String, Integer> listOfStudents = new HashMap<>();
 
         int[] i = {1};
@@ -47,7 +47,7 @@ public record ArchiveOfOlympiads(Map<Integer, Olympiad> olympiadsList) {
             i[0]++;
         }
 
-        List<String> listAnswer = new ArrayList<>();
+        Set<String> listAnswer = new HashSet<>();
 
         listOfStudents.keySet().forEach(people -> {
             if (listOfStudents.get(people) == 11) {
@@ -58,31 +58,23 @@ public record ArchiveOfOlympiads(Map<Integer, Olympiad> olympiadsList) {
         return listAnswer;
     }
 
-    public List<String> creatingListOfStudentsWhoHaveOccupiedPlacesInTheLast10Years(int year) {
-        List<String> listOfStudents = new ArrayList<>();
+    public Set<String> creatingListOfStudentsWhoHaveOccupiedPlacesInTheLast10Years(int year) {
+        Set<String> listOfStudents = new HashSet<>();
 
         olympiadsList.values().forEach(olympiad -> {
             if (olympiad.getYearInWhichTheOlympiadWasHeld() > 2012 && Objects.equals(ListOfSubjects.getById(year),
                     olympiad.getSubjectOnWhichTheOlympiadWasHeld())) {
 
-                if (!listOfStudents.contains(olympiad.getStudentWhoTookTheFirstPlace())) {
-                    listOfStudents.add(olympiad.getStudentWhoTookTheFirstPlace());
-                }
-
-                if (!listOfStudents.contains(olympiad.getStudentWhoTookTheSecondPlace())) {
-                    listOfStudents.add(olympiad.getStudentWhoTookTheSecondPlace());
-                }
-
-                if (!listOfStudents.contains(olympiad.getStudentWhoTookTheThirdPlace())) {
-                    listOfStudents.add(olympiad.getStudentWhoTookTheThirdPlace());
-                }
+                listOfStudents.add(olympiad.getStudentWhoTookTheFirstPlace());
+                listOfStudents.add(olympiad.getStudentWhoTookTheSecondPlace());
+                listOfStudents.add(olympiad.getStudentWhoTookTheThirdPlace());
             }
         });
 
         return listOfStudents;
     }
 
-    public List<String> creatingListOfStudentsWhoParticipatedInLargeNumberOfOlympiads(int year) {
+    public Set<String> creatingListOfStudentsWhoParticipatedInLargeNumberOfOlympiads(int year) {
 
         Map<String, Integer> listOfStudents = new HashMap<>();
 
@@ -123,7 +115,7 @@ public record ArchiveOfOlympiads(Map<Integer, Olympiad> olympiadsList) {
             }
         });
 
-        List<String> listAnswer = new ArrayList<>();
+        Set<String> listAnswer = new HashSet<>();
 
         listOfStudents.keySet().forEach(people -> {
             if (listOfStudents.get(people) == max[0]) {
