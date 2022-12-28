@@ -48,11 +48,11 @@ public class MoonshineKind {
     }
 
     public Double getMaxIngredients(){
-        Double max = 0.0;
+        double max = 0.0;
         for (MoonshineBottle m : moonshineBottleList){
             int check = m.getIngredients().length();
             if (check > max){
-                max = (double) check;
+                max = check;
             }
         }
         return max;

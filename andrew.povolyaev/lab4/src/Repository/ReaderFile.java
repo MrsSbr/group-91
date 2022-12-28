@@ -35,8 +35,9 @@ public class ReaderFile {
                 String moonshineName = lineParts[1];
 
                 LocalDate localDate = LocalDate.parse(lineParts[0]);
-                MoonshineBottle mb = new MoonshineBottle(localDate, lineParts[2], Double.parseDouble(lineParts[3]), Integer.parseInt(lineParts[4]));
-                if (moonshines.containsKey(moonshineName)){
+                MoonshineBottle mb = new MoonshineBottle(localDate,
+                        lineParts[2], Double.parseDouble(lineParts[3]), Integer.parseInt(lineParts[4]));
+                if (moonshines.containsKey(moonshineName)) {
                     moonshines.get(moonshineName).addMoonshineBootle(mb);
                 } else {
                     MoonshineKind moonKind = new MoonshineKind();
