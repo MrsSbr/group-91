@@ -1,0 +1,7 @@
+2022-02-02;Name;dfghhtr
+2021-01-01;Name2;vxcvdfhfdsf
+2002-03-03;NameSurname;dgh
+2021-05-05;NameSurname;aaa)))
+2021-05-05;NameSurname;aaa(
+2021-05-05;NameSurname;aaa(
+2021-05-05;NameSurname;aaa))
