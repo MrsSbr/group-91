@@ -12,14 +12,14 @@ import reader.ReaderFile;
 import enums.ListOfSubjects;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SchoolOlympiad {
-    private static final String LOGGER_PATH = "polina.nikolnikova/lab4/logs/logs.txt";;
+    private static final String LOGGER_PATH = "polina.nikolnikova/lab4/logs/logs.txt";
     private static final Logger logger = Logger.getLogger(SchoolOlympiad.class.getName());
 
     public static void main(String[] args) {
@@ -31,7 +31,7 @@ public class SchoolOlympiad {
 
             Map<Integer, Olympiad> olympiadMap = ReaderFile.readFile();
             ArchiveOfOlympiads archiveOfOlympiads = new ArchiveOfOlympiads(olympiadMap);
-            List<String> olympiadMapList =
+            Set<String> olympiadMapList =
                     archiveOfOlympiads.creatingListOfStudentsWhoHaveTakenPlacesEachYearOfTheirStudiesAtTheSchool();
 
             System.out.println("Список учеников, которые занимали места каждый год своего обучения в школе");
