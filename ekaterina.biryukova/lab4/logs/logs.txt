@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-12-28T20:22:45.390375Z</date>
+  <millis>1672258965390</millis>
+  <nanos>375000</nanos>
+  <sequence>0</sequence>
+  <logger>reader.MyFileReader</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Начало работы</message>
+</record>
+<record>
+  <date>2022-12-28T20:22:45.468754900Z</date>
+  <millis>1672258965468</millis>
+  <nanos>754900</nanos>
+  <sequence>1</sequence>
+  <logger>reader.MyFileReader</logger>
+  <level>INFO</level>
+  <class>reader.MyFileReader</class>
+  <method>getBedSheetInfoListFromFile</method>
+  <thread>1</thread>
+  <message>Информация из файла успешно считана</message>
+</record>
+<record>
+  <date>2022-12-28T20:22:45.469752200Z</date>
+  <millis>1672258965469</millis>
+  <nanos>752200</nanos>
+  <sequence>2</sequence>
+  <logger>reader.MyFileReader</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Информация из файла успешно передана и конвертирована</message>
+</record>
+<record>
+  <date>2022-12-28T20:22:45.474750600Z</date>
+  <millis>1672258965474</millis>
+  <nanos>750600</nanos>
+  <sequence>3</sequence>
+  <logger>reader.MyFileReader</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Необходимая информация успешно выведена</message>
+</record>
+<record>
+  <date>2022-12-28T20:22:45.475756700Z</date>
+  <millis>1672258965475</millis>
+  <nanos>756700</nanos>
+  <sequence>4</sequence>
+  <logger>reader.MyFileReader</logger>
+  <level>INFO</level>
+  <class>Main</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Завершение работы</message>
+</record>
+</log>
