@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 public class Main {
 
     private static final Logger logger = Logger.getLogger(Main.class.getName());
-    private static final String path = "D:/Artooorcheck/group-91/Арутюнян.Артур/lab5/lab4/data.txt";
+    private static final String path = "Арутюнян.Артур/lab5/lab4/data.txt";
 
     public static void main(final String[] args) {
         logger.log(Level.INFO, "started");

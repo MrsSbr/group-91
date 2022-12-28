@@ -23,7 +23,8 @@ public class Statistic {
 
     public int getLastYearSumPower(List<Note> list){
         return list.stream()
-                .filter(note->note.getDate().getYear()==2022)
-                .collect(Collectors.summingInt(Note::getPower));
+                .filter(note -> note.getDate().getYear() == 2022)
+                .mapToInt(Note::getPower)
+                .sum();
     }
 }

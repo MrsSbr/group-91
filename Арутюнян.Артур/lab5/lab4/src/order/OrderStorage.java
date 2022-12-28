@@ -55,7 +55,7 @@ public class OrderStorage {
         return orders.stream().filter(order -> order.startDate().getYear() == LocalDate.now().getYear())
                 .collect(Collectors.groupingBy(Order::restaurantName, Collectors.summingInt(order -> order.composition().length)))
                 .entrySet()
-                .stream().max(Comparator.comparingInt(Map.Entry::getValue)).get().getKey();
+                .stream().max(Comparator.comparingInt(Map.Entry::getValue)).orElseThrow().getKey();
     }
 
     public LocalDate getMaxSumTimeOrders() {
@@ -65,6 +65,6 @@ public class OrderStorage {
                             return LocalDate.parse(year + "-" + (month < 10 ? "0" + month : month) + "-01");
                         },
                         Collectors.summingInt(Order::deliveryTime))).entrySet()
-                .stream().max(Comparator.comparingInt(Map.Entry::getValue)).get().getKey();
+                .stream().max(Comparator.comparingInt(Map.Entry::getValue)).orElseThrow().getKey();
     }
 }
