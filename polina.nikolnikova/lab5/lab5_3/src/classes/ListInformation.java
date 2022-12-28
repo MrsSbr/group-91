@@ -22,7 +22,7 @@ public class ListInformation {
 
     public void fillingInTheList() {
 
-        Stream.iterate(0, i -> i + 1).limit(SIZE).collect(Collectors.toList()).forEach(inform ->
+        Stream.iterate(0, i -> i + 1).limit(SIZE).toList().forEach(inform ->
                 informationLists.add(new Information()));
     }
 

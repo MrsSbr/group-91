@@ -31,7 +31,7 @@ public class ReaderFile {
 
             FileHandler fileHandler = new FileHandler(LOGGER_PATH);
             logger.addHandler(fileHandler);
-            List<String> lines = lineStream.collect(Collectors.toList());
+            List<String> lines = lineStream.toList();
 
             int[] i = {0};
             lines.forEach(line -> {
