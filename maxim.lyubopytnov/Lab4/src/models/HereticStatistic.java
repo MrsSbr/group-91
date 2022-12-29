@@ -31,10 +31,12 @@ public class HereticStatistic {
         for (HereticNote hn : hereticNotes) {
             nameSuspect = hn.getNameSuspect();
             if (!timeSufferForEverySuspect.containsKey(nameSuspect)) {
-                timeSufferForEverySuspect.put(nameSuspect, timeSuffer.plus(Duration.ofSeconds(hn.getSufferTime().getLong(ChronoField.SECOND_OF_DAY))));
+                timeSufferForEverySuspect.put(nameSuspect, timeSuffer.plus(Duration.ofSeconds(hn.getSufferTime()
+                        .getLong(ChronoField.SECOND_OF_DAY))));
                 timeSuffer = LocalTime.of(0, 0, 0);
             } else {
-                timeSufferForEverySuspect.put(nameSuspect, timeSufferForEverySuspect.get(nameSuspect).plus(Duration.ofSeconds(hn.getSufferTime().getLong(ChronoField.SECOND_OF_DAY))));
+                timeSufferForEverySuspect.put(nameSuspect, timeSufferForEverySuspect.get(nameSuspect).plus(Duration.ofSeconds(hn.getSufferTime()
+                        .getLong(ChronoField.SECOND_OF_DAY))));
             }
         }
         return timeSufferForEverySuspect;
